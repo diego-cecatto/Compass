@@ -1,0 +1,46 @@
+type Query {
+    components(scope: String!): [Component]!
+    component(path: String!): Component
+}
+
+type Component {
+    name: String!
+    path: String!
+    description: String
+    childrens: [Component]
+    dependencies: [Dependencies]
+    properties: [Property]
+}
+
+fragment ComponentFields on Component {
+    name
+    path
+    description
+    dependecies
+    properties
+}
+
+fragment ComponentRecursive on Component {
+    childrens {
+        ...ComponentFields
+        childrens {
+            ...ComponentFields
+            childrens {
+                ...ComponentFields
+            }
+        }
+    }
+}
+
+type Dependencies {
+    name: String!
+    scoped: Boolean
+    lib: Boolean
+}
+
+type Property {
+    name: String!
+    description: String
+    type: String!
+    default: String!
+}

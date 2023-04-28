@@ -1,0 +1,45 @@
+.menu {
+    padding-left: 0;
+    list-style-type: none;
+
+    li {
+        margin-bottom: 8px;
+
+        a {
+            display: flex;
+            align-items: center;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+
+            .icon {
+                margin-right: 8px;
+                font-size: 1.2rem;
+            }
+        }
+
+        ul {
+            margin-left: 16px;
+            list-style-type: none;
+
+            li {
+                margin-bottom: 4px;
+
+                a {
+                    font-size: 0.9rem;
+                    color: #ccc;
+                    transition: color 0.2s ease;
+
+                    &:hover {
+                        color: #fff;
+                    }
+                }
+
+                &.active a {
+                    color: #fff;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
