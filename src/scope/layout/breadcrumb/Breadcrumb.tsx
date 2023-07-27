@@ -1,8 +1,12 @@
 import React from 'react';
 
-interface BreadcrumbProps {}
+declare type BreadcrumbProps = {
+    teste?: string;
+};
 
-export const Breadcrumb: React.FC<BreadcrumbProps> = ({}) => {
+export const Breadcrumb: React.FC<BreadcrumbProps> = ({
+    teste = 'default value for teste',
+}) => {
     return (
         <div>
             <p>Breadcrumb works!</p>

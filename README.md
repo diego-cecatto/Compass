@@ -1,4 +1,24 @@
 TODO
+//https://souporserious.com/generate-typescript-docs-using-ts-morph/
+
+-   interact with folder repository of components 'src/scope'
+-   will be in typescript
+-   will ignore 'spec and not ts files
+
+    -   will get for each folder will get the component, like if you have a Bradcrumb folder name will get from this repository a Bradcrumb component, will try get from each folder inner there this component
+    -   consider export default
+    -   consider export const
+    -   consider export class
+    -   use library to parse components
+
+        -   will extract all properties
+        -   in order to mount library will be needed to retrieve the property type of the react component
+
+            -   will extract the default value for each property
+            -   will extract the commentary above of each propety to use in the documentation library to mount descriptions
+
+        -   need to be performatic
+        -   will work with functional and class components
 
 -   Remove all test dependences
 -   Improve server with vite + react + graphql

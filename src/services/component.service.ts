@@ -1,9 +1,35 @@
 import * as fs from 'fs';
+import * as reactDocgenTypescript from 'react-docgen-typescript';
 import * as path from 'path';
 import { Component, Dependencies, Prop } from './../models/component.model';
+import {
+    Project,
+    SourceFile,
+    Node,
+    SyntaxKind,
+    VariableStatement,
+    Statement,
+    StructureKind,
+    ImportDeclaration,
+    VariableDeclaration,
+    ArrowFunction,
+    TypeReferenceNode,
+} from 'ts-morph';
+import * as ts from 'typescript';
 
+type Property = {
+    name: string;
+    type: string;
+    default: any;
+    description: string;
+};
+interface ComponentProperty {
+    name: string;
+    default: any;
+}
 //! could have a pre parsed response with json or can retry unsing long life cy cle with cache
 //todo ignore composition and test file
+//https://ts-morph.com/setup/ast-viewer
 
 interface CachedComponent {
     component: Component;
@@ -25,9 +51,18 @@ export class ComponentService {
                     const subComponents = await this.getComponents(currPath);
                     components.push(...subComponents);
                 } else {
-                    var component = await this.getComponent(currPath);
-                    if (component) {
-                        components.push(component);
+                    //!!! todo filter only path
+                    //path of componnet
+                    //index.ts
+                    //or index.tsx
+                    //another subcomponent
+                    //another-subcomponent.tsx
+                    //todo ignore others functions not related to this path
+                    if (currPath.indexOf('.spec') === -1) {
+                        var component = await this.getComponent(currPath);
+                        if (component) {
+                            components.push(component);
+                        }
                     }
                 }
             })
@@ -36,29 +71,9 @@ export class ComponentService {
         return components;
     }
 
-    // public async parseComponents(): Promise<void> {
-    //     const fileService = new FileService();
-    //     // read all component files in the components folder
-    //     const componentFiles = await fileService.readDirectory(
-    //         './src/components'
-    //     );
-    //     // parse the components and their dependencies
-    //     this.components = await Promise.all(
-    //         componentFiles.map(async (file) => {
-    //             const filePath = `./src/components/${file}`;
-    //             const componentName = file.split('.')[0];
-    //             const componentContent = await fileService.readFile(filePath);
-    //             //todo read folders and sub-folders
-    //             return new Component(componentName, componentContent);
-    //         })
-    //     );
-    // }
-
     public async getComponent(
         componentPath: string
     ): Promise<Component | null> {
-        //todo ignore test files
-        //todo ignore if not a tsx file
         const fileStat = await fs.promises.stat(componentPath);
         const lastModified = fileStat.mtimeMs;
         if (
@@ -73,68 +88,131 @@ export class ComponentService {
             dependencies: [],
             props: [],
         };
-
-        var fileContent = await fs.promises.readFile(componentPath, 'utf8');
-        const lines = fileContent.split('\n');
-        component.dependencies = this.getDependencies(lines, componentPath);
-        component.props = this.getProperties(lines);
-        componentsCache[componentPath] = { component, lastModified };
+        // this.extractComponentProperties(component.path);
+        this.extractComponentDeclaration(component);
         return component;
     }
 
-    public getDependencies(
-        lines: string[],
-        componentPath: string
-    ): Dependencies[] {
-        //todo verify if is an internal import or a lib
-        const dependencies: Dependencies[] = [];
-        for (const line of lines) {
-            const matches = line.match(
-                /import\s+{[\s\S]*}\s+from\s+['"](.*)['"]/
-            );
-            if (matches) {
-                const dependencyPath = path.resolve(
-                    path.dirname(componentPath),
-                    matches[1]
-                );
-                if (fs.existsSync(dependencyPath)) {
-                    dependencies.push({
-                        name: dependencyPath,
-                        scoped: false,
-                        lib: false,
-                    });
-                }
-            }
+    extractComponentDeclaration(component: Component) {
+        const project = new Project({
+            tsConfigFilePath: path.resolve(process.cwd(), 'tsconfig.json'),
+        });
+        const source = project.getSourceFile(
+            path.resolve(process.cwd(), component.path)
+        );
+        if (!source) {
+            return false;
         }
-        return dependencies;
+        source.getExportedDeclarations().forEach((exportedDeclaration) => {
+            //todo could asses if the same name of the component
+            var exported = exportedDeclaration[0];
+            if (exported.getKind() == SyntaxKind.VariableDeclaration) {
+                this.getArrowFunctionProperty(exported as VariableDeclaration);
+            }
+        });
+
+        //todo could use ts-morph by using folder
+        //todo starts by export in this folder
+        // source.getExportedDeclarations().values().next().value;
+
+        //todo with this function I could get import and export sentences
+        //source.getStatements()[2].getStructure()
+        // source.forEachChild((child) => {
+        //     if (child.getKind() == SyntaxKind.VariableStatement) {
+        //         var initializer = (child as VariableStatement)
+        //             .getDeclarations()[0]
+        //             .getInitializer();
+        //         var structure = (initializer as any).getStructure();
+        //         console.log(structure.parameters);
+        //         // (initializer as ArrowFunction)?.getStructure();
+        //         // child.getDeclarations()[0].getInitializer().getStructure().parameters
+        //     }
+        // });
+        // source.getStatements().forEach((statement) => {
+        //     var structure = (
+        //         statement as VariableStatement | ImportDeclaration
+        //     ).getStructure();
+        //     if (structure.kind == StructureKind.VariableStatement) {
+        //         if (structure.declarations.length) {
+        //             var declaration = structure.declarations.at(-1);
+        //             if (declaration?.name === component.name) {
+        //                 //todo try to find property
+        //                 //todo verify if is the default export item
+        //                 return declaration;
+        //             }
+        //         }
+        //     }
+        // });
     }
 
-    public getProperties(lines: string[]) {
-        //todo get property and his description
-        var props: Prop[] = [];
-        const propTypesIndex = lines.findIndex((line) =>
-            line.includes('PropTypes')
-        );
-        if (propTypesIndex === -1) {
-            return props;
-        }
-        const propsStartIndex = lines.findIndex(
-            (line, index) => index > propTypesIndex && line.includes('{')
-        );
-        const propsEndIndex = lines.findIndex(
-            (line, index) => index > propsStartIndex && line.includes('}')
-        );
+    extractPropertiesFromInitializer(
+        initializer: any,
+        properties: Property[],
+        currentPropertyName: string = ''
+    ) {
+        if (initializer.getKind() === SyntaxKind.ArrowFunction) {
+            initializer.getParameters().forEach((property: any) => {
+                let propertyName = currentPropertyName
+                    ? `${currentPropertyName}.${property.getName()}`
+                    : property.getName();
 
-        if (propsStartIndex !== -1 && propsEndIndex !== -1) {
-            const propsContent = lines
-                .slice(propsStartIndex + 1, propsEndIndex)
-                .join('\n');
-            const propsRegex = /(\w+)\s*:\s*(.*),?\s*$/gm;
-            let matches;
-            while ((matches = propsRegex.exec(propsContent)) !== null) {
-                const [_, name, type] = matches;
-                props.push({ name, type });
-            }
+                if (
+                    property.getKind() ===
+                    SyntaxKind.ShorthandPropertyAssignment
+                ) {
+                    const shorthandSymbol = property.getSymbol();
+                    if (shorthandSymbol) {
+                        propertyName = currentPropertyName
+                            ? `${currentPropertyName}.${shorthandSymbol.getName()}`
+                            : shorthandSymbol.getName();
+                    }
+                }
+
+                const typeNode = property.getTypeNode();
+                const propertyType = typeNode ? typeNode.getText() : 'any';
+
+                const defaultValueNode = property.getFirstChildByKind(
+                    SyntaxKind.FirstAssignment
+                );
+                const defaultValue = defaultValueNode
+                    ? defaultValueNode.getLastChild()?.getText()
+                    : undefined;
+
+                // const jsDoc = property.getJsDocs();
+                // const description =
+                //     jsDoc.length > 0 ? jsDoc[0].getDescription().trim() : '';
+                const description = '';
+                properties.push({
+                    name: propertyName,
+                    type: propertyType,
+                    default: defaultValue,
+                    description: description,
+                });
+
+                if (property.getInitializer()) {
+                    this.extractPropertiesFromInitializer(
+                        property.getInitializer(),
+                        properties,
+                        propertyName
+                    );
+                }
+            });
         }
+    }
+
+    getArrowFunctionProperty(exported: VariableDeclaration) {
+        var fInitializer: any = exported.getInitializer();
+        ///todo find props prperty or if have only one and what is the right value
+        var structure = fInitializer.getStructure();
+        var propTypeName = structure.parameters[0].type;
+        if (!propTypeName) {
+            //todo try get const type
+            propTypeName = (
+                (exported!.getTypeNode() as TypeReferenceNode)!.getTypeArguments()[0] as TypeReferenceNode
+            )
+                .getTypeName()
+                .getText();
+        }
+        console.log(structure.parameters);
     }
 }

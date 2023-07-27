@@ -36,8 +36,11 @@
         "node-sass": "^8.0.0",
         "nodemon": "^2.0.22",
         "react": "^18.2.0",
+        "react-docgen-typescript": "^2.2.2",
         "react-dom": "^18.2.0",
         "sass": "^1.62.0",
+        "ts-morph": "^19.0.0",
+        "ts-node": "^10.9.1",
         "type-graphql": "^1.1.1",
         "typescript": "^5.0.4"
     },

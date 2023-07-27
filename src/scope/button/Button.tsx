@@ -1,8 +1,10 @@
 import React from 'react';
 
-interface ButtonProps {}
+interface ButtonProps {
+    name: string;
+}
 
-export const Button: React.FC<ButtonProps> = ({}) => {
+export const Button = ({ name }: ButtonProps) => {
     return (
         <div>
             <p>Button works!</p>
