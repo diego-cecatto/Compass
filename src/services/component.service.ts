@@ -81,7 +81,9 @@ export class ComponentService {
             name: path.basename(componentPath, path.extname(componentPath)),
             path: componentPath,
             dependencies: [],
-            props: [],
+            prop: {
+                name: 'any',
+            },
         };
         // this.extractComponentProperties(component.path);
         this.extractComponentDeclaration(component);
@@ -126,7 +128,11 @@ export class ComponentService {
                 );
             }
         });
-        component.props = this.getPropDeclaration(propertyName, source);
+        component.prop.name = propertyName;
+        component.prop.properties = this.getPropDeclaration(
+            propertyName,
+            source
+        );
 
         //todo could use ts-morph by using folder
         //todo starts by export in this folder

@@ -4,7 +4,10 @@ export interface Component {
     childs?: Component[];
     dependencies?: Dependencies[];
     description?: string;
-    props?: Property[];
+    prop: {
+        name: string;
+        properties?: Property[];
+    };
 }
 
 export interface Dependencies {

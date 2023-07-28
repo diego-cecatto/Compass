@@ -17,7 +17,7 @@ const startServer = async () => {
         description: String
         childrens: [Component]
         dependencies: [Dependencies]
-        properties: [Property]
+        prop: Property
     }
 
     fragment ComponentFields on Component {
@@ -25,7 +25,7 @@ const startServer = async () => {
         path
         description
         dependecies
-        properties
+        prop
     }
     
     fragment ComponentRecursive on Component {
@@ -47,6 +47,11 @@ const startServer = async () => {
     }
 
     type Property {
+        name: String!
+        properties:[PropertyItems]
+    }
+
+    type PropertyItems {
         name: String!
         description: String
         type: String!
