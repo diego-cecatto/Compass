@@ -4,7 +4,7 @@ export interface Component {
     childs?: Component[];
     dependencies?: Dependencies[];
     description?: string;
-    props?: Prop[];
+    props?: Property[];
 }
 
 export interface Dependencies {
@@ -13,7 +13,7 @@ export interface Dependencies {
     lib: boolean;
 }
 
-export interface Prop {
+export interface Property {
     name: string;
     description?: string;
     type: string;
