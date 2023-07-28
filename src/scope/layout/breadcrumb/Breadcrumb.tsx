@@ -1,6 +1,7 @@
 import React from 'react';
 
 declare type BreadcrumbProps = {
+    //this property is a teste
     teste?: string;
 };
 

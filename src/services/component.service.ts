@@ -14,14 +14,16 @@ import {
     VariableDeclaration,
     ArrowFunction,
     TypeReferenceNode,
+    ClassDeclaration,
+    InterfaceDeclaration,
 } from 'ts-morph';
 import * as ts from 'typescript';
 
 type Property = {
     name: string;
     type: string;
-    default: any;
-    description: string;
+    default?: any;
+    description?: string;
 };
 interface ComponentProperty {
     name: string;
@@ -30,6 +32,7 @@ interface ComponentProperty {
 //! could have a pre parsed response with json or can retry unsing long life cy cle with cache
 //todo ignore composition and test file
 //https://ts-morph.com/setup/ast-viewer
+//todo validate all steps to be sure that information is correct
 
 interface CachedComponent {
     component: Component;
@@ -103,13 +106,23 @@ export class ComponentService {
         if (!source) {
             return false;
         }
+        let propertyName: string = '';
         source.getExportedDeclarations().forEach((exportedDeclaration) => {
             //todo could asses if the same name of the component
             var exported = exportedDeclaration[0];
-            if (exported.getKind() == SyntaxKind.VariableDeclaration) {
-                this.getArrowFunctionProperty(exported as VariableDeclaration);
+            const kindOfComponent = exported.getKind();
+            if (kindOfComponent == SyntaxKind.VariableDeclaration) {
+                propertyName = this.getArrowFunctionProperty(
+                    exported as VariableDeclaration
+                );
+            } else if (kindOfComponent == SyntaxKind.ClassDeclaration) {
+                propertyName = this.getClassPropType(
+                    exported as ClassDeclaration
+                );
             }
+            //todo find property by name
         });
+        this.getPropDeclaration(propertyName, source);
 
         //todo could use ts-morph by using folder
         //todo starts by export in this folder
@@ -200,7 +213,44 @@ export class ComponentService {
         }
     }
 
+    getPropDeclaration(propName: string, source: SourceFile) {
+        const propDeclaration: InterfaceDeclaration | undefined =
+            source.getInterface(propName);
+        //todo get all properties
+        //todo get default values
+        //todo get comentary to description
+        var properties: any[] = [];
+        const props = propDeclaration?.getProperties();
+        if (!props) {
+            throw `Not found type for ${propName}`;
+        }
+        props.forEach((prop) => {
+            const sibling = prop.getPreviousSibling();
+            var structureProp = prop.getStructure();
+            var property: Property = {
+                name: structureProp.name,
+                type: structureProp.type?.toString() ?? 'any',
+            };
+            if (sibling?.getKind() === SyntaxKind.SingleLineCommentTrivia) {
+                property.description = sibling.getText();
+            }
+            properties.push(property);
+        });
+    }
+
+    getClassPropType(declaration: ClassDeclaration) {
+        //todo I can get by this the property details ???
+        //defaults
+
+        return declaration
+            .getHeritageClauses()[0]
+            .getTypeNodes()[0]
+            .getTypeArguments()[0]
+            .getText();
+    }
+
     getArrowFunctionProperty(exported: VariableDeclaration) {
+        //todo verify without any property
         var fInitializer: any = exported.getInitializer();
         ///todo find props prperty or if have only one and what is the right value
         var structure = fInitializer.getStructure();
@@ -213,6 +263,6 @@ export class ComponentService {
                 .getTypeName()
                 .getText();
         }
-        console.log(structure.parameters);
+        return propTypeName;
     }
 }
