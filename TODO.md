@@ -1,9 +1,10 @@
-TODO
-//https://souporserious.com/generate-typescript-docs-using-ts-morph/
+Web Page
 
--   interact with folder repository of components 'src/scope'
--   will be in typescript
--   will ignore 'spec and not ts files
+-   format name component
+-   cache
+-   dark mode
+
+//https://souporserious.com/generate-typescript-docs-using-ts-morph/
 
     -   will get for each folder will get the component, like if you have a Bradcrumb folder name will get from this repository a Bradcrumb component, will try get from each folder inner there this component
     -   consider export default

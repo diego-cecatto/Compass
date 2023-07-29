@@ -17,6 +17,7 @@ Not, but I accept contributions and reviews any kind of help I will be glad
 -   CMD
 -   Publish first version
 -   Include tests to this projects
+-   Compass Website
 -   Tests
 -   Publish version including tests
 -   Auto-release

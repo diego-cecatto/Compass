@@ -4,7 +4,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 export class BaseAction {
     static client() {
         return new ApolloClient({
-            uri: 'https://localhost:4000',
+            uri: 'http://localhost:5000/graphql',
             cache: new InMemoryCache(),
         });
     }

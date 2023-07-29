@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ApolloProvider } from '@apollo/client';
-import { Menu } from './components/menu';
-import './base.scss';
-import { BaseAction } from './actions/base.actions';
+import { BaseAction } from './app/actions/base.actions';
 import { ComponentService } from './services/component.service';
+import BaseLayout from './app/pages/partial/base';
 
 interface MainComponentProps {
     documentationName: string;
@@ -18,14 +17,14 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
     };
 
     useEffect(() => {
-        var cs = new ComponentService();
-        var components = cs.getComponents('./src/scope');
-        console.log(components);
+        // var cs = new ComponentService();
+        // var components = cs.getComponents('./src/scope');
+        // console.log(components);
     }, []);
 
     return (
         <ApolloProvider client={BaseAction.client()}>
-            <div className={`main-component ${isDarkMode ? 'dark-mode' : ''}`}>
+            {/* <div className={`main-component ${isDarkMode ? 'dark-mode' : ''}`}>
                 <div className="header">
                     <div className="title">
                         <i className="material-icons">menu</i>
@@ -45,7 +44,8 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
                 <div className="content">
                     <Menu />
                 </div>
-            </div>
+            </div> */}
+            <BaseLayout />
         </ApolloProvider>
     );
 };
