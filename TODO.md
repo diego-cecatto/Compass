@@ -3,6 +3,11 @@ Web Page
 -   format name component
 -   cache
 -   dark mode
+-   diffrente ports for each part
+
+README
+
+-   explain how run app
 
 //https://souporserious.com/generate-typescript-docs-using-ts-morph/
 

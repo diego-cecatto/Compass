@@ -3,6 +3,8 @@ import { useQuery } from '@apollo/client';
 import { MenuActions } from '../../../actions/menu.action';
 import './menu.scss';
 import {
+    CircularProgress,
+    LinearProgress,
     ListItem,
     ListItemButton,
     ListItemIcon,
@@ -10,6 +12,7 @@ import {
 } from '@mui/material';
 import CircleIcon from '@mui/icons-material/Circle';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SchoolIcon from '@mui/icons-material/School';
 //todo replace any for correct usages
 declare type MenuItemProp = {
@@ -45,39 +48,57 @@ declare type MenuItemProp = {
 //     </li>
 // );
 
-const MenuItem = ({ component, handleMenuClick, isActive }: MenuItemProp) => (
-    <ListItem disablePadding>
-        <ListItemButton>
-            <ListItemIcon>
-                {/* {index % 2 === 0 ? <InboxIcon /> : <MailIcon />} */}
-                {component.submenu ? <KeyboardArrowRightIcon /> : <></>}
-            </ListItemIcon>
-            <ListItemText primary={component.name} />
-        </ListItemButton>
-    </ListItem>
-);
+const MenuItem = ({ component, handleMenuClick, isActive }: MenuItemProp) => {
+    const [open, setOpen] = useState(false);
+    const handleClick = () => {
+        setOpen(!open);
+        handleMenuClick();
+    };
 
-export const Menu = () => {
-    const [activeMenu, setActiveMenu] = useState<any>(null);
+    return (
+        <ListItem disablePadding>
+            <ListItemButton onClick={handleClick} selected={isActive}>
+                <ListItemIcon>
+                    {component.submenu ? (
+                        open ? (
+                            <KeyboardArrowDownIcon />
+                        ) : (
+                            <KeyboardArrowRightIcon />
+                        )
+                    ) : (
+                        <></>
+                    )}
+                </ListItemIcon>
+                <ListItemText primary={component.name} />
+            </ListItemButton>
+        </ListItem>
+    );
+};
+
+declare type MenuProps = {
+    onChange: (component: any) => void;
+    active?: any;
+};
+
+export const Menu = ({ onChange, active }: MenuProps) => {
     const { loading, error, data } = useQuery(MenuActions.all(), {
         variables: { scope: 'src/scope' },
     });
 
-    const handleMenuClick = (componentName: any) => {
-        setActiveMenu(activeMenu === componentName ? null : componentName);
+    const handleMenuClick = (component: any) => {
+        onChange(component);
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <LinearProgress />;
     // if (error) return <p>Error :( </p>;
-    console.log(data);
     return (
         <>
-            {data.components?.map((menu: any) => (
+            {data.components?.map((component: any) => (
                 <MenuItem
-                    key={menu.name}
-                    component={menu}
-                    handleMenuClick={() => handleMenuClick(menu.name)}
-                    isActive={activeMenu === menu.name}
+                    key={component.name}
+                    component={component}
+                    handleMenuClick={() => handleMenuClick(component)}
+                    isActive={active?.name === component.name}
                 />
             ))}
         </>
