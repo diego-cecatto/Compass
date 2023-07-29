@@ -1,36 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { readFile } from 'fs';
+import CircularProgress from '@mui/material/CircularProgress';
 import ReactMarkdown from 'react-markdown';
-
-const markdownContent = `
-## This is a Markdown Heading
-
-This is a paragraph of text in **bold** and _italic_.
-
-1. List item 1
-2. List item 2
-
-\`\`\`jsx
-// This is a code block
-const exampleFunction = () => {
-  return 'Hello, Markdown!';
+import { useQuery } from '@apollo/client';
+import { DocumentationAction } from '../../actions/documentation.action';
+import { useEffect } from 'react';
+declare type ComponentDetailsProps = {
+    component: any;
 };
-\`\`\`
-`;
+export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
+    const { loading, error, data, refetch, updateQuery } = useQuery(
+        DocumentationAction.getDocumentation(),
+        {
+            variables: { path: component?.path },
+        }
+    );
 
-export const ComponentDetails = () => {
-    const [content, setContent] = useState<string | null>(null);
     useEffect(() => {
-        // readFile('./scope/button/Button.doc.md', (fileContent) => {
-        //     // setContent(fileContent);
-        //     console.log(fileContent);
-        // });
-    }, []);
+        refetch({ path: component?.path });
+    }, [component?.path]);
+
     return (
         <>
-            {!content ? null : (
+            {loading ? (
+                <CircularProgress />
+            ) : (
                 <div>
-                    <ReactMarkdown>{content}</ReactMarkdown>
+                    <ReactMarkdown>{data?.documentation}</ReactMarkdown>
                 </div>
             )}
         </>

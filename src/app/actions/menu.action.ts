@@ -26,6 +26,7 @@ export class MenuActions extends BaseAction {
                 components(scope: $scope) {
                     name
                     description
+                    path
                     prop {
                         name
                     }

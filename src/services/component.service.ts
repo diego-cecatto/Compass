@@ -94,8 +94,16 @@ export class ComponentService {
         return component;
     }
 
-    public async getDocumentation(component: any) {
-        return fs.readFileSync('./scope/button/Button.doc.md', 'utf-8');
+    public async getDocumentation(path: string) {
+        console.log(path);
+        if (!path) {
+            return null;
+        }
+        console.log(path.replace('tsx', '') + 'doc.md');
+        return fs.readFileSync(
+            './' + path.replace('tsx', '') + 'doc.md',
+            'utf-8'
+        );
     }
 
     //todo test multi-levels

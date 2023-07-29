@@ -1,17 +1,11 @@
 import { gql } from '@apollo/client';
 import { BaseAction } from './base.actions';
 
-export class DocumentationActions extends BaseAction {
-    public static all() {
+export class DocumentationAction extends BaseAction {
+    public static getDocumentation() {
         return gql`
-            query ScopedComponents($scope: String!) {
-                components(scope: $scope) {
-                    name
-                    description
-                    prop {
-                        name
-                    }
-                }
+            query ScopedDocument($path: String!) {
+                documentation(path: $path)
             }
         `;
     }
