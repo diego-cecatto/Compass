@@ -9,6 +9,7 @@ const startServer = async () => {
     type Query {
         components(scope: String!): [Component]!,
         component(path: String!):Component
+        documentation(path:String):String
     }
     
     type Component {

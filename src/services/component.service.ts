@@ -19,6 +19,7 @@ import {
     TypeAliasDeclaration,
     PropertySignature,
 } from 'ts-morph';
+import { readFile } from 'fs';
 
 //! could have a pre parsed response with json or can retry unsing long life cy cle with cache
 //todo ignore composition and test file
@@ -53,7 +54,10 @@ export class ComponentService {
                     //another subcomponent
                     //another-subcomponent.tsx
                     //todo ignore others functions not related to this path
-                    if (currPath.indexOf('.spec') === -1) {
+                    if (
+                        currPath.indexOf('.spec') === -1 &&
+                        currPath.indexOf('doc') === -1
+                    ) {
                         var component = await this.getComponent(currPath);
                         if (component) {
                             components.push(component);
@@ -90,7 +94,9 @@ export class ComponentService {
         return component;
     }
 
-    public async getDocumentation(component: any) {}
+    public async getDocumentation(component: any) {
+        return fs.readFileSync('./scope/button/Button.doc.md', 'utf-8');
+    }
 
     //todo test multi-levels
     //todo teste multi export

@@ -8,6 +8,8 @@ const ComponentResolver = {
             componentService.getComponents(scope),
         component: async (_: any, { name }: { name: string }) =>
             componentService.getComponent(name),
+        documentation: async (_: any, { name }: { name: string }) =>
+            componentService.getDocumentation(name),
     },
 };
 

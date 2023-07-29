@@ -21,6 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Menu } from './menu/menu';
 import SchoolIcon from '@mui/icons-material/School';
 import { useState } from 'react';
+import { ComponentDetails } from '../component/component';
 
 const drawerWidth = 240;
 
@@ -151,7 +152,8 @@ export default function BaseLayout() {
             <Main open={open}>
                 <DrawerHeader />
                 <Typography paragraph>
-                    {component ? component.description : ''}
+                    {/* {component ? component.description : ''} */}
+                    <ComponentDetails />
                 </Typography>
             </Main>
         </Box>
