@@ -90,6 +90,8 @@ export class ComponentService {
         return component;
     }
 
+    public async getDocumentation(component: any) {}
+
     //todo test multi-levels
     //todo teste multi export
     //todo retrieve default values
