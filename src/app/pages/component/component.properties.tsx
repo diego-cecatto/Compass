@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 type ComponentPropertiesProps = {
@@ -29,6 +29,13 @@ export const ComponentProperties = ({
     ];
     return (
         <Box sx={{ width: '100%' }}>
+            <Typography
+                variant="h5"
+                gutterBottom
+                sx={{ marginTop: '8px', fontWeight: 'bold' }}
+            >
+                Properties
+            </Typography>
             <DataGrid
                 rows={component?.prop?.properties ?? []}
                 columns={columns}
