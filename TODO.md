@@ -4,9 +4,12 @@ Web Page
 -   cache
 -   dark mode
 -   diffrente ports for each part
+-   live code
+-   properties and descriptions
 
 README
 
+-   clean code
 -   explain how run app
 
 //https://souporserious.com/generate-typescript-docs-using-ts-morph/

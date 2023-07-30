@@ -56,7 +56,7 @@ const startServer = async () => {
         name: String!
         description: String
         type: String!
-        default: String!
+        default: String
     }
     `;
 

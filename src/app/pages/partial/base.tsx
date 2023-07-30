@@ -151,10 +151,7 @@ export default function BaseLayout() {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                <Typography paragraph>
-                    {/* {component ? component.description : ''} */}
-                    <ComponentDetails component={component} />
-                </Typography>
+                <ComponentDetails component={component} />
             </Main>
         </Box>
     );

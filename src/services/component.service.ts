@@ -1,29 +1,20 @@
 import * as fs from 'fs';
-import * as reactDocgenTypescript from 'react-docgen-typescript';
 import * as path from 'path';
-import { Component, Dependencies, Property } from './../models/component.model';
+import { Component, Property } from './../models/component.model';
 import {
     Project,
     SourceFile,
-    Node,
     SyntaxKind,
-    VariableStatement,
-    Statement,
-    StructureKind,
-    ImportDeclaration,
     VariableDeclaration,
-    ArrowFunction,
     TypeReferenceNode,
     ClassDeclaration,
     InterfaceDeclaration,
     TypeAliasDeclaration,
     PropertySignature,
 } from 'ts-morph';
-import { readFile } from 'fs';
 
-//! could have a pre parsed response with json or can retry unsing long life cy cle with cache
-//todo ignore composition and test file
-//https://ts-morph.com/setup/ast-viewer
+//! could have a pre parsed response with json or can retry unsing long life cycle with cache
+//todo ignore composition file
 //todo validate all steps to be sure that information is correct
 //todo create tests repository
 
