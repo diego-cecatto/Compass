@@ -32,7 +32,7 @@ export const ComponentProperties = ({
             <Typography
                 variant="h5"
                 gutterBottom
-                sx={{ marginTop: '8px', fontWeight: 'bold' }}
+                sx={{ marginTop: '24px', fontWeight: 'bold' }}
             >
                 Properties
             </Typography>

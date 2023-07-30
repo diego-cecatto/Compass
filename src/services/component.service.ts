@@ -57,7 +57,6 @@ export class ComponentService {
                 }
             })
         );
-        console.log(components);
         return components;
     }
 
@@ -86,11 +85,9 @@ export class ComponentService {
     }
 
     public async getDocumentation(path: string) {
-        console.log(path);
         if (!path) {
             return null;
         }
-        console.log(path.replace('tsx', '') + 'doc.md');
         return fs.readFileSync(
             './' + path.replace('tsx', '') + 'doc.md',
             'utf-8'
@@ -182,7 +179,12 @@ export class ComponentService {
                 type: structureProp.type?.toString() ?? 'any',
             };
             if (sibling?.getKind() === SyntaxKind.SingleLineCommentTrivia) {
-                property.description = sibling.getText();
+                var comment = sibling.getText();
+                comment = comment.substring(2);
+                if (comment.at(-1) === '/') {
+                    comment = comment.substring(0, comment.length - 2);
+                }
+                property.description = comment;
             }
             properties.push(property);
         });

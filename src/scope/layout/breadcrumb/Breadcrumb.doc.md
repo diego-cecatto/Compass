@@ -1,7 +1,3 @@
----
-title: Breadcrumb
----
-
 # Breadcrumb
 
 Breadcrumb is a React component that...

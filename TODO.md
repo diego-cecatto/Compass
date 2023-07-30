@@ -5,7 +5,8 @@ Web Page
 -   dark mode
 -   diffrente ports for each part
 -   live code
--   properties and descriptions
+-   complex properties
+-   default values
 
 README
 

@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { DocumentationAction } from '../../actions/documentation.action';
 import { useEffect } from 'react';
 import { ComponentProperties } from './component.properties';
+import './component.scss';
 declare type ComponentDetailsProps = {
     component: any;
 };

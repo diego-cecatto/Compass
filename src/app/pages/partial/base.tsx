@@ -89,7 +89,6 @@ export default function BaseLayout() {
     const handleMenuChange = (component: any) => {
         setComponent(component);
     };
-    console.log(component);
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
