@@ -8,7 +8,14 @@ Web Page
 -   complex properties
 -   default values
 
-README
+-code area
+https://github.com/remarkjs/remark-lint
+
+-   show live code
+-   copy icon
+-   preview window
+
+    README
 
 -   clean code
 -   explain how run app
