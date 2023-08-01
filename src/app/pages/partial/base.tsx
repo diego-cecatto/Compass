@@ -152,7 +152,6 @@ export default function BaseLayout() {
             <Main open={open}>
                 <DrawerHeader />
                 <ComponentDetails component={component} />
-                <Button name="asdasdas" />
             </Main>
         </Box>
     );
