@@ -11,7 +11,7 @@
 // import { renderToStaticMarkup } from 'react-dom/server';
 // import { unified } from 'unified';
 // import rehypeParse from 'rehype-parse';
-import React, { useEffect } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { unified } from 'unified';
@@ -19,10 +19,16 @@ import rehypeParse from 'rehype-parse';
 import rehypeReact from 'rehype-react';
 import { useQuery } from '@apollo/client';
 import { DocumentationAction } from '../../actions/documentation.action';
-import { CircularProgress } from '@mui/material';
+import { Box, Button, ButtonGroup, CircularProgress, Tab } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { ComponentProperties } from './component.properties';
-import { Button } from '../../../scope/button/Button';
+import { IconButton } from '@mui/material';
+import CodeIcon from '@mui/icons-material/Code';
+import PreviewIcon from '@mui/icons-material/Preview';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 
 declare type ComponentDetailsProps = {
     component: any;
@@ -120,7 +126,7 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
             variables: { path: component?.path },
         }
     );
-
+    const [tab, setTab] = useState('1');
     useEffect(() => {
         refetch({ path: component?.path });
     }, [component?.path]);
@@ -131,10 +137,7 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
             // if (language === 'jsx' && value.includes('live')) {
             //     console.log(`ddfsjhsdfkjhkdsfhdsfkjhkj`);
             return (
-                <LiveProvider
-                    code={props.children[0].trim()}
-                    scope={{ React, Button }}
-                >
+                <LiveProvider code={props.children[0].trim()} scope={{ React }}>
                     <LiveEditor />
                     <LiveError />
                     <LivePreview />
@@ -147,6 +150,63 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
         // return <div></div>;
         // },
     };
+    const CustomCodeBlock = (props: any) => {
+        console.log(props);
+        // Extract the language and code from children
+        // const [language, code] = (
+        //     props.children[0].match(/live(.*)\n([\s\S]*?)\n?$/) || []
+        // ).slice(1);
+
+        // if (language) {
+        const codeWithImports = `
+            import React from 'react';
+            import { Button } from '../../../scope/button/Button';
+            
+            ${props.children[0].trim()}
+          `;
+        const handleChangeTab = (
+            event: SyntheticEvent<Element, Event>,
+            newTab: string
+        ) => {
+            setTab(newTab);
+            console.log(event);
+        };
+        return (
+            <>
+                <TabContext value={tab}>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <TabList
+                            onChange={handleChangeTab}
+                            aria-label="lab API tabs example"
+                        >
+                            <Tab value="1" icon={<PreviewIcon />} />
+                            <Tab value="2" icon={<CodeIcon />} />
+                        </TabList>
+                    </Box>
+                    <TabPanel value="1">
+                        <Button>
+                            <LiveProvider
+                                code={codeWithImports}
+                                scope={{ React }}
+                                // noInline
+                                enableTypeScript
+                                language="tsx"
+                            >
+                                <LiveEditor language="tsx" />
+                                <LiveError />
+                                <LivePreview language="tsx" />
+                            </LiveProvider>
+                        </Button>
+                    </TabPanel>
+                    <TabPanel value="2"></TabPanel>
+                </TabContext>
+            </>
+        );
+        // }
+
+        // Fallback to default rendering for non-live code blocks
+        return <pre>{props.children}</pre>;
+    };
 
     return (
         <>
@@ -157,7 +217,9 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
                     <div>
                         <ReactMarkdown
                             // rehypePlugins={[rehypeReact]}
-                            components={renderers}
+                            components={{
+                                code: CustomCodeBlock,
+                            }}
                         >
                             {data?.documentation}
                         </ReactMarkdown>

@@ -25,6 +25,7 @@
         "@graphql-codegen/typescript-operations": "^3.0.4",
         "@graphql-codegen/typescript-react-apollo": "^3.3.7",
         "@mui/icons-material": "^5.14.1",
+        "@mui/lab": "^5.0.0-alpha.137",
         "@mui/material": "^5.14.2",
         "@mui/x-data-grid": "^6.10.2",
         "@testing-library/react": "^14.0.0",
