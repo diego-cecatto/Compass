@@ -1,80 +1,130 @@
-import React, { Suspense, SyntheticEvent, useEffect, useState } from 'react';
+import React from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import { useQuery } from '@apollo/client';
-import { DocumentationAction } from '../../actions/documentation.action';
-import { Box, CircularProgress, Tab } from '@mui/material';
-import ReactMarkdown from 'react-markdown';
-import { ComponentProperties } from './component.properties';
-import CodeIcon from '@mui/icons-material/Code';
-import PreviewIcon from '@mui/icons-material/Preview';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import { transform } from '@babel/standalone';
 
-declare type ComponentDetailsProps = {
-    component: any;
-};
+type DynamicComponentType = React.FC<any>;
+// const createDynamicComponent = async (code: string): Promise<React.FC> => {
+//     const transformedCode = transform(code, { presets: ['react'] }).code;
+//     const blob = new Blob([transformedCode!], { type: 'text/javascript' });
+//     const blobURL = URL.createObjectURL(blob);
 
+//     // Create a new script tag in the DOM to load the dynamic component code
+//     const script = document.createElement('script');
+//     script.type = 'module';
+//     script.src = blobURL;
+//     document.head.appendChild(script);
+
+//     return new Promise<React.FC>((resolve, reject) => {
+//         script.onload = () => {
+//             // Assuming the dynamic component is exported as "default"
+//             if ((window as any).Button) {
+//                 resolve((window as any).Button);
+//             } else {
+//                 reject(new Error('Dynamic component not found'));
+//             }
+//             // Clean up the blob URL after loading
+//             URL.revokeObjectURL(blobURL);
+//         };
+
+//         script.onerror = () => {
+//             reject(new Error('Failed to load dynamic component'));
+//             // Clean up the blob URL after loading
+//             URL.revokeObjectURL(blobURL);
+//         };
+//     });
+// };
 export const CustomCodeBlock = (props: any) => {
-    console.log(props);
-    const [tab, setTab] = useState('1');
+    // const createDynamicComponent = async (code: string): Promise<React.FC> => {
+    //     const transformedCode = transform(code, { presets: ['react'] }).code;
 
-    const handleChangeTab = (
-        event: SyntheticEvent<Element, Event>,
-        newTab: string
-    ) => {
-        setTab(newTab);
-        console.log(event);
+    //     try {
+    //         const blob = new Blob([transformedCode!], {
+    //             type: 'application/javascript',
+    //         });
+    //         const url = URL.createObjectURL(blob);
+
+    //         // @ts-ignore
+    //         const dynamicModule = await import(url);
+    //         URL.revokeObjectURL(url);
+
+    //         return dynamicModule.default as React.FC;
+    //     } catch (error) {
+    //         console.error('Error importing dynamic component:', error);
+    //         return () => null; // Return a fallback component in case of an error
+    //     }
+    // };
+    const createDynamicComponent = async (code: string): Promise<React.FC> => {
+        const transformedCode = transform(code, { presets: ['react'] }).code;
+
+        try {
+            const blob = new Blob([transformedCode!], {
+                type: 'application/javascript',
+            });
+            const url = URL.createObjectURL(blob);
+
+            // @ts-ignore
+            const dynamicModule = await import(url);
+            URL.revokeObjectURL(url);
+
+            return dynamicModule.default as React.FC;
+        } catch (error) {
+            console.error('Error importing dynamic component:', error);
+            return () => null; // Return a fallback component in case of an error
+        }
+    };
+    const getScope = () => {
+        const code = `export const Button = () => {
+          const [count, setCount] = React.useState(0);
+      
+          return (
+            <button onClick={() => setCount(count + 1)}>
+              Click me ({count})
+            </button>
+          );
+        };`;
+
+        // Transform the code using Babel standalone
+        // const transformedCode = transform(code, {
+        //     presets: ['react'],
+        //     plugins: ['proposal-class-properties', 'proposal-private-methods'],
+        // }).code;
+
+        // const dynamicFunction = new Function('React', transformedCode!);
+        createDynamicComponent(code).then((component) => {
+            console.log(component);
+        });
+
+        // Execute the dynamic function to define the component
+        // dynamicFunction(React);
+        // console.log(dynamicFunction);
+        return {
+            React,
+            // Button,
+        };
     };
 
     const getCode = () => {
         var imports: any = {};
-        var code: string = props.children[0].trim();
+        var code: string = props.code.children[0].trim();
         code.split('\n').map((line) => {
             // if ('import')
         });
         return '<Button />';
     };
-    const scope: any = { React };
-
-    useEffect(() => {
-        (async () => {
-            const { Button } = await import('../../../scope/button/Button');
-            scope.Button = Button;
-        })();
-    }, []);
 
     return (
         <>
-            <TabContext value={tab}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <TabList
-                        onChange={handleChangeTab}
-                        aria-label="lab API tabs example"
-                    >
-                        <Tab value="1" icon={<PreviewIcon />} />
-                        <Tab value="2" icon={<CodeIcon />} />
-                    </TabList>
-                </Box>
-                <TabPanel value="1">
-                    <Suspense fallback="Loading...">
-                        <LiveProvider
-                            code={getCode()}
-                            scope={scope}
-                            // noInline
-                            enableTypeScript
-                            language="tsx"
-                        >
-                            <LiveEditor language="tsx" />
-                            <LiveError />
-                            <LivePreview language="tsx" />
-                        </LiveProvider>
-                    </Suspense>
-                </TabPanel>
-                <TabPanel value="2"></TabPanel>
-            </TabContext>
+            <LiveProvider
+                code={getCode()}
+                scope={getScope()}
+                // noInline
+                enableTypeScript
+                language="tsx"
+            >
+                <LiveEditor language="tsx" />
+                <LiveError />
+                <LivePreview language="tsx" />
+            </LiveProvider>
         </>
     );
-
-    return <pre>{props.children}</pre>;
 };

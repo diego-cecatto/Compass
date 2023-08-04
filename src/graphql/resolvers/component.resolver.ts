@@ -10,6 +10,8 @@ const ComponentResolver = {
             componentService.getComponent(name),
         documentation: async (_: any, { path }: { path: string }) =>
             componentService.getDocumentation(path),
+        // componentRelativePath: async (_: any, { path }: { path: string }) =>
+        //     componentService.getRelativePath(path),
     },
 };
 

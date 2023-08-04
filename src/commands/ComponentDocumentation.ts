@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import { Component } from './../graphql/generated/graphql';
 
 interface Property {

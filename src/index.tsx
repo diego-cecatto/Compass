@@ -23,8 +23,9 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
     }, []);
 
     return (
-        <ApolloProvider client={BaseAction.client()}>
-            {/* <div className={`main-component ${isDarkMode ? 'dark-mode' : ''}`}>
+        <React.StrictMode>
+            <ApolloProvider client={BaseAction.client()}>
+                {/* <div className={`main-component ${isDarkMode ? 'dark-mode' : ''}`}>
                 <div className="header">
                     <div className="title">
                         <i className="material-icons">menu</i>
@@ -45,8 +46,9 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
                     <Menu />
                 </div>
             </div> */}
-            <BaseLayout />
-        </ApolloProvider>
+                <BaseLayout />
+            </ApolloProvider>
+        </React.StrictMode>
     );
 };
 
