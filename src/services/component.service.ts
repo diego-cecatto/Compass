@@ -26,6 +26,15 @@ interface CachedComponent {
 const componentsCache: Record<string, CachedComponent> = {};
 
 export class ComponentService {
+    // cache: Record<string, CachedComponent> = {};
+    // constructor() {
+    //     this.getCache();
+    // }
+
+    // public getCache() {
+    //     this.cache = JSON.parse(fs.readFileSync('./'));
+    // }
+
     public async getComponents(path: string) {
         var files = await fs.promises.readdir(path);
         var components: Component[] = [];
@@ -79,8 +88,9 @@ export class ComponentService {
                 name: 'any',
             },
         };
-        // this.extractComponentProperties(component.path);
+        //todo extract component
         this.extractComponentDeclaration(component);
+        //todo save cache
         return component;
     }
 
@@ -137,9 +147,6 @@ export class ComponentService {
             propertyName,
             source
         );
-
-        //todo could use ts-morph by using folder
-        //todo starts by export in this folder
     }
 
     getPropDeclaration(propName: string, source: SourceFile) {
@@ -205,7 +212,7 @@ export class ComponentService {
     getArrowFunctionProperty(exported: VariableDeclaration) {
         //todo verify without any property
         var fInitializer: any = exported.getInitializer();
-        ///todo find props property or if have only one and what is the right value
+        //todo find props property or if have only one and what is the right value
         var structure = fInitializer.getStructure();
         var propTypeName = structure.parameters[0].type;
         if (!propTypeName) {
