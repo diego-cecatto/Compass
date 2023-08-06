@@ -1,62 +1,42 @@
-Web Page
+# Web Page
 
--   format name component
--   cache
--   dark mode
--   diffrente ports for each part
--   live code
--   complex properties
--   default values
+[] Change output file to public
+[] Create GraphQL cache
+[] format name component
+[] live code
+[] complex properties
+[] default values
+[] Breadcrumb
+[] clear packages not used
+[] SubComponents
 
--code area
-https://github.com/remarkjs/remark-lint
+# README
 
--   show live code
--   copy icon
--   preview window
-
-    README
-
--   clean code
--   explain how run app
+[] explain how run app
+[] explain how to use documentation
+[] explain how to configure app
 
 //https://souporserious.com/generate-typescript-docs-using-ts-morph/
 
-    -   will get for each folder will get the component, like if you have a Bradcrumb folder name will get from this repository a Bradcrumb component, will try get from each folder inner there this component
-    -   consider export default
-    -   consider export const
-    -   consider export class
-    -   use library to parse components
+# ROADMAP
 
-        -   will extract all properties
-        -   in order to mount library will be needed to retrieve the property type of the react component
+## WEBSITE DOCUMENTATION
 
-            -   will extract the default value for each property
-            -   will extract the commentary above of each propety to use in the documentation library to mount descriptions
+[] Acessiblity
+[] dark mode
+[] Improve Live Code
+https://github.com/remarkjs/remark-lint
+[][] use monaco-editor
+[][] copy icon
+[][] implement linter
+[] Will cache at first time to run application
+[] Compositions / Variations
+[] Improve server with vite + react + graphql
 
-        -   need to be performatic
-        -   will work with functional and class components
+## DOCUMENTATION
 
--   Remove all test dependences
--   Improve server with vite + react + graphql
--   Create documentation file
+[] Diffrent scopes
 
-ROADMAP
-what is needed from one component
-
--   will be stored into src/ui folder
--   need to be integrated with graphql and this integration saved on actions folder
--   to generate documentation
--   should have acessibility
--   have dark mode
--   all styles need be stored in a sass file
--   need to use latest technologies in HTML5
--   should have be responsive and adapt to diffrent resolutions
-
-    -   layout
-        -   left has menu menu
-            -   menu contains all structure of components and sub-components - OK
-            -   top side by side icon and name of documentation - OK
             -   bellow scope, you can change scopes by using this part of menu
             -   you can filter components if your list have more than 10 items - OK
         -   main content
@@ -111,11 +91,7 @@ what is needed from one component
                     -   the icons that cant be showed will be visible if the user clicks on the ... icon
                 -   should have a badge with the last version and side by side a icon to click and show all others versions released of this component
 
--   to generate another version
-    -   to test
-    -   to publish
-
-API with graphql and apolo server
+# FILE STRUCTURE !Need to be updated, and explain it in README
 
 -   models
     -   scopes

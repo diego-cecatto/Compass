@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { BaseAction } from './app/actions/base.actions';
 import { ComponentService } from './services/component.service';
 import BaseLayout from './app/pages/partial/base';
@@ -24,7 +24,14 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
 
     return (
         <React.StrictMode>
-            <ApolloProvider client={BaseAction.client()}>
+            <ApolloProvider
+                client={
+                    new ApolloClient({
+                        uri: 'http://localhost:5000/graphql',
+                        cache: new InMemoryCache(),
+                    })
+                }
+            >
                 {/* <div className={`main-component ${isDarkMode ? 'dark-mode' : ''}`}>
                 <div className="header">
                     <div className="title">

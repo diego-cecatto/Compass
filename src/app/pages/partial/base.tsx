@@ -86,7 +86,6 @@ export default function BaseLayout() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-
     const handleMenuChange = (component: any) => {
         setComponent(component);
     };
@@ -151,7 +150,7 @@ export default function BaseLayout() {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                <ComponentDetails component={component} />
+                {component && <ComponentDetails component={component} />}
             </Main>
         </Box>
     );

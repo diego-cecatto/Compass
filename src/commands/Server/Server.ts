@@ -4,8 +4,13 @@ import resolvers from './../../../src/graphql/resolvers/component.resolver';
 import * as dotenv from 'dotenv';
 dotenv.config();
 import path from 'path';
+// import ApolloServerPluginResponseCache from 'apollo-server-plugin-response-cache';
+// import { ApolloServerPluginCacheControl } from 'apollo-server-core';
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 
 export class Server {
+    //todo generate cache
+
     async start() {
         const typeDefs = `
         type Query {
@@ -62,9 +67,19 @@ export class Server {
         }
         `;
 
+        // const cacheControl: any = new ApolloServerPluginCacheControl();
+
+        // const responseCache: any = new ApolloServerPluginResponseCache();
+
         const apolloServer = new ApolloServer({
             typeDefs,
             resolvers,
+            cache: new InMemoryLRUCache({
+                // ~100MiB
+                maxSize: Math.pow(2, 20) * 100,
+                // 5 minutes (in seconds)
+                ttl: 300,
+            }),
         });
 
         //express server
