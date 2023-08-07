@@ -12,18 +12,12 @@ import {
     TypeAliasDeclaration,
     PropertySignature,
 } from 'ts-morph';
+const CACHE_FILE_PATH = './components_cache.json';
 
 //! could have a pre parsed response with json or can retry unsing long life cycle with cache
 //todo ignore composition file
 //todo validate all steps to be sure that information is correct
 //todo create tests repository
-
-interface CachedComponent {
-    component: Component;
-    lastModified: number;
-}
-
-const componentsCache: Record<string, CachedComponent> = {};
 
 export class ComponentService {
     // cache: Record<string, CachedComponent> = {};
@@ -38,12 +32,14 @@ export class ComponentService {
     public async getComponents(path: string) {
         var files = await fs.promises.readdir(path);
         var components: Component[] = [];
+        const cache = await this.readCache();
+
         await Promise.all(
             files.map(async (file) => {
                 var currPath = path + '/' + file;
                 //todo pass ahead this var
-                var stat = await fs.promises.stat(currPath);
-                if (stat.isDirectory()) {
+                var fileStat = await fs.promises.stat(currPath);
+                if (fileStat.isDirectory()) {
                     const subComponents = await this.getComponents(currPath);
                     components.push(...subComponents);
                 } else {
@@ -58,9 +54,20 @@ export class ComponentService {
                         currPath.indexOf('.spec') === -1 &&
                         currPath.indexOf('doc') === -1
                     ) {
-                        var component = await this.getComponent(currPath);
-                        if (component) {
-                            components.push(component);
+                        const lastModified = fileStat.mtimeMs;
+                        const cachedComponent = cache.components[currPath];
+                        if (
+                            !cache?.date ||
+                            !cachedComponent ||
+                            cache.date < lastModified
+                        ) {
+                            var component = await this.getComponent(currPath);
+                            if (component) {
+                                components.push(component);
+                            }
+                            cache.components[currPath] = component;
+                            // Update the cache file.
+                            this.writeCache(cache.components);
                         }
                     }
                 }
@@ -73,13 +80,13 @@ export class ComponentService {
         componentPath: string
     ): Promise<Component | null> {
         const fileStat = await fs.promises.stat(componentPath);
-        const lastModified = fileStat.mtimeMs;
-        if (
-            componentPath in componentsCache &&
-            componentsCache[componentPath].lastModified === lastModified
-        ) {
-            return componentsCache[componentPath].component;
-        }
+        // const lastModified = fileStat.mtimeMs;
+        // if (
+        //     componentPath in componentsCache &&
+        //     componentsCache[componentPath].lastModified === lastModified
+        // ) {
+        //     return componentsCache[componentPath].component;
+        // }
         let component: Component = {
             name: path.basename(componentPath, path.extname(componentPath)),
             path: componentPath,
@@ -92,6 +99,24 @@ export class ComponentService {
         this.extractComponentDeclaration(component);
         //todo save cache
         return component;
+    }
+
+    private writeCache(cache: Record<string, Component>) {
+        fs.writeFileSync(CACHE_FILE_PATH, JSON.stringify(cache), 'utf-8');
+    }
+
+    private async readCache() {
+        try {
+            const cacheContent = fs.readFileSync(CACHE_FILE_PATH, 'utf-8');
+            var fileStat = await fs.promises.stat(CACHE_FILE_PATH);
+            return {
+                components: JSON.parse(cacheContent),
+                date: fileStat.mtimeMs,
+            };
+        } catch (error) {
+            // Return an empty object if the cache file doesn't exist or is not valid JSON.
+            return {};
+        }
     }
 
     public async getDocumentation(path: string) {

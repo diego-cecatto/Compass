@@ -7,64 +7,67 @@ import path from 'path';
 // import ApolloServerPluginResponseCache from 'apollo-server-plugin-response-cache';
 // import { ApolloServerPluginCacheControl } from 'apollo-server-core';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
+import { gql } from 'apollo-server-core';
 
+import Keyv from 'keyv';
+import { KeyvAdapter } from '@apollo/utils.keyvadapter';
 export class Server {
     //todo generate cache
 
     async start() {
-        const typeDefs = `
-        type Query {
-            components(scope: String!): [Component]!,
-            component(path: String!):Component
-            documentation(path:String):String
-        }
-        
-        type Component {
-            name: String!
-            path: String!
-            description: String
-            childrens: [Component]
-            dependencies: [Dependencies]
-            prop: Property
-        }
-    
-        fragment ComponentFields on Component {
-            name
-            path
-            description
-            dependecies
-            prop
-        }
-        
-        fragment ComponentRecursive on Component {
-            childrens {
-                ...ComponentFields
+        const typeDefs = gql`
+            type Query {
+                components(scope: String!): [Component]!
+                component(path: String!): Component
+                documentation(path: String): String
+            }
+
+            type Component {
+                name: String!
+                path: String!
+                description: String
+                childrens: [Component]
+                dependencies: [Dependencies]
+                prop: Property
+            }
+
+            fragment ComponentFields on Component {
+                name
+                path
+                description
+                dependecies
+                prop
+            }
+
+            fragment ComponentRecursive on Component {
                 childrens {
                     ...ComponentFields
                     childrens {
                         ...ComponentFields
+                        childrens {
+                            ...ComponentFields
+                        }
                     }
                 }
             }
-        }
-    
-        type Dependencies {
-            name: String!
-            scoped: Boolean
-            lib: Boolean
-        }
-    
-        type Property {
-            name: String!
-            properties:[PropertyItems]
-        }
-    
-        type PropertyItems {
-            name: String!
-            description: String
-            type: String!
-            default: String
-        }
+
+            type Dependencies {
+                name: String!
+                scoped: Boolean
+                lib: Boolean
+            }
+
+            type Property {
+                name: String!
+                properties: [PropertyItems]
+            }
+
+            type PropertyItems {
+                name: String!
+                description: String
+                type: String!
+                default: String
+            }
         `;
 
         // const cacheControl: any = new ApolloServerPluginCacheControl();
@@ -75,10 +78,7 @@ export class Server {
             typeDefs,
             resolvers,
             cache: new InMemoryLRUCache({
-                // ~100MiB
-                maxSize: Math.pow(2, 20) * 100,
-                // 5 minutes (in seconds)
-                ttl: 300,
+                maxSize: 10000, // Adjust the cache size as needed
             }),
         });
 

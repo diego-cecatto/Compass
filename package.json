@@ -103,6 +103,8 @@
         ]
     },
     "dependencies": {
-        "@types/graphql": "^14.5.0"
+        "@apollo/utils.keyvadapter": "^3.0.0",
+        "@types/graphql": "^14.5.0",
+        "keyv": "^4.5.3"
     }
 }
