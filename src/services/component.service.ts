@@ -55,19 +55,19 @@ export class ComponentService {
                         currPath.indexOf('doc') === -1
                     ) {
                         const lastModified = fileStat.mtimeMs;
-                        const cachedComponent = cache.components[currPath];
+                        let component = cache.components[currPath];
                         if (
+                            !component ||
                             !cache?.date ||
-                            !cachedComponent ||
                             cache.date < lastModified
                         ) {
-                            var component = await this.getComponent(currPath);
-                            if (component) {
-                                components.push(component);
-                            }
+                            component = await this.getComponent(currPath);
                             cache.components[currPath] = component;
                             // Update the cache file.
                             this.writeCache(cache.components);
+                        }
+                        if (component) {
+                            components.push(component);
                         }
                     }
                 }
@@ -110,12 +110,12 @@ export class ComponentService {
             const cacheContent = fs.readFileSync(CACHE_FILE_PATH, 'utf-8');
             var fileStat = await fs.promises.stat(CACHE_FILE_PATH);
             return {
-                components: JSON.parse(cacheContent),
+                components: JSON.parse(cacheContent) ?? {},
                 date: fileStat.mtimeMs,
             };
         } catch (error) {
             // Return an empty object if the cache file doesn't exist or is not valid JSON.
-            return {};
+            return { components: {} };
         }
     }
 
