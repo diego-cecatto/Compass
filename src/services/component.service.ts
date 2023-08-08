@@ -22,15 +22,6 @@ dotenv.config();
 //todo create tests repository
 
 export class ComponentService {
-    // cache: Record<string, CachedComponent> = {};
-    // constructor() {
-    //     this.getCache();
-    // }
-
-    // public getCache() {
-    //     this.cache = JSON.parse(fs.readFileSync('./'));
-    // }
-
     public async getComponents(path?: string) {
         if (!path) {
             path = process.env.SCOPE!;
@@ -48,7 +39,6 @@ export class ComponentService {
                     const subComponents = await this.getComponents(currPath);
                     components.push(...subComponents);
                 } else {
-                    //!!! todo filter only path
                     //path of componnet
                     //index.ts
                     //or index.tsx
@@ -84,14 +74,6 @@ export class ComponentService {
     public async getComponent(
         componentPath: string
     ): Promise<Component | null> {
-        const fileStat = await fs.promises.stat(componentPath);
-        // const lastModified = fileStat.mtimeMs;
-        // if (
-        //     componentPath in componentsCache &&
-        //     componentsCache[componentPath].lastModified === lastModified
-        // ) {
-        //     return componentsCache[componentPath].component;
-        // }
         let component: Component = {
             name: path.basename(componentPath, path.extname(componentPath)),
             path: componentPath,
@@ -100,9 +82,7 @@ export class ComponentService {
                 name: 'any',
             },
         };
-        //todo extract component
         this.extractComponentDeclaration(component);
-        //todo save cache
         return component;
     }
 
