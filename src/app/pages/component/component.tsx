@@ -31,7 +31,12 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
                         <ReactMarkdown
                             // rehypePlugins={[rehypeReact]}
                             components={{
-                                code: (props) => <CodePreview />,
+                                code: (props) => (
+                                    <CodePreview
+                                        component={component}
+                                        code={props}
+                                    />
+                                ),
                             }}
                         >
                             {data?.documentation}

@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { exec, execSync } from 'child_process';
 import { Server } from '../Server/Server';
 import { ComponentService } from '../../services/component.service';
 import fs from 'fs';
@@ -6,7 +6,7 @@ export class Documentation {
     async start() {
         await this.dependences();
         const command = 'npm run build';
-        await exec(command);
+        execSync(command);
         const server = new Server();
         server.start();
     }

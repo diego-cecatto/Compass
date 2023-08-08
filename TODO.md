@@ -9,6 +9,7 @@
 [] Breadcrumb
 [] clear packages not used
 [] SubComponents
+[] wait build command
 
 # README
 
