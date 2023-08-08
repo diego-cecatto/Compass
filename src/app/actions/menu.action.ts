@@ -22,7 +22,7 @@ export class MenuActions extends BaseAction {
         //       })(Profile);
         // }
         return gql`
-            query ScopedComponents($scope: String!) {
+            query ScopedComponents($scope: String) {
                 components(scope: $scope) {
                     name
                     description

@@ -1,7 +1,10 @@
-import { exec, execSync } from 'child_process';
+import { execSync } from 'child_process';
 import { Server } from '../Server/Server';
 import { ComponentService } from '../../services/component.service';
 import fs from 'fs';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export class Documentation {
     async start() {
         await this.dependences();
@@ -13,8 +16,9 @@ export class Documentation {
 
     async dependences() {
         var componentsService = new ComponentService();
-        const SCOPE_PATH = './src/scope';
-        var components = await componentsService.getComponents(SCOPE_PATH);
+        var components = await componentsService.getComponents(
+            process.env.SCOPE!
+        );
         var exportCommands = '';
         for (var componentName in components) {
             var component = components[componentName];

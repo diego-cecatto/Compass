@@ -81,9 +81,7 @@ declare type MenuProps = {
 };
 
 export const Menu = ({ onChange, active }: MenuProps) => {
-    const { loading, error, data } = useQuery(MenuActions.all(), {
-        variables: { scope: 'src/scope' },
-    });
+    const { loading, error, data } = useQuery(MenuActions.all());
 
     const handleMenuClick = (component: any) => {
         onChange(component);

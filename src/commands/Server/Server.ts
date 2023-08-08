@@ -17,7 +17,7 @@ export class Server {
     async start() {
         const typeDefs = gql`
             type Query {
-                components(scope: String!): [Component]!
+                components(scope: String): [Component]!
                 component(path: String!): Component
                 documentation(path: String): String
             }

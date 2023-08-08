@@ -13,6 +13,8 @@ import {
     PropertySignature,
 } from 'ts-morph';
 const CACHE_FILE_PATH = './components_cache.json';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 //! could have a pre parsed response with json or can retry unsing long life cycle with cache
 //todo ignore composition file
@@ -29,7 +31,10 @@ export class ComponentService {
     //     this.cache = JSON.parse(fs.readFileSync('./'));
     // }
 
-    public async getComponents(path: string) {
+    public async getComponents(path?: string) {
+        if (!path) {
+            path = process.env.SCOPE!;
+        }
         var files = await fs.promises.readdir(path);
         var components: Component[] = [];
         const cache = await this.readCache();
