@@ -13,7 +13,7 @@
         "publish": "npm run build && npm version patch && npm publish",
         "type:generate": "graphql-codegen",
         "server:build": "tsc",
-        "server": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"**/*.spec.ts\" --exec \"ts-node server.ts\" -e ts",
+        "server": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"./src/app/pages/component/live-editor/component.dependences.ts\" --exec \"ts-node server.ts\" -e ts",
         "updater": "ts-node updater.ts"
     },
     "keywords": [],

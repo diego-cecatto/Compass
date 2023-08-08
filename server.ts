@@ -1,4 +1,4 @@
-import { Server } from './src/commands/Server/Server';
+import { Documentation } from './src/commands/Documentation/Documentation';
 
-const server = new Server();
-server.start();
+var docLib = new Documentation();
+docLib.start();

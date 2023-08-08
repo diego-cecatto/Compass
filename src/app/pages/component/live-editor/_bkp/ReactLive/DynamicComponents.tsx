@@ -23,5 +23,3 @@
 
 // // // Export all dynamically imported components
 // // export default components;
-
-export { Button } from '../../../../../scope/button/Button';

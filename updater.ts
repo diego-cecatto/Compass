@@ -1,9 +1,7 @@
-// Import necessary modules
 import fs from 'fs-extra';
 import { exec } from 'child_process';
 import { SingleBar, Presets } from 'cli-progress';
 
-// Define the function to update dependencies
 const updateDependencies = async () => {
     try {
         // Read the package.json file
