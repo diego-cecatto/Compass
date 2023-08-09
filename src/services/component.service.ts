@@ -12,7 +12,7 @@ import {
     TypeAliasDeclaration,
     PropertySignature,
 } from 'ts-morph';
-const CACHE_FILE_PATH = './components_cache.json';
+const CACHE_FILE_PATH = './components.cache';
 import * as dotenv from 'dotenv';
 dotenv.config();
 

@@ -10,6 +10,7 @@
 [] clear packages not used
 [] SubComponents
 [] wait build command
+[] remove cache file for components fom code versionating
 
 # README
 
