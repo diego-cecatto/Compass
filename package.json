@@ -1,6 +1,6 @@
 {
     "name": "compass-docgen",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "This is a package that will help you to create your documentation",
     "main": "index.js",
     "scripts": {
