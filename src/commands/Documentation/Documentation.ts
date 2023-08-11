@@ -2,14 +2,25 @@ import { execSync } from 'child_process';
 import { Server } from '../Server/Server';
 import { ComponentService } from '../../services/component.service';
 import fs from 'fs';
+import path from 'path';
 import * as dotenv from 'dotenv';
+
 dotenv.config();
 
 export class Documentation {
+    tsFileDirectory = path.dirname(__filename);
+
     async start() {
         await this.dependences();
-        const command = 'npm run build';
-        execSync(command);
+        const buildCommand = `set BUILD_PATH=${path.resolve(
+            this.tsFileDirectory + '/../../../'
+        )} 
+        && set PUBLIC_URL=${path.resolve(
+            this.tsFileDirectory + '/../../../public'
+        )}
+        && react-scripts build`;
+        execSync(buildCommand, { stdio: 'inherit' });
+
         const server = new Server();
         server.start();
     }
@@ -30,7 +41,8 @@ export class Documentation {
             )}'; \n`;
         }
         fs.writeFileSync(
-            './src/app/pages/component/live-editor/component.dependences.ts',
+            this.tsFileDirectory +
+                '/../../app/pages/component/live-editor/component.dependences.ts',
             exportCommands
         );
     }

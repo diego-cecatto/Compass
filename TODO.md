@@ -11,6 +11,7 @@
 [] SubComponents
 [] wait build command
 [] remove cache file for components fom code versionating
+[] reference on package,json git project address
 
 # README
 

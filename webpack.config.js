@@ -12,7 +12,7 @@ const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 let config = {
     output: {
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'build'),
         publicPath: '/',
         filename: 'bundle.js',
     },
