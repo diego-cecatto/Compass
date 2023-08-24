@@ -1,5 +1,6 @@
 # Web Page
 
+[] Change doc generation to react-docgen?
 [] Change output file to public
 [] Create GraphQL cache
 [] format name component
