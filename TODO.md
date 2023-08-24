@@ -1,3 +1,11 @@
+# Next Goals
+
+[] test cli to generate documentation dist package
+[][] initially only get the current components and generate a cache file
+[][] get .env main
+[][] on execute build command do the build of website
+[][] on execute start command start the build folder created at home
+
 # Web Page
 
 [] Change doc generation to react-docgen?
@@ -39,6 +47,7 @@ https://github.com/remarkjs/remark-lint
 
 ## DOCUMENTATION
 
+[] use react-doc-gen to build documentation
 [] Diffrent scopes
 
             -   bellow scope, you can change scopes by using this part of menu
