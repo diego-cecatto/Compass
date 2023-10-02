@@ -13,8 +13,8 @@
     "description": "This is a package that will help you to create your documentation for yours components",
     "main": "index.js",
     "scripts": {
-        "start": "react-scripts start --dev",
-        "build": "react-scripts build",
+        "build": "tsc",
+        "start": "node bin/index.js",
         "build:rollup": "tsc && npm run build-package",
         "build-package": "rollup -c",
         "publish": "npm run build && npm version patch && npm publish",
