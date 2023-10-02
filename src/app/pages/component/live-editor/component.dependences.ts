@@ -1,3 +1,3 @@
-export { Button } from '../../../../.././src/scope/button/Button'; 
-export { ClassComponent } from '../../../../.././src/scope/class-component/ClassComponent'; 
-export { Breadcrumb } from '../../../../.././src/scope/layout/breadcrumb/Breadcrumb'; 
+export { Button } from '../../../../.././src/example/button/Button';
+export { ClassComponent } from '../../../../.././src/example/class-component/ClassComponent';
+export { Breadcrumb } from '../../../../.././src/example/layout/breadcrumb/Breadcrumb';

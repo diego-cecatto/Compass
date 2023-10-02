@@ -18,7 +18,7 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
 
     useEffect(() => {
         // var cs = new ComponentService();
-        // var components = cs.getComponents('./src/scope');
+        // var components = cs.getComponents('./src/example');
         // console.log(components);
     }, []);
 

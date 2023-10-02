@@ -7,7 +7,7 @@
         "url": "https://github.com/diego-cecatto/Compass"
     },
     "bin": {
-        "compass": "dist/cli.js"
+        "compass": "src/commands/index.ts"
     },
     "description": "This is a package that will help you to create your documentation for yours components",
     "main": "index.js",
@@ -91,16 +91,9 @@
     "optionalDependencies": {
         "ajv": "^8.11.2",
         "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-        "compression-webpack-plugin": "^10.0.0",
-        "copy-webpack-plugin": "^11.0.0",
         "cypress": "^10.11.0",
-        "html-webpack-plugin": "^5.5.0",
         "react-scripts": "^5.0.1",
-        "source-map-explorer": "^2.5.3",
-        "webpack": "^5.75.0",
-        "webpack-bundle-analyzer": "^4.7.0",
-        "webpack-cli": "^4.10.0",
-        "webpack-deadcode-plugin": "^0.1.17"
+        "source-map-explorer": "^2.5.3"
     },
     "browser": {
         "fs": false,

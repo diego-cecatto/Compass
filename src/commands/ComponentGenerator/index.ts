@@ -40,6 +40,7 @@ export class ComponentGenerator {
                 path.join(__dirname, 'templates', fileName),
                 'utf8'
             );
+
             const outputFile = fileName.replace('component', componentName);
             const outputFilePath = path.join(componentDir, outputFile);
 
