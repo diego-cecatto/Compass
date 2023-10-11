@@ -1,11 +1,12 @@
 {
     "name": "compass-docgen",
-    "version": "1.0.0-alpha",
+    "version": "1.0.7-alpha",
     "author": {
         "name": "Diego Cecatto",
         "email": "diego.cecatto@gmail.com",
         "url": "https://github.com/diego-cecatto/Compass"
     },
+    "type": "module",
     "bin": {
         "compass": "src/commands/index.ts",
         "compass.cmd": "src/commands/index.cmd"
@@ -17,7 +18,6 @@
         "start": "node bin/index.js",
         "build:rollup": "tsc && npm run build-package",
         "build-package": "rollup -c",
-        "publish": "npm run build && npm version patch && npm publish",
         "type:generate": "graphql-codegen",
         "server:build": "tsc",
         "server": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"./src/app/pages/component/live-editor/component.dependences.ts\" --exec \"ts-node index.ts\" -e ts",
