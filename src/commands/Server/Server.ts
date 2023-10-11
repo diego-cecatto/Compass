@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
-import resolvers from './../../../src/graphql/resolvers/component.resolver';
+import resolvers from '../../graphql/resolvers/component.resolver';
 import * as dotenv from 'dotenv';
 dotenv.config();
 import path from 'path';

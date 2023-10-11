@@ -198,7 +198,7 @@ export class ComponentService {
             if (sibling?.getKind() === SyntaxKind.SingleLineCommentTrivia) {
                 var comment = sibling.getText();
                 comment = comment.substring(2);
-                if (comment.at(-1) === '/') {
+                if (comment[comment.length - 1] === '/') {
                     comment = comment.substring(0, comment.length - 2);
                 }
                 property.description = comment;

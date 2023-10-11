@@ -11,10 +11,7 @@ export class Documentation {
     tsFileDirectory = path.dirname(__filename);
 
     async start() {
-        //todo print env file
-        console.log('Starting server');
-        console.log(process.env.SCOPE);
-        // await this.dependences();
+        await this.dependences();
         // const buildCommand = `set BUILD_PATH=${path.resolve(
         //     this.tsFileDirectory + '/../../../'
         // )}
@@ -22,9 +19,9 @@ export class Documentation {
         //     this.tsFileDirectory + '/../../../public'
         // )}
         // && react-scripts build`;
-        // execSync(buildCommand, { stdio: 'inherit' });
-        // const server = new Server();
-        // server.start();
+        // execSync('react-scripts build', { stdio: 'inherit' });
+        const server = new Server();
+        server.start();
     }
 
     async dependences() {
