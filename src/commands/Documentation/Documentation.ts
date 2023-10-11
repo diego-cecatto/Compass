@@ -12,14 +12,15 @@ export class Documentation {
 
     async start() {
         await this.dependences();
-        // const buildCommand = `set BUILD_PATH=${path.resolve(
-        //     this.tsFileDirectory + '/../../../'
-        // )}
-        // && set PUBLIC_URL=${path.resolve(
-        //     this.tsFileDirectory + '/../../../public'
-        // )}
-        // && react-scripts build`;
-        // execSync('react-scripts build', { stdio: 'inherit' });
+        const buildCommand = `set BUILD_PATH=${path.resolve(
+            this.tsFileDirectory + '/../../../'
+        )}
+        && set PUBLIC_URL=${path.resolve(
+            this.tsFileDirectory + '/../../../public'
+        )}
+        && react-scripts build`;
+        console.log(buildCommand);
+        execSync(buildCommand, { stdio: 'inherit' });
         const server = new Server();
         server.start();
     }
