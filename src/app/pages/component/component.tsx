@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { DocumentationAction } from '../../actions/documentation.action';
 import { CircularProgress } from '@mui/material';
@@ -20,7 +20,6 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
     useEffect(() => {
         refetch({ path: component?.path });
     }, [component?.path]);
-
     return (
         <>
             {loading ? (

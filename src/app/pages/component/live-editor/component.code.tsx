@@ -9,15 +9,8 @@ export const CodePreview = ({
     component: any;
     code: any;
 }) => {
-    const getScope = () => {
-        return {
-            React,
-            [component.name]: (Dependences as any)[component.name],
-        };
-    };
-
     const getCode = () => {
-        var docCode: string = code.children[0].trim();
+        var docCode: string = code.children.trim();
         var compCode = '';
         docCode.split('\n').forEach((line) => {
             if (line.indexOf('import') === -1) {
@@ -31,7 +24,10 @@ export const CodePreview = ({
         <>
             <LiveProvider
                 code={getCode()}
-                scope={getScope()}
+                scope={{
+                    React,
+                    [component.name]: (Dependences as any)[component.name],
+                }}
                 // noInline
                 enableTypeScript
                 language="tsx"

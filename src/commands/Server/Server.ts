@@ -2,7 +2,6 @@ import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import resolvers from '../../graphql/resolvers/component.resolver';
 import * as dotenv from 'dotenv';
-dotenv.config();
 import path from 'path';
 // import ApolloServerPluginResponseCache from 'apollo-server-plugin-response-cache';
 // import { ApolloServerPluginCacheControl } from 'apollo-server-core';
@@ -11,6 +10,7 @@ import { gql } from 'apollo-server-core';
 
 import Keyv from 'keyv';
 import { KeyvAdapter } from '@apollo/utils.keyvadapter';
+dotenv.config();
 export class Server {
     //todo generate cache
 

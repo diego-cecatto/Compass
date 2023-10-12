@@ -35,6 +35,7 @@ export class Documentation {
                     '.jpg': 'dataurl',
                     '.svg': 'dataurl',
                 },
+                jsxFactory: 'React.createElement',
             })
             .catch(() => process.exit(1));
         const server = new Server();
@@ -58,7 +59,7 @@ export class Documentation {
         }
         fs.writeFileSync(
             this.tsFileDirectory +
-                '/../../app/pages/component/live-editor/component.dependences.ts',
+                '../../../src/app/pages/component/live-editor/component.dependences.ts',
             exportCommands
         );
     }
