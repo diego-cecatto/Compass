@@ -52,14 +52,14 @@ export class Documentation {
             var component = components[componentName];
             exportCommands += `export { ${
                 component.name
-            } } from '../../../../../${component.path.replace(
+            } } from '../../../../../../../${component.path.replace(
                 '.tsx',
                 ''
             )}'; \n`;
         }
         fs.writeFileSync(
             this.tsFileDirectory +
-                '../../../src/app/pages/component/live-editor/component.dependences.ts',
+                '../../../../src/app/pages/component/live-editor/component.dependences.ts',
             exportCommands
         );
     }
