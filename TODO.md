@@ -25,6 +25,7 @@
 # README
 
 [] explain how run app
+[] create Readme to dev compass
 [] explain how to use documentation
 [] explain how to configure app
 

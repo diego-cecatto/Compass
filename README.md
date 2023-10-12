@@ -2,28 +2,59 @@
 
 ## What is ?
 
-This is a poject to autommatically generate documentation for react components is a Open Source
-Not also this will be a way to create an [Single Repository](https://www.accenture.com/us-en/blogs/software-engineering-blog/how-to-choose-between-mono-repo-and-poly-repo) for your components
-For now I only will support TS, the ROADMAP includes JS in the future
+Compass is an open-source project designed to automate the generation of documentation for React components. It offers a convenient way to create a Single [Single Repository](https://www.accenture.com/us-en/blogs/software-engineering-blog/how-to-choose-between-mono-repo-and-poly-repo) for your components, streamlining your development workflow. While currently supporting TypeScript, Compass's roadmap includes plans to incorporate JavaScript support in the future.
 
-## Is ready to be used ?
+## Quikstart
 
-Not, but I accept contributions and reviews any kind of help I will be glad
+Getting started with Compass is easy. Begin by installing the package:
+
+`npm install compass-docgen --save-dev`
+
+Next, install the necessary dependencies:
+
+`npm install @apollo/client @emotion/react @emotion/styled @mui/icons-material  @mui/material apollo-server-express child_process express react react-dom react-live react-markdown ts-morph ts-node typescript commander dotenv --save-dev`
+
+In your package.json file, add the following command to start Compass:
+
+`"start": "compass start"`
+
+Specify the folder containing your components using the SCOPE variable in your .env file:
+
+`SCOPE = 'src/my-components-folder'`
+
+Run Compass from the command line:
+
+`npm run start`
 
 ## What the stage to be ready ?
 
--   Map components [OK]
--   Documentation Website []
--   CMD
--   Publish first version
--   Include tests to this projects
--   Compass Website
--   Tests
--   Publish version including tests
--   Auto-release
--   Publish version with autommatically create a version of the components and publish in artifactory
--   Support JS
--   Website
+Compass is currently in an advanced stage of development, with several key features already implemented:
 
-##Diffrence betwen anothers
-Offcource I chose start this project because I have some experience with others products in the market and I`m staterd this project because I will create one tool more simple and smart
+    Mapping components: ✔️
+    Documentation Website: ✔️
+    Command-Line Interface (CLI): ✔️
+    Stable Version: Almost done ✨
+
+## Future Roadmap
+
+Compass is continuously evolving. Here's a glimpse of what's in store for the future:
+
+    Include tests in the project
+    Develop the Compass website for enhanced user experience
+    Implement automated tests
+    Enable auto-release functionality
+    Publish versions with automatic creation and publication of components in Artifactory
+    Add support for JavaScript components
+    Enhance the official Compass website with detailed documentation and resources
+
+## Why Compass
+
+Compass stands out because it's:
+
+-   Ready to Go: Compass is designed to minimize setup hassles, ensuring you can get started quickly.
+
+-   Simplicity and Intelligence: Built with simplicity and user-friendliness in mind, Compass offers a smarter approach to component documentation and management.
+
+Embark on your React component documentation journey with Compass, the tool designed to simplify and enhance your development process.
+
+The existence of this projects is because I have some experience with others products in the market and this project was builded to create one tool more simple and smart.
