@@ -1,37 +1,35 @@
 # Compass
 
-## What is ?
-
 Compass is an open-source project designed to automate the generation of documentation for React components. It offers a convenient way to create a Single [Single Repository](https://www.accenture.com/us-en/blogs/software-engineering-blog/how-to-choose-between-mono-repo-and-poly-repo) for your components, streamlining your development workflow. While currently supporting TypeScript, Compass's roadmap includes plans to incorporate JavaScript support in the future.
 
 ## Quikstart
 
 Getting started with Compass is easy. Begin by installing the package:
 
-`npm install compass-docgen --save-dev`
+    npm install compass-docgen --save-dev
 
 Next, install the necessary dependencies:
 
-`npm install @apollo/client @emotion/react @emotion/styled @mui/icons-material  @mui/material apollo-server-express child_process express react react-dom react-live react-markdown ts-morph ts-node typescript commander dotenv --save-dev`
+    npm install @apollo/client @emotion/react @emotion/styled @mui/icons-material  @mui/material apollo-server-express child_process express react react-dom react-live react-markdown ts-morph ts-node typescript commander dotenv --save-dev
 
 In your package.json file, add the following command to start Compass:
 
-`"start": "compass start"`
+    "start": "compass start"
 
 Specify the folder containing your components using the SCOPE variable in your .env file:
 
-`SCOPE = 'src/my-components-folder'`
+    SCOPE = 'src/my-components-folder'
 
 Run Compass from the command line:
 
-`npm run start`
+    npm run start
 
 ## What the stage to be ready ?
 
 Compass is currently in an advanced stage of development, with several key features already implemented:
 
     Mapping components: ✔️
-    Documentation Website: ✔️
+    Documentation Website: Almost done ✨
     Command-Line Interface (CLI): ✔️
     Stable Version: Almost done ✨
 
@@ -41,8 +39,8 @@ Compass is continuously evolving. Here's a glimpse of what's in store for the fu
 
     Include tests in the project
     Develop the Compass website for enhanced user experience
-    Implement automated tests
     Enable auto-release functionality
+    Implement automated tests
     Publish versions with automatic creation and publication of components in Artifactory
     Add support for JavaScript components
     Enhance the official Compass website with detailed documentation and resources
