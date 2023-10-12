@@ -1,9 +1,9 @@
-import { execSync } from 'child_process';
 import { Server } from '../Server/Server';
 import { ComponentService } from '../../services/component.service';
 import fs from 'fs';
 import path from 'path';
 import * as dotenv from 'dotenv';
+import esbuild from 'esbuild';
 
 dotenv.config();
 
@@ -12,15 +12,31 @@ export class Documentation {
 
     async start() {
         await this.dependences();
-        const buildCommand = `set BUILD_PATH=${path.resolve(
-            this.tsFileDirectory + '/../../../'
-        )}
-        && set PUBLIC_URL=${path.resolve(
-            this.tsFileDirectory + '/../../../public'
-        )}
-        && react-scripts build`;
-        console.log(buildCommand);
-        execSync(buildCommand, { stdio: 'inherit' });
+        var indexFile = path.resolve(
+            this.tsFileDirectory + '../../../../src/index.tsx'
+        );
+        const clientEnv = { 'process.env.NODE_ENV': `'production'` };
+
+        esbuild
+            .build({
+                entryPoints: [indexFile],
+                bundle: true,
+                minify: true,
+                sourcemap: true,
+                define: clientEnv,
+                outdir: './build',
+                publicPath: '/public',
+                loader: {
+                    '.tsx': 'tsx',
+                    '.ts': 'ts',
+                    '.js': 'jsx',
+                    '.scss': 'css',
+                    '.png': 'dataurl',
+                    '.jpg': 'dataurl',
+                    '.svg': 'dataurl',
+                },
+            })
+            .catch(() => process.exit(1));
         const server = new Server();
         server.start();
     }
