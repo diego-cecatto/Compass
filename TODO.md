@@ -2,11 +2,14 @@
 
 # CLI
 
-    [] move assets and index.html to build folder
+    [✔️] move assets and index.html to build folder
     [] .env does not be created, could map by default src folder
 
 # Web Page
 
+    [] Show command to install package
+    [] Show properties
+    [] [] Default properties
     [] Change doc generation to react-docgen?
     [✔️] Change output file to build
     [] Create GraphQL cache

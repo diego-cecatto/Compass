@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { DocumentationAction } from '../../actions/documentation.action';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { CodePreview } from './live-editor/component.code';
+import { DataGrid } from '@mui/x-data-grid';
 
 declare type ComponentDetailsProps = {
     component: any;
@@ -20,6 +21,7 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
     useEffect(() => {
         refetch({ path: component?.path });
     }, [component?.path]);
+    console.log(component);
     return (
         <>
             {loading ? (
@@ -41,7 +43,27 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
                             {data?.documentation}
                         </ReactMarkdown>
                     </div>
-                    <div></div>
+                    <Typography variant="h1" component="h2">
+                        Properties
+                    </Typography>
+                    <DataGrid
+                        getRowId={(data) => data.name}
+                        columns={[
+                            {
+                                field: 'name',
+                                headerName: 'Name',
+                            },
+                            {
+                                field: 'type',
+                                headerName: 'Type',
+                            },
+                            {
+                                field: 'description',
+                                headerName: 'Description',
+                            },
+                        ]}
+                        rows={component.prop.properties ?? []}
+                    />
                 </>
             )}
         </>
