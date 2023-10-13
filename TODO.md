@@ -4,6 +4,7 @@
 
     [✔️] move assets and index.html to build folder
     [] .env does not be created, could map by default src folder
+    [] command watch to constantly create packages according document is changed and not has error
 
 # Web Page
 
@@ -23,6 +24,7 @@
     [✔️] Build Command
     [] Remove cache file for components fom code versionating
     [✔️] Reference on package.json git project address
+    [] you can filter components if your list have more than 10 items
 
 # README
 
@@ -43,17 +45,19 @@
         [][] Use monaco-editor
         [][] Copy icon
         [][] Implement linter
+        [][] Side code and result code, improve layout
     [✔️] Will cache at first time to run application
     [] Compositions / Variations
     [✔️] Improve build with eslint
     [] Local tests
+    [] Hot Reloading
 
 ## DOCUMENTATION
 
     [] use react-doc-gen to build documentation
     [] Diffrent scopes
                 -   bellow scope, you can change scopes by using this part of menu
-                -   you can filter components if your list have more than 10 items - OK
+
             -   main content
                 -   on top have nav tabs with secions
                     -   overview
