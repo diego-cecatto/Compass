@@ -17,7 +17,7 @@
         "type-check": "tsc --noEmit",
         "lint": "eslint src/**/*.ts src/**/*.tsx",
         "type:generate": "graphql-codegen",
-        "server": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"./src/app/pages/component/live-editor/component.dependences.ts\" --exec \"ts-node index.ts\" -e ts",
+        "local": "nodemon --watch \"src/**\" --ext \"ts,json\" --ignore \"./src/app/pages/component/live-editor/component.dependences.ts\" --exec \"ts-node ./src/commands/local/local.ts\" -e ts",
         "updater": "ts-node updater.ts",
         "build": "node build.js"
     },

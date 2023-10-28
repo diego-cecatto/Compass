@@ -27,7 +27,7 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
             {loading ? (
                 <CircularProgress />
             ) : (
-                <>
+                <div className="documentation">
                     <div>
                         <ReactMarkdown
                             // rehypePlugins={[rehypeReact]}
@@ -64,7 +64,7 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
                         ]}
                         rows={component.prop.properties ?? []}
                     />
-                </>
+                </div>
             )}
         </>
     );

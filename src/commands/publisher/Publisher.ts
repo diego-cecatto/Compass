@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { get } from 'http';
 
-export class PackVersion {
+export class Publisher {
     componentsDir = path.join(__dirname, 'src', 'components');
     NPM_REGISTRY_URL = 'registry.npmjs.org';
     PACKAGE_NAME = '@your-scope/package-name'; // Replace with your package name
@@ -68,6 +68,7 @@ export class PackVersion {
             // Add other fields as needed
         };
         //todo description
+        //map and add dependencies here, could create a .compass folder to deploy components?
         const packageJsonPath = path.join(
             this.componentsDir,
             componentName,

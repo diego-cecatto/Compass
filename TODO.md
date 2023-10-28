@@ -1,5 +1,8 @@
 # Next Goals
 
+    [] Create .compassrc
+    [] [] JSON structure
+
 # CLI
 
     [✔️] move assets and index.html to build folder
