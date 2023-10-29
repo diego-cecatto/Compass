@@ -8,7 +8,7 @@
 # CLI
 
     [✔️] move assets and index.html to build folder
-    [] .env does not be created, could map by default src folder
+    [] .env does not be created, could map by default src or package folder
     [] command watch to constantly create packages according document is changed and not has error
 
 # Web Page
@@ -34,6 +34,7 @@
 # README
 
     [✔️] Explain how run app
+    [] Update dependences components
     [] Create Readme to dev compass
     [✔️] Explain how to use documentation
     [✔️] Explain how to configure app

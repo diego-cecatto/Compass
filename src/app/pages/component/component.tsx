@@ -44,7 +44,11 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
                             {data?.documentation}
                         </ReactMarkdown>
                     </div>
-                    <Typography variant="h1" component="h2">
+                    <Typography
+                        variant="h1"
+                        component="h2"
+                        className="sub-title"
+                    >
                         Properties
                     </Typography>
                     <DataGrid
