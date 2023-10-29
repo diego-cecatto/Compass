@@ -4,7 +4,6 @@ import fs from 'fs';
 import path from 'path';
 import * as dotenv from 'dotenv';
 import esbuild from 'esbuild';
-import sassPlugin from 'esbuild-plugin-sass';
 dotenv.config();
 
 export class Documentation {
@@ -27,6 +26,11 @@ export class Documentation {
                 '</body>',
                 `   <script src="%PUBLIC_URL%/index.js"></script>
                 </body>`
+            )
+            .replace(
+                '</head>',
+                `<link rel="stylesheet" href="%PUBLIC_URL%/index.css">
+            </head>`
             )
             .replace(new RegExp('%PUBLIC_URL%', 'g'), '');
         fs.writeFileSync(indexFile, indexFileHTML);
@@ -58,7 +62,6 @@ export class Documentation {
                     '.svg': 'dataurl',
                 },
                 jsxFactory: 'React.createElement',
-                plugins: [sassPlugin()],
             })
             .catch(() => process.exit(1))
             .then(() => {
