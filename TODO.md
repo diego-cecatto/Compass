@@ -1,5 +1,7 @@
 # Next Goals
 
+    [] only compile in real time file of dependences
+    [] npx structure
     [] Create .compassrc
     [] [] JSON structure
 

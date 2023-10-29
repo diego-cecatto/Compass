@@ -1,6 +1,7 @@
 export interface Component {
     name: string;
     path: string;
+    fullPath: string;
     childs?: Component[];
     dependencies?: Dependencies[];
     description?: string;

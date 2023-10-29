@@ -77,6 +77,7 @@ export class ComponentService {
         let component: Component = {
             name: path.basename(componentPath, path.extname(componentPath)),
             path: componentPath,
+            fullPath: path.resolve(componentPath),
             dependencies: [],
             prop: {
                 name: 'any',

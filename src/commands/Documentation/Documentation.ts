@@ -1,10 +1,10 @@
-import { Server } from '../Server/Server';
+import { Server } from '../server/Server';
 import { ComponentService } from '../../services/component.service';
 import fs from 'fs';
 import path from 'path';
 import * as dotenv from 'dotenv';
 import esbuild from 'esbuild';
-
+import sassPlugin from 'esbuild-plugin-sass';
 dotenv.config();
 
 export class Documentation {
@@ -13,8 +13,7 @@ export class Documentation {
 
     baseReactFiles() {
         const sourceDir = this.tsFileDirectory + '../../../../public';
-        const targetDir =
-            this.tsFileDirectory + '../../../../../../' + this.outDir;
+        const targetDir = './' + this.outDir;
         const files = fs.readdirSync(sourceDir);
         files.forEach((file) => {
             const sourceFilePath = path.join(sourceDir, file);
@@ -59,6 +58,7 @@ export class Documentation {
                     '.svg': 'dataurl',
                 },
                 jsxFactory: 'React.createElement',
+                plugins: [sassPlugin()],
             })
             .catch(() => process.exit(1))
             .then(() => {
@@ -78,19 +78,20 @@ export class Documentation {
             process.env.SCOPE!
         );
         var exportCommands = '';
+        const DEP_DIR =
+            './../../app/pages/component/live-editor/component.dependences.ts';
         for (var componentName in components) {
             var component = components[componentName];
+            const WORK_DIR = path.relative(
+                path.resolve(__dirname, path.dirname(DEP_DIR)),
+                path.dirname(component.fullPath)
+            );
             exportCommands += `export { ${
                 component.name
-            } } from '../../../../../../../${component.path.replace(
-                '.tsx',
-                ''
-            )}'; \n`;
+            } } from '${WORK_DIR.replace(/\\/g, '/')}/${
+                path.parse(path.basename(component.fullPath)).name
+            }'; \n`;
         }
-        fs.writeFileSync(
-            this.tsFileDirectory +
-                '../../../../src/app/pages/component/live-editor/component.dependences.ts',
-            exportCommands
-        );
+        fs.writeFileSync(this.tsFileDirectory + DEP_DIR, exportCommands);
     }
 }

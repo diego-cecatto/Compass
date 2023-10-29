@@ -5,6 +5,7 @@ import { CircularProgress, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import { CodePreview } from './live-editor/component.code';
 import { DataGrid } from '@mui/x-data-grid';
+import './component.scss';
 
 declare type ComponentDetailsProps = {
     component: any;
@@ -21,7 +22,7 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
     useEffect(() => {
         refetch({ path: component?.path });
     }, [component?.path]);
-    console.log(component);
+
     return (
         <>
             {loading ? (
