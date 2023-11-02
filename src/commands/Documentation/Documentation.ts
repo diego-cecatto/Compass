@@ -1,5 +1,5 @@
 import { Server } from '../server/Server';
-import { ComponentService } from '../../services/component.service';
+import { ComponentService } from '../../services/Component.service';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
@@ -82,7 +82,7 @@ export class Documentation {
         );
         var exportCommands = '';
         const DEP_DIR =
-            './../../app/pages/component/live-editor/component.dependences.ts';
+            './../../app/pages/component/live-editor/Component.dependences.ts';
         for (var componentName in components) {
             var component = components[componentName];
             const WORK_DIR = path.relative(

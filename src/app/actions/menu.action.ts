@@ -1,5 +1,6 @@
+// @ts-ignore
 import { gql } from '@apollo/client';
-import { BaseAction } from './base.actions';
+import { BaseAction } from './Base.actions';
 
 export class MenuActions extends BaseAction {
     public static all() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
-import * as Dependences from './component.dependences';
+import * as Dependences from './Component.dependences';
 
 export const CodePreview = ({
     component,

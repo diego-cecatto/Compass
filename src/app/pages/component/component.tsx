@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
+// @ts-ignore
 import { useQuery } from '@apollo/client';
-import { DocumentationAction } from '../../actions/documentation.action';
+import { DocumentationAction } from '../../actions/Documentation.action';
 import { CircularProgress, Typography } from '@mui/material';
+// @ts-ignore
 import ReactMarkdown from 'react-markdown';
-import { CodePreview } from './live-editor/component.code';
+import { CodePreview } from './live-editor/Component.code';
 import { DataGrid } from '@mui/x-data-grid';
 import './component.scss';
 

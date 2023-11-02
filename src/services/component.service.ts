@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Component, Property } from './../models/component.model';
+import { Component, Property } from './../models/Component.model';
 import {
     Project,
     SourceFile,

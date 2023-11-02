@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "ES6",
-        "module": "Node16",
+        "target": "ESNext",
+        "module": "NodeNext",
         "outDir": "./dist",
         "lib": [
             "ES6",
@@ -20,7 +20,7 @@
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
-        "moduleResolution": "Node16",
+        "moduleResolution": "NodeNext",
         "resolveJsonModule": true,
         "isolatedModules": true,
         // "noEmit": true,

@@ -1,5 +1,5 @@
 // import { Resolvers } from '../generated/graphql';
-import { ComponentService } from './../../services/component.service';
+import { ComponentService } from './../../services/Component.service';
 var componentService = new ComponentService();
 
 const ComponentResolver = {

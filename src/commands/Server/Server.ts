@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
-import resolvers from '../../graphql/resolvers/component.resolver';
+import resolvers from '../../graphql/resolvers/Component.resolver';
 import * as dotenv from 'dotenv';
 import path from 'path';
 // import ApolloServerPluginResponseCache from 'apollo-server-plugin-response-cache';

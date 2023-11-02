@@ -18,10 +18,10 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { Menu } from './menu/menu';
+import { Menu } from './menu/Menu';
 import SchoolIcon from '@mui/icons-material/School';
 import { useState } from 'react';
-import { ComponentDetails } from '../component/component';
+import { ComponentDetails } from '../component/Component';
 
 const drawerWidth = 240;
 
