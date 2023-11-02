@@ -1,24 +1,16 @@
-export interface Component {
-    name: string;
+//@ts-ignore
+import { Documentation } from 'react-docgen';
+
+export declare type Component = {
     path: string;
     fullPath: string;
+    name: string;
     childs?: Component[];
     dependencies?: Dependencies[];
-    description?: string;
-    prop: {
-        name: string;
-        properties?: Property[];
-    };
-}
+} & Pick<Documentation, 'props' | 'description'>;
 
 export interface Dependencies {
     name: string;
     scoped: boolean;
     lib: boolean;
-}
-
-export interface Property {
-    name: string;
-    description?: string;
-    type: string;
 }
