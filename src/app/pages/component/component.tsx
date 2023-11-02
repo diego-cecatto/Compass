@@ -20,7 +20,7 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
             variables: { path: component?.path },
         }
     );
-
+    console.log(component);
     useEffect(() => {
         refetch({ path: component?.path });
     }, [component?.path]);
@@ -61,15 +61,32 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
                                 headerName: 'Name',
                             },
                             {
-                                field: 'type',
+                                field: 'flowType?.flowType',
+                                valueGetter: (params) =>
+                                    params.row.flowType?.name,
                                 headerName: 'Type',
                             },
                             {
                                 field: 'description',
                                 headerName: 'Description',
                             },
+                            {
+                                field: 'required',
+                                headerName: 'Required',
+                            },
+                            {
+                                field: 'defaultValue.value',
+                                valueGetter: (params) =>
+                                    params.row.defaultValue?.value,
+                                headerName: 'Default',
+                            },
                         ]}
-                        rows={component.prop.properties ?? []}
+                        rows={
+                            Object.keys(component.props).map((name) => ({
+                                ...component.props[name],
+                                name,
+                            })) ?? []
+                        }
                     />
                 </div>
             )}

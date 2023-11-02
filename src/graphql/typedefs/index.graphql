@@ -1,3 +1,5 @@
+scalar JSON
+
 type Query {
     components(scope: String!): [Component]!
     component(path: String!): Component
@@ -6,10 +8,11 @@ type Query {
 type Component {
     name: String!
     path: String!
+    fullPath: String!
     description: String
-    childrens: [Component]
+    childs: [Component]
     dependencies: [Dependencies]
-    properties: [Property]
+    props: JSON
 }
 
 fragment ComponentFields on Component {
@@ -21,11 +24,11 @@ fragment ComponentFields on Component {
 }
 
 fragment ComponentRecursive on Component {
-    childrens {
+    childs {
         ...ComponentFields
-        childrens {
+        childs {
             ...ComponentFields
-            childrens {
+            childs {
                 ...ComponentFields
             }
         }
@@ -39,8 +42,21 @@ type Dependencies {
 }
 
 type Property {
-    name: String!
+    name: String
     description: String
-    type: String!
-    default: String!
+    tsType: String
+    type: String
+    flowType: String
+    required: Boolean
+    defaultValue: DefaultValueDescriptor
+}
+
+type Dictionary {
+    key: String
+    value: String
+}
+
+type DefaultValueDescriptor {
+    value: String
+    computed: Boolean
 }

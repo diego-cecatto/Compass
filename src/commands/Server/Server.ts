@@ -19,6 +19,8 @@ export class Server {
 
     async start() {
         const typeDefs = gql`
+            scalar JSON
+
             type Query {
                 components(scope: String): [Component]!
                 component(path: String!): Component
@@ -31,7 +33,12 @@ export class Server {
                 description: String
                 childrens: [Component]
                 dependencies: [Dependencies]
-                prop: Property
+                props: JSON
+            }
+
+            type Dictionary {
+                key: String
+                value: Int
             }
 
             fragment ComponentFields on Component {
@@ -39,7 +46,7 @@ export class Server {
                 path
                 description
                 dependecies
-                prop
+                props
             }
 
             fragment ComponentRecursive on Component {

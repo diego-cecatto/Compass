@@ -1,3 +1,5 @@
+//@ts-ignore
+import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -27,16 +29,24 @@ export type Scalars = {
     Boolean: { input: boolean; output: boolean };
     Int: { input: number; output: number };
     Float: { input: number; output: number };
+    JSON: { input: any; output: any };
 };
 
 export type Component = {
     __typename?: 'Component';
-    childrens?: Maybe<Array<Maybe<Component>>>;
+    childs?: Maybe<Array<Maybe<Component>>>;
     dependencies?: Maybe<Array<Maybe<Dependencies>>>;
     description?: Maybe<Scalars['String']['output']>;
+    fullPath: Scalars['String']['output'];
     name: Scalars['String']['output'];
     path: Scalars['String']['output'];
-    properties?: Maybe<Array<Maybe<Property>>>;
+    props?: Maybe<Scalars['JSON']['output']>;
+};
+
+export type DefaultValueDescriptor = {
+    __typename?: 'DefaultValueDescriptor';
+    computed?: Maybe<Scalars['Boolean']['output']>;
+    value?: Maybe<Scalars['String']['output']>;
 };
 
 export type Dependencies = {
@@ -46,12 +56,21 @@ export type Dependencies = {
     scoped?: Maybe<Scalars['Boolean']['output']>;
 };
 
+export type Dictionary = {
+    __typename?: 'Dictionary';
+    key?: Maybe<Scalars['String']['output']>;
+    value?: Maybe<Scalars['String']['output']>;
+};
+
 export type Property = {
     __typename?: 'Property';
-    default: Scalars['String']['output'];
+    defaultValue?: Maybe<DefaultValueDescriptor>;
     description?: Maybe<Scalars['String']['output']>;
-    name: Scalars['String']['output'];
-    type: Scalars['String']['output'];
+    flowType?: Maybe<Scalars['String']['output']>;
+    name?: Maybe<Scalars['String']['output']>;
+    required?: Maybe<Scalars['Boolean']['output']>;
+    tsType?: Maybe<Scalars['String']['output']>;
+    type?: Maybe<Scalars['String']['output']>;
 };
 
 export type Query = {

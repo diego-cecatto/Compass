@@ -28,15 +28,7 @@ export class MenuActions extends BaseAction {
                     name
                     description
                     path
-                    prop {
-                        name
-                        properties {
-                            name
-                            description
-                            type
-                            default
-                        }
-                    }
+                    props
                 }
             }
         `;
