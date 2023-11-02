@@ -10,7 +10,7 @@ export const CodePreview = ({
     code: any;
 }) => {
     const getCode = () => {
-        var docCode: string = code.children[0].trim();
+        var docCode: string = code.children.trim();
         var compCode = '';
         docCode.split('\n').forEach((line) => {
             if (line.indexOf('import') === -1) {

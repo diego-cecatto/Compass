@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { BaseAction } from './app/actions/base.actions';
-import { ComponentService } from './services/component.service';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+// import { BaseAction } from './app/actions/base.actions';
+// import { ComponentService } from './services/component.service';
 import BaseLayout from './app/pages/partial/base';
 
 interface MainComponentProps {

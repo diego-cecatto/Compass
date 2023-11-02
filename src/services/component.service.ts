@@ -119,6 +119,7 @@ export class ComponentService {
     //todo teste multi export
     //todo retrieve default values
     extractComponentDeclaration(component: Component) {
+        this.extractComponentDeclarationDocGen(component);
         const project = new Project({
             tsConfigFilePath: path.resolve(process.cwd(), 'tsconfig.json'),
         });
@@ -158,6 +159,37 @@ export class ComponentService {
             propertyName,
             source
         );
+    }
+
+    async extractComponentDeclarationDocGen(component: Component) {
+        // const sourceCode = fs.readFileSync(component.path, 'utf-8');
+        // const componentInfo = parse();
+        // console.log(componentInfo);
+        const code = `
+        /** My first component */
+        export default ({ name }: { name: string }) => <div>{{name}}</div>;
+        `;
+        // const docgen = require('react-docgen');
+        const { parse } = await import('react-docgen');
+        console.log(parse(code));
+
+        // const reactDocGen = import('react-docgen');
+        // reactDocGen.then((docgen) => {
+        // const { default: docgen } = await import('react-docgen');
+        // import('react-docgen')
+        //     .then((reactDocGen) => {
+        //         // Now you can use reactDocGen as you would with a regular import statement
+        //         // For example: reactDocGen.parse(component);
+        //         const documentation = reactDocGen.parse(code);
+        //     })
+        //     .catch((error) => {
+        //         // Handle any errors that occur during the dynamic import
+        //         console.error(error);
+        //     });
+
+        // });
+
+        // console.log(documentation);
     }
 
     getPropDeclaration(propName: string, source: SourceFile) {

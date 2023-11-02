@@ -1,10 +1,16 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
+        "target": "ES6",
+        "module": "Node16",
         "outDir": "./dist",
-        "rootDir": "./src",
-        "lib": ["ES6", "dom", "dom.iterable", "esnext"],
+        "lib": [
+            "ES6",
+            "dom",
+            "dom.iterable",
+            "esnext",
+            "es2020",
+            "ES2021.Promise"
+        ],
         "types": ["jest"],
         "strict": true,
         "esModuleInterop": true,
@@ -14,7 +20,7 @@
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
-        "moduleResolution": "node",
+        "moduleResolution": "Node16",
         "resolveJsonModule": true,
         "isolatedModules": true,
         // "noEmit": true,
