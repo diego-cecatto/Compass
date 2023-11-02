@@ -1,15 +1,18 @@
-import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import resolvers from '../../graphql/resolvers/Component.resolver';
 import * as dotenv from 'dotenv';
-import path from 'path';
-// import ApolloServerPluginResponseCache from 'apollo-server-plugin-response-cache';
-// import { ApolloServerPluginCacheControl } from 'apollo-server-core';
-import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
-import { gql } from 'apollo-server-core';
+import { ApolloServer } from '@apollo/server';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import http from 'http';
+import cors from 'cors';
 
-import Keyv from 'keyv';
-import { KeyvAdapter } from '@apollo/utils.keyvadapter';
+import path from 'path';
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
+import { createHandler } from 'graphql-http/lib/use/express';
+import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
+//@ts-ignore
+import { gql } from '@apollo/client';
 dotenv.config();
 export class Server {
     //todo generate cache
@@ -69,33 +72,35 @@ export class Server {
                 default: String
             }
         `;
+        const app = express();
+        const httpServer = http.createServer(app);
 
-        // const cacheControl: any = new ApolloServerPluginCacheControl();
-
-        // const responseCache: any = new ApolloServerPluginResponseCache();
-
-        const apolloServer = new ApolloServer({
+        const server = new ApolloServer({
             typeDefs,
             resolvers,
-            cache: new InMemoryLRUCache({
-                maxSize: 10000, // Adjust the cache size as needed
-            }),
+            plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
         });
-
-        //express server
-        const app = express();
-        await apolloServer.start();
-        apolloServer.applyMiddleware({ app: app as any });
-
+        await server.start();
         app.use(express.static(path.join(process.cwd(), 'build')));
-        app.get('*', (req, res) => {
-            res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
-        });
+        app.use(
+            '/',
+            cors<cors.CorsRequest>(),
+            express.json(),
+            // an Apollo Server instance and optional configuration options
+            expressMiddleware(server, {
+                context: async ({ req }) => ({ token: req.headers.token }),
+            })
+        );
 
-        app.listen(process.env.PORT, () => {
-            console.log(
-                `🚀 Server is running at http://localhost:${process.env.PORT}`
-            );
-        });
+        await new Promise<void>((resolve) =>
+            httpServer.listen({ port: process.env.PORT }, resolve)
+        );
+        console.log(
+            `🚀 Server is running at http://localhost:${process.env.PORT}`
+        );
     }
 }
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
+// });
