@@ -85,7 +85,7 @@ export class Server {
         //express server
         const app = express();
         await apolloServer.start();
-        apolloServer.applyMiddleware({ app });
+        apolloServer.applyMiddleware({ app: app as any });
 
         app.use(express.static(path.join(process.cwd(), 'build')));
         app.get('*', (req, res) => {
