@@ -11,14 +11,25 @@ dotenv.config();
 //todo create tests repository
 
 export class ComponentService {
+    reactDocGen: any;
+    loading: any;
+    constructor() {
+        this.loading = new Promise((resolve) => {
+            import('react-docgen').then((reactDocGen) => {
+                this.reactDocGen = reactDocGen;
+                resolve(true);
+            });
+        });
+    }
+
     public async getComponents(path?: string) {
+        await this.loading;
         if (!path) {
             path = process.env.SCOPE!;
         }
         var files = await fs.promises.readdir(path);
         var components: Component[] = [];
         const cache = await this.readCache();
-        const reactDocGen = await import('react-docgen');
         await Promise.all(
             files.map(async (file) => {
                 var currPath = path + '/' + file;
@@ -45,10 +56,7 @@ export class ComponentService {
                             !cache?.date ||
                             cache.date < lastModified
                         ) {
-                            component = await this.getComponent(
-                                currPath,
-                                reactDocGen
-                            );
+                            component = await this.getComponent(currPath);
                             cache.components[currPath] = component;
                             // Update the cache file.
                             this.writeCache(cache.components);
@@ -64,14 +72,20 @@ export class ComponentService {
     }
 
     public async getComponent(
-        componentPath: string,
-        reactDocGen?: any
+        componentPath: string
     ): Promise<Component | null> {
-        if (!reactDocGen) {
-            reactDocGen = await import('react-docgen');
-        }
-        var code = fs.readFileSync(path.resolve(componentPath));
-        const parsedComponents: Documentation[] = reactDocGen.parse(code);
+        await this.loading;
+        var code = fs.readFileSync(path.resolve(componentPath), 'utf8');
+        const parsedComponents: Documentation[] = this.reactDocGen.parse(code, {
+            fileName: path.resolve(componentPath),
+            handlers: [
+                ...this.reactDocGen.defaultHandlers,
+                (documentation: any, path: any) => {
+                    this.codeTypeHandler(documentation, path);
+                },
+            ],
+        });
+
         const COMPONENT_NAME = path.basename(
             componentPath,
             path.extname(componentPath)
@@ -89,6 +103,84 @@ export class ComponentService {
         };
 
         return component;
+    }
+
+    private propSingleComment(path: any, documentation: any, propName: any) {
+        if (path.node.leadingComments) {
+            const propDescriptor = documentation.getPropDescriptor(propName);
+            if (propDescriptor.description) return;
+            propDescriptor.description =
+                path.node.leadingComments[0].value || '';
+        }
+    }
+
+    private codeTypeHandler(documentation: any, componentDefinition: any) {
+        const typePaths =
+            this.reactDocGen.utils.getTypeFromReactComponent(
+                componentDefinition
+            );
+        if (typePaths.length === 0) {
+            return;
+        }
+        for (const typePath of typePaths) {
+            this.reactDocGen.utils.applyToTypeProperties(
+                documentation,
+                typePath,
+                (propertyPath: any, typeParams: any) => {
+                    this.setPropDescriptor(
+                        documentation,
+                        propertyPath,
+                        typeParams
+                    );
+                },
+                null
+            );
+        }
+    }
+
+    private setPropDescriptor(documentation: any, path: any, typeParams: any) {
+        if (path.isObjectTypeSpreadProperty()) {
+            const argument: any =
+                this.reactDocGen.utils.flowUtilityTypes.unwrapUtilityType(
+                    path.get('argument')
+                );
+            if (argument.isObjectTypeAnnotation()) {
+                // // applyToTypeProperties(
+                // //   documentation,
+                // //   argument,
+                // //   (propertyPath, innerTypeParams) => {
+                // //     setPropDescriptor(documentation, propertyPath, innerTypeParams);
+                // //   },
+                // //   typeParams
+                // // );
+                return;
+            }
+            const id = argument.get('id');
+            if (!id.hasNode() || !id.isIdentifier()) {
+                return;
+            }
+            // const resolvedPath = resolveToValue(id);
+            // if (resolvedPath.isTypeAlias()) {
+            //   const right = resolvedPath.get("right");
+            //   // applyToTypeProperties(
+            //   //   documentation,
+            //   //   right,
+            //   //   (propertyPath, innerTypeParams) => {
+            //   //     setPropDescriptor(documentation, propertyPath, innerTypeParams);
+            //   //   },
+            //   //   typeParams
+            //   // );
+            // } else if (!argument.has("typeParameters")) {
+            //   documentation.addComposes(id.node.name);
+            // }
+        } else if (
+            path.isObjectTypeProperty() ||
+            path.isTSPropertySignature()
+        ) {
+            const propName = this.reactDocGen.utils.getPropertyName(path);
+            if (!propName) return;
+            this.propSingleComment(path, documentation, propName);
+        }
     }
 
     private writeCache(cache: Record<string, Component>) {

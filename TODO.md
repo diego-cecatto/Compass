@@ -14,9 +14,10 @@
 # Web Page
 
     [] Show command to install package
-    [] Show properties
-    [] [] Default properties
-    [] Change doc generation to react-docgen?
+    [✔️] Show properties
+    [] [] Format description
+    [✔️] [✔️] Default properties
+    [✔️] Change doc generation to react-docgen?
     [✔️] Change output file to build
     [] Create GraphQL cache
     [] format name component

@@ -1,14 +1,14 @@
-declare type BreadcrumbProps = {
-  //this property is a teste
-  teste?: string;
+export type BreadcrumbProps = {
+    /** Property test */
+    test?: string;
 };
 
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({
-  teste = "default value for teste",
+    test = 'Default value to test',
 }) => {
-  return (
-    <div>
-      <p>Breadcrumb works!</p>
-    </div>
-  );
+    return (
+        <div>
+            <p>Breadcrumb {test} works!</p>
+        </div>
+    );
 };

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-type MyProps = {
+export type MyProps = {
     // using `interface` is also ok
     message: string;
 };
