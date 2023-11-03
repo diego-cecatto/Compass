@@ -82,7 +82,7 @@ export class Documentation {
         );
         var exportCommands = '';
         const DEP_DIR =
-            './../../app/pages/component/live-editor/Component.dependences.ts';
+            './../../app/pages/component/live-editor/ComponentDependences.ts';
         for (var componentName in components) {
             var component = components[componentName];
             const WORK_DIR = path.relative(

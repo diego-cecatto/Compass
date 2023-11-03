@@ -1,9 +1,7 @@
 {
     "watch": ["src"],
     "ext": "ts,json,tsx",
-    "ignore": [
-        "./src/app/pages/component/live-editor/component.dependences.ts"
-    ],
+    "ignore": ["./src/app/pages/component/live-editor/ComponentDependences.ts"],
     "execMap": {
         "ts": "ts-node"
     }
