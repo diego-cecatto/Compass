@@ -20,10 +20,9 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
             variables: { path: component?.docPath },
         }
     );
-    console.log(component);
     useEffect(() => {
-        refetch({ path: component?.path });
-    }, [component?.path]);
+        refetch({ path: component?.docPath });
+    }, [component?.docPath]);
 
     return (
         <>
@@ -46,7 +45,9 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
                             {data?.documentation}
                         </ReactMarkdown>
                     </div>
-                    <ComponentProperties component={component} />
+                    {component.props ? (
+                        <ComponentProperties component={component} />
+                    ) : null}
                 </div>
             )}
         </>

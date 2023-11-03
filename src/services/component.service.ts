@@ -84,13 +84,8 @@ export class ComponentService {
                                 subComponent.name === componentName
                             ) {
                                 subComponent.docPath =
-                                    componentPath + '\\' + mdFileLocation;
-                                subComponent.basePath =
-                                    path.dirname(mdFileLocation);
-                                //todo improve that
-                                // cache.components[subComponent.basePath] =
-                                //     subComponent;
-                                // this.writeCache(cache.components);
+                                    componentPath + '/' + mdFileLocation;
+                                subComponent.basePath = componentPath!;
                             }
                             components.push(subComponent);
                         });
@@ -117,9 +112,8 @@ export class ComponentService {
                             if (component) {
                                 if (mdFileLocation) {
                                     component.docPath =
-                                        componentPath + '\\' + mdFileLocation;
-                                    component.basePath =
-                                        path.dirname(mdFileLocation);
+                                        componentPath + '/' + mdFileLocation;
+                                    component.basePath = componentPath;
                                 }
                                 cache.components[currPath] = component;
                                 this.writeCache(cache.components);

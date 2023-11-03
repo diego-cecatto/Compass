@@ -28,6 +28,7 @@ export class MenuActions extends BaseAction {
                     name
                     description
                     docPath
+                    basePath
                     props
                 }
             }

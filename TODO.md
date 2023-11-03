@@ -1,10 +1,10 @@
 # Next Goals
 
-    [] Test components in a diffrent scenarios
+    [] Test components in a different scenarios
     [] only compile in real time file of dependences
     [] npx structure
     [✔️] Create .compassrc
-    [][] JSON structure
+    [✔️][✔️] JSON structure
 
 # CLI
 
@@ -16,12 +16,14 @@
     [] if none component found show a message to user could understand how configure his documentation library
     [] show tips to publish documentation
     [] create images to some empty state components
-    [] not show properties if not exist
+    [✔️] not show properties if not exist
     [] show loading with skeleton
     [] support annothers imports into preview area
 
 # Web Page
 
+    [✔️] Select properly menu item
+    [] Each component need to have his own URL
     [] Use rightly component properties
     [] use properly graphql declaration
     [] remove models and use generate models from graphql
@@ -47,11 +49,11 @@
     [✔️] default values
     [] Breadcrumb
     [✔️] Clear packages not used
-    [] Sub-Components
+    [✔️] Sub-Components
     [✔️] Build Command
     [✔️] Reference on package.json git project address
     [] you can filter components if your list have more than 10 items
-    [] remove footer for properties area
+    [✔️] remove footer for properties area
 
 # README
 
@@ -81,7 +83,7 @@
 ## DOCUMENTATION
 
     [✔️] use react-doc-gen to build documentation
-    [] Diffrent scopes
+    [✔️] Diffrent scopes
                 -   bellow scope, you can change scopes by using this part of menu
 
             -   main content

@@ -31,7 +31,7 @@ export const ComponentProperties = ({
                     {
                         field: 'required',
                         headerName: 'Required',
-                        flex: 0.1,
+                        flex: 0.2,
                     },
                     {
                         field: 'defaultValue.value',
@@ -51,6 +51,7 @@ export const ComponentProperties = ({
                         name,
                     })) ?? []
                 }
+                hideFooterPagination
             />
         </>
     );

@@ -131,9 +131,7 @@ export default function BaseLayout() {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <List>
-                    <Menu onChange={handleMenuChange} active={component} />
-                </List>
+                <Menu onChange={handleMenuChange} active={component} />
                 <Divider />
                 <List>
                     {[

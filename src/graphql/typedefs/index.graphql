@@ -10,6 +10,7 @@ type Component {
     name: String!
     path: String!
     docPath: String
+    basePath: String!
     fullPath: String!
     description: String
     childs: [Component]
