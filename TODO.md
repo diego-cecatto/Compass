@@ -13,6 +13,12 @@
     [] command watch to constantly create packages according document is changed and not has error
     [] prod and dev version of start component
     [] support hooks
+    [] if none component found show a message to user could understand how configure his documentation library
+    [] show tips to publish documentation
+    [] create images to some empty state components
+    [] not show properties if not exist
+    [] show loading with skeleton
+    [] support annothers imports into preview area
 
 # Web Page
 
@@ -45,6 +51,7 @@
     [✔️] Build Command
     [✔️] Reference on package.json git project address
     [] you can filter components if your list have more than 10 items
+    [] remove footer for properties area
 
 # README
 

@@ -79,12 +79,18 @@ export class ComponentService {
                         //get all subcomponents that
                         subComponents.forEach((subComponent) => {
                             if (
+                                mdFileLocation &&
                                 !subComponent.docPath &&
                                 subComponent.name === componentName
                             ) {
-                                subComponent.docPath = mdFileLocation;
+                                subComponent.docPath =
+                                    componentPath + '\\' + mdFileLocation;
                                 subComponent.basePath =
                                     path.dirname(mdFileLocation);
+                                //todo improve that
+                                // cache.components[subComponent.basePath] =
+                                //     subComponent;
+                                // this.writeCache(cache.components);
                             }
                             components.push(subComponent);
                         });
@@ -109,11 +115,13 @@ export class ComponentService {
                                 componentName
                             );
                             if (component) {
-                                component.docFile = mdFileLocation;
-                                component.basePath =
-                                    path.dirname(mdFileLocation);
+                                if (mdFileLocation) {
+                                    component.docPath =
+                                        componentPath + '\\' + mdFileLocation;
+                                    component.basePath =
+                                        path.dirname(mdFileLocation);
+                                }
                                 cache.components[currPath] = component;
-                                // Update the cache file.
                                 this.writeCache(cache.components);
                             }
                         }
