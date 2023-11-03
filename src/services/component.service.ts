@@ -5,6 +5,7 @@ const CACHE_FILE_PATH = './components.cache';
 import * as dotenv from 'dotenv';
 //@ts-ignore
 import { Documentation } from 'react-docgen';
+import { AppConfig, Config, DEF_CONFIG } from '../utils/Config';
 dotenv.config();
 
 //todo ignore composition file
@@ -12,12 +13,16 @@ dotenv.config();
 
 export class ComponentService {
     reactDocGen: any;
+    config: AppConfig = DEF_CONFIG;
     loading: any;
     constructor() {
         this.loading = new Promise((resolve) => {
             import('react-docgen').then((reactDocGen) => {
                 this.reactDocGen = reactDocGen;
-                resolve(true);
+                Config.read().then((config) => {
+                    this.config = config;
+                    resolve(true);
+                });
             });
         });
     }
@@ -25,7 +30,7 @@ export class ComponentService {
     public async getComponents(path?: string) {
         await this.loading;
         if (!path) {
-            path = process.env.SCOPE!;
+            path = this.config.dir;
         }
         var files = await fs.promises.readdir(path);
         var components: Component[] = [];

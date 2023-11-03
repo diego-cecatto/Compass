@@ -9,7 +9,6 @@ import cors from 'cors';
 
 import path from 'path';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
-import { createHandler } from 'graphql-http/lib/use/express';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 //@ts-ignore
 import { gql } from '@apollo/client';
