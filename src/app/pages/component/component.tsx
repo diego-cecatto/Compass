@@ -5,7 +5,7 @@ import { DocumentationAction } from '../../actions/Documentation.action';
 import { CircularProgress, Typography } from '@mui/material';
 // @ts-ignore
 import ReactMarkdown from 'react-markdown';
-import { CodePreview } from './live-editor/Component.code';
+import { CodePreview } from './live-editor/CodePreview';
 import { DataGrid } from '@mui/x-data-grid';
 import './component.scss';
 

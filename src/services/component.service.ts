@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Component } from './../models/Component.model';
+import { Component } from '../models/Component.model';
 const CACHE_FILE_PATH = './components.cache';
 import * as dotenv from 'dotenv';
 //@ts-ignore
