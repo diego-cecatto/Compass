@@ -1,5 +1,6 @@
 # Next Goals
 
+    [] Test components in a diffrent scenarios
     [] only compile in real time file of dependences
     [] npx structure
     [] Create .compassrc
@@ -16,6 +17,7 @@
     [] Show command to install package
     [✔️] Show properties
     [] [] Format description
+    [] [] Parse React.FC component
     [✔️] [✔️] Default properties
     [✔️] Change doc generation to react-docgen?
     [✔️] Change output file to build
@@ -23,9 +25,9 @@
     [] format name component
     [✔️] live code
     [] complex properties
-    [] default values
+    [✔️] default values
     [] Breadcrumb
-    [] Clear packages not used
+    [✔️] Clear packages not used
     [] Sub-Components
     [✔️] Build Command
     [] Remove cache file for components fom code versionating
@@ -61,7 +63,7 @@
 
 ## DOCUMENTATION
 
-    [] use react-doc-gen to build documentation
+    [✔️] use react-doc-gen to build documentation
     [] Diffrent scopes
                 -   bellow scope, you can change scopes by using this part of menu
 

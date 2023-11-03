@@ -13,6 +13,7 @@ import { createHandler } from 'graphql-http/lib/use/express';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 //@ts-ignore
 import { gql } from '@apollo/client';
+import { Config } from '../../utils/Config';
 dotenv.config();
 export class Server {
     //todo generate cache
@@ -98,16 +99,10 @@ export class Server {
                 context: async ({ req }) => ({ token: req.headers.token }),
             })
         );
-
+        const CONFIG = await Config.read();
         await new Promise<void>((resolve) =>
-            httpServer.listen({ port: process.env.PORT }, resolve)
+            httpServer.listen({ port: CONFIG.port }, resolve)
         );
-        console.log(
-            `🚀 Server is running at http://localhost:${process.env.PORT}`
-        );
+        console.log(`🚀 Server is running at http://localhost:${CONFIG.port}`);
     }
 }
-
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
-// });

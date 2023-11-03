@@ -2,13 +2,20 @@ import { Server } from '../server/Server';
 import { ComponentService } from '../../services/Component.service';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as dotenv from 'dotenv';
 import esbuild from 'esbuild';
-dotenv.config();
+import { AppConfig, Config, DEF_CONFIG } from '../../utils/Config';
 
 export class Documentation {
     tsFileDirectory = path.dirname(__filename);
     outDir = '/build';
+    config: AppConfig = DEF_CONFIG;
+    loading: Promise<boolean>;
+    constructor() {
+        this.loading = new Promise(async (resolve) => {
+            this.config = await Config.read();
+            resolve(true);
+        });
+    }
 
     baseReactFiles() {
         const sourceDir = this.tsFileDirectory + '../../../../public';
@@ -76,10 +83,9 @@ export class Documentation {
     }
 
     async dependences() {
+        await this.loading;
         var componentsService = new ComponentService();
-        var components = await componentsService.getComponents(
-            process.env.SCOPE!
-        );
+        var components = await componentsService.getComponents(this.config.dir);
         var exportCommands = '';
         const DEP_DIR =
             './../../app/pages/component/live-editor/ComponentDependences.ts';

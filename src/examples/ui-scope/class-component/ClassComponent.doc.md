@@ -1,11 +1,11 @@
-# ClassComponent
+# Class Component
 
-ClassComponent is a React component that do something
+Class Component is a React component that do something
 
 ## Usage
 
 ```tsx
-import ClassComponent from "components/ClassComponent";
+import ClassComponent from 'components/ClassComponent';
 
 <ClassComponent />;
 ```

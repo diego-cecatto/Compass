@@ -96,7 +96,6 @@
         "@mui/x-data-grid": "^6.17.0",
         "commander": "^11.1.0",
         "cors": "^2.8.5",
-        "dotenv": "^16.3.1",
         "esbuild": "^0.19.5",
         "graphql-http": "^1.22.0",
         "react-docgen": "^7.0.0",
