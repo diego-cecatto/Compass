@@ -10,15 +10,19 @@ Getting started with Compass is easy. Begin by installing the package:
 
 Next, install the necessary dependencies:
 
-    npm install @apollo/client @emotion/react @emotion/styled @mui/icons-material  @mui/material apollo-server-express child_process express react react-dom react-live react-markdown ts-morph ts-node typescript commander dotenv --save-dev
+    npm install @emotion/react @emotion/styled @mui/icons-material @mui/material react react-dom typescript --save-dev
 
 In your package.json file, add the following command to start Compass:
 
     "start": "compass start"
 
-Specify the folder containing your components using the SCOPE variable in your .env file:
+Specify the folder containing your components using the SCOPE variable in your .compassrc file:
 
-    SCOPE = 'src/my-components-folder'
+    {
+        "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+        "port": "packages",
+        "dir": "src/examples"
+    }
 
 Run Compass from the command line:
 

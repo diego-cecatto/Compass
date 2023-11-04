@@ -3,17 +3,18 @@
     [] Test components in a diffrent scenarios
     [] only compile in real time file of dependences
     [] npx structure
-    [] Create .compassrc
-    [] [] JSON structure
+    [✔️] Create .compassrc
+    [][] JSON structure
 
 # CLI
 
     [✔️] move assets and index.html to build folder
-    [] .env does not be created, could map by default src or package folder
+    [✔️] .env does not be created, could map by default src or package folder
     [] command watch to constantly create packages according document is changed and not has error
 
 # Web Page
 
+    []
     [] Show command to install package
     [✔️] Show properties
     [] [] Format description
@@ -30,7 +31,6 @@
     [✔️] Clear packages not used
     [] Sub-Components
     [✔️] Build Command
-    [] Remove cache file for components fom code versionating
     [✔️] Reference on package.json git project address
     [] you can filter components if your list have more than 10 items
 
