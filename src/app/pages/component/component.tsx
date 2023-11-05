@@ -17,7 +17,7 @@ export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
     const { loading, error, data, refetch } = useQuery(
         DocumentationAction.getDocumentation(),
         {
-            variables: { path: component?.path },
+            variables: { path: component?.docPath },
         }
     );
     console.log(component);

@@ -1,13 +1,15 @@
 scalar JSON
 
 type Query {
-    components(scope: String!): [Component]!
+    components(scope: String): [Component]!
     component(path: String!): Component
+    documentation(path: String): String
 }
 
 type Component {
     name: String!
     path: String!
+    docPath: String
     fullPath: String!
     description: String
     childs: [Component]
@@ -18,6 +20,7 @@ type Component {
 fragment ComponentFields on Component {
     name
     path
+    docPath
     description
     dependecies
     properties

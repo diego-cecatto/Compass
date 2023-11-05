@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { Button } from './Button';
+import { Button } from './core/Button';
 
 describe('Button test', () => {
     it('renders the component', () => {

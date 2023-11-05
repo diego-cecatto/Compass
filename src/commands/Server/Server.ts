@@ -6,10 +6,11 @@ import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import http from 'http';
 import cors from 'cors';
-
+import * as fs from 'fs';
 import path from 'path';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
+// import typedefs from './../../graphql/typedefs/index.graphql';
 //@ts-ignore
 import { gql } from '@apollo/client';
 import { Config } from '../../utils/Config';
@@ -18,66 +19,14 @@ export class Server {
     //todo generate cache
 
     async start() {
+        const typeDef = fs.readFileSync(
+            path.resolve(
+                path.dirname(__filename),
+                './../../graphql/typedefs/index.graphql'
+            )
+        );
         const typeDefs = gql`
-            scalar JSON
-
-            type Query {
-                components(scope: String): [Component]!
-                component(path: String!): Component
-                documentation(path: String): String
-            }
-
-            type Component {
-                name: String!
-                path: String!
-                description: String
-                childrens: [Component]
-                dependencies: [Dependencies]
-                props: JSON
-            }
-
-            type Dictionary {
-                key: String
-                value: Int
-            }
-
-            fragment ComponentFields on Component {
-                name
-                path
-                description
-                dependecies
-                props
-            }
-
-            fragment ComponentRecursive on Component {
-                childrens {
-                    ...ComponentFields
-                    childrens {
-                        ...ComponentFields
-                        childrens {
-                            ...ComponentFields
-                        }
-                    }
-                }
-            }
-
-            type Dependencies {
-                name: String!
-                scoped: Boolean
-                lib: Boolean
-            }
-
-            type Property {
-                name: String!
-                properties: [PropertyItems]
-            }
-
-            type PropertyItems {
-                name: String!
-                description: String
-                type: String!
-                default: String
-            }
+            ${typeDef}
         `;
         const app = express();
         const httpServer = http.createServer(app);

@@ -6,6 +6,7 @@ import './menu.scss';
 import {
     CircularProgress,
     LinearProgress,
+    Link,
     ListItem,
     ListItemButton,
     ListItemIcon,
@@ -50,11 +51,15 @@ declare type MenuItemProp = {
 // );
 
 const MenuItem = ({ component, handleMenuClick, isActive }: MenuItemProp) => {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const handleClick = () => {
         setOpen(!open);
         handleMenuClick();
     };
+
+    function addSpacesBetweenCapitalLetters(inputString: string): string {
+        return inputString.replace(/([a-z])([A-Z])/g, '$1 $2');
+    }
 
     return (
         <ListItem disablePadding>
@@ -70,7 +75,10 @@ const MenuItem = ({ component, handleMenuClick, isActive }: MenuItemProp) => {
                         <></>
                     )}
                 </ListItemIcon>
-                <ListItemText primary={component.name} />
+
+                <ListItemText
+                    primary={addSpacesBetweenCapitalLetters(component.name)}
+                />
             </ListItemButton>
         </ListItem>
     );

@@ -27,32 +27,75 @@ export class ComponentService {
         });
     }
 
-    public async getComponents(path?: string) {
+    public async getComponents(componentPath?: string, componentName?: string) {
         await this.loading;
-        if (!path) {
-            path = this.config.dir;
+        if (!componentPath) {
+            componentPath = this.config.dir;
         }
-        var files = await fs.promises.readdir(path);
+        //todo if folder name is hooks not do parse
+        //todo build a parser for hooks
         var components: Component[] = [];
+        if (
+            path.basename(componentPath).indexOf('use-') === 0 ||
+            path.basename(componentPath) === 'hooks'
+        ) {
+            return components;
+        }
+        const packageJSONName = path.resolve(componentPath, 'package.json');
+        if (fs.existsSync(packageJSONName)) {
+            const packageJson = fs.readFileSync(packageJSONName, 'utf-8');
+
+            if (packageJson) {
+                //todo extract name from package.json data
+                const packageParsed = JSON.parse(packageJson);
+                componentName = packageParsed.name;
+            }
+        }
+
+        var files = await fs.promises.readdir(componentPath);
+        let mdFileLocation = '';
+
+        files.every((file) => {
+            if (file.toLowerCase().indexOf('.doc.md') !== -1) {
+                mdFileLocation = file;
+                return false;
+            }
+        });
+        if (!componentName) {
+            componentName = path.basename(mdFileLocation, '.doc.md');
+        }
         const cache = await this.readCache();
         await Promise.all(
             files.map(async (file) => {
-                var currPath = path + '/' + file;
+                var currPath = componentPath + '/' + file;
                 //todo pass ahead this var
                 var fileStat = await fs.promises.stat(currPath);
                 if (fileStat.isDirectory()) {
-                    const subComponents = await this.getComponents(currPath);
-                    components.push(...subComponents);
-                } else {
-                    //path of componnet
-                    //index.ts
-                    //or index.tsx
-                    //another subcomponent
-                    //another-subcomponent.tsx
+                    const subComponents = await this.getComponents(
+                        currPath,
+                        componentName
+                    );
+                    if (subComponents) {
+                        //get all subcomponents that
+                        subComponents.forEach((subComponent) => {
+                            if (
+                                !subComponent.docPath &&
+                                subComponent.name === componentName
+                            ) {
+                                subComponent.docPath = mdFileLocation;
+                                subComponent.basePath =
+                                    path.dirname(mdFileLocation);
+                            }
+                            components.push(subComponent);
+                        });
+                    }
+                } else if (componentName) {
                     //todo ignore others functions not related to this path
                     if (
                         currPath.indexOf('.spec') === -1 &&
-                        currPath.indexOf('doc') === -1
+                        currPath.indexOf('doc') === -1 &&
+                        (currPath.indexOf('.ts') !== -1 ||
+                            currPath.indexOf('tsx') !== -1)
                     ) {
                         const lastModified = fileStat.mtimeMs;
                         let component = cache.components[currPath];
@@ -61,10 +104,18 @@ export class ComponentService {
                             !cache?.date ||
                             cache.date < lastModified
                         ) {
-                            component = await this.getComponent(currPath);
-                            cache.components[currPath] = component;
-                            // Update the cache file.
-                            this.writeCache(cache.components);
+                            component = await this.getComponent(
+                                currPath,
+                                componentName
+                            );
+                            if (component) {
+                                component.docFile = mdFileLocation;
+                                component.basePath =
+                                    path.dirname(mdFileLocation);
+                                cache.components[currPath] = component;
+                                // Update the cache file.
+                                this.writeCache(cache.components);
+                            }
                         }
                         if (component) {
                             components.push(component);
@@ -77,29 +128,36 @@ export class ComponentService {
     }
 
     public async getComponent(
-        componentPath: string
+        componentPath: string,
+        componentName: string = ''
     ): Promise<Component | null> {
+        if (componentName.indexOf('use-') === 0 || !componentName) {
+            //todo parse hooks
+            return null;
+        }
         await this.loading;
         var code = fs.readFileSync(path.resolve(componentPath), 'utf8');
-        const parsedComponents: Documentation[] = this.reactDocGen.parse(code, {
-            fileName: path.resolve(componentPath),
-            handlers: [
-                ...this.reactDocGen.defaultHandlers,
-                (documentation: any, path: any) => {
-                    this.codeTypeHandler(documentation, path);
-                },
-            ],
-        });
-
-        const COMPONENT_NAME = path.basename(
-            componentPath,
-            path.extname(componentPath)
-        );
+        let parsedComponents: Documentation[];
+        try {
+            parsedComponents = this.reactDocGen.parse(code, {
+                fileName: path.resolve(componentPath),
+                handlers: [
+                    ...this.reactDocGen.defaultHandlers,
+                    (documentation: any, path: any) => {
+                        this.codeTypeHandler(documentation, path);
+                    },
+                ],
+            });
+        } catch (ex) {
+            return null;
+        }
         const parsedComponent = parsedComponents.find(
-            (component) => component.displayName === COMPONENT_NAME
+            (component) => component.displayName === componentName
         );
         let component: Component = {
-            name: COMPONENT_NAME,
+            name: componentName,
+            basePath: '', //ASSIGNED_AFTER
+            docPath: '', //ASSIGNED_AFTER
             path: componentPath,
             fullPath: path.resolve(componentPath),
             dependencies: [],
@@ -207,12 +265,9 @@ export class ComponentService {
     }
 
     public async getDocumentation(path: string) {
-        if (!path) {
+        if (!path || path.indexOf('.doc.md') === -1) {
             return null;
         }
-        return fs.readFileSync(
-            './' + path.replace('tsx', '') + 'doc.md',
-            'utf-8'
-        );
+        return fs.readFileSync(path, 'utf-8');
     }
 }

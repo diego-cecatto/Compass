@@ -22,6 +22,7 @@ import { Menu } from './menu/Menu';
 import SchoolIcon from '@mui/icons-material/School';
 import { useState } from 'react';
 import { ComponentDetails } from '../component/Component';
+import { Link } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -76,7 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function BaseLayout() {
     const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const [component, setComponent] = useState<any>(null);
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -135,13 +136,27 @@ export default function BaseLayout() {
                 </List>
                 <Divider />
                 <List>
-                    {['Documentation'].map((text, index) => (
+                    {[
+                        {
+                            text: 'Help',
+                            link: 'https://github.com/diego-cecatto/Compass/blob/main/README.md',
+                        },
+                    ].map(({ text, link }, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <SchoolIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={text} />
+                                <Link
+                                    href="https://github.com/diego-cecatto/Compass/blob/main/README.md"
+                                    target={'_blank'}
+                                    style={{
+                                        textDecoration: 'none',
+                                        color: 'inherit',
+                                    }}
+                                >
+                                    <ListItemText primary={text} />
+                                </Link>
                             </ListItemButton>
                         </ListItem>
                     ))}

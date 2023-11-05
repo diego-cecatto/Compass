@@ -3,6 +3,8 @@ import { Documentation } from 'react-docgen';
 
 export declare type Component = {
     path: string;
+    basePath: string;
+    docPath: string;
     fullPath: string;
     name: string;
     childs?: Component[];

@@ -86,6 +86,7 @@ export class Documentation {
         await this.loading;
         var componentsService = new ComponentService();
         var components = await componentsService.getComponents(this.config.dir);
+
         var exportCommands = '';
         const DEP_DIR =
             './../../app/pages/component/live-editor/ComponentDependences.ts';
