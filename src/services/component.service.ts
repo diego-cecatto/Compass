@@ -6,8 +6,8 @@ import * as dotenv from 'dotenv';
 //@ts-ignore
 import { Documentation } from 'react-docgen';
 import { AppConfig, Config, DEF_CONFIG } from '../utils/Config';
+import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
 dotenv.config();
-
 //todo ignore composition file
 //todo create tests repository
 
@@ -32,15 +32,7 @@ export class ComponentService {
         if (!componentPath) {
             componentPath = this.config.dir;
         }
-        //todo if folder name is hooks not do parse
-        //todo build a parser for hooks
         var components: Component[] = [];
-        if (
-            path.basename(componentPath).indexOf('use-') === 0 ||
-            path.basename(componentPath) === 'hooks'
-        ) {
-            return components;
-        }
         const packageJSONName = path.resolve(componentPath, 'package.json');
         if (fs.existsSync(packageJSONName)) {
             const packageJson = fs.readFileSync(packageJSONName, 'utf-8');
@@ -60,6 +52,7 @@ export class ComponentService {
                 mdFileLocation = file;
                 return false;
             }
+            return true;
         });
         if (!componentName) {
             componentName = path.basename(mdFileLocation, '.doc.md');
@@ -133,14 +126,30 @@ export class ComponentService {
         componentPath: string,
         componentName: string = ''
     ): Promise<Component | null> {
-        if (componentName.indexOf('use-') === 0 || !componentName) {
-            //todo parse hooks
-            return null;
-        }
         await this.loading;
         var code = fs.readFileSync(path.resolve(componentPath), 'utf8');
         let parsedComponents: Documentation[];
         try {
+            let resolver = null;
+
+            if (componentName.indexOf('use') === 0 || !componentName) {
+                resolver = new this.reactDocGen.builtinResolvers.ChainResolver(
+                    [
+                        new FindHooksDefinitionResolver(),
+                        new this.reactDocGen.builtinResolvers.FindExportedDefinitionsResolver(
+                            {
+                                limit: 1,
+                            }
+                        ),
+                        new this.reactDocGen.builtinResolvers.FindAnnotatedDefinitionsResolver(),
+                    ],
+                    {
+                        chainingLogic:
+                            this.reactDocGen.builtinResolvers.ChainResolver
+                                .Logic.ALL,
+                    }
+                );
+            }
             parsedComponents = this.reactDocGen.parse(code, {
                 fileName: path.resolve(componentPath),
                 handlers: [
@@ -149,6 +158,7 @@ export class ComponentService {
                         this.codeTypeHandler(documentation, path);
                     },
                 ],
+                resolver,
             });
         } catch (ex) {
             return null;
