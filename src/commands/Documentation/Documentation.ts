@@ -1,4 +1,4 @@
-import { Server } from '../server/Server';
+import { Server } from '../Server/server';
 import { ComponentService } from '../../services/Component.service';
 import * as fs from 'fs';
 import * as path from 'path';

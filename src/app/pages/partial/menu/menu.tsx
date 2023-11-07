@@ -1,7 +1,7 @@
 import React, { Component, useMemo, useState } from 'react';
 // @ts-ignore
 import { useQuery } from '@apollo/client';
-import { MenuActions } from '../../../actions/Menu.action';
+import { MenuActions } from '../../../actions/menu.action';
 import './menu.scss';
 import {
     CircularProgress,

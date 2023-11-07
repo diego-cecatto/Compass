@@ -1,5 +1,5 @@
 import express from 'express';
-import resolvers from '../../graphql/resolvers/Component.resolver';
+import resolvers from '../../graphql/resolvers/component.resolver';
 import * as dotenv from 'dotenv';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';

@@ -5,7 +5,7 @@ const CACHE_FILE_PATH = './components.cache';
 import * as dotenv from 'dotenv';
 //@ts-ignore
 import { Documentation } from 'react-docgen';
-import { AppConfig, Config, DEF_CONFIG } from '../utils/Config';
+import { AppConfig, Config, DEF_CONFIG } from '../utils/config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
 dotenv.config();
 //todo ignore composition file

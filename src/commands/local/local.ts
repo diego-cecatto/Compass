@@ -1,4 +1,4 @@
-import { Documentation } from '../documentation/Documentation';
+import { Documentation } from '../Documentation/documentation';
 
 var doc = new Documentation();
 doc.start();

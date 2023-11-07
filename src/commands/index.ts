@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { Documentation } from './documentation/Documentation';
+import { Documentation } from './Documentation/documentation';
 
 const program = new Command();
 program
