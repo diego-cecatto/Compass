@@ -13,7 +13,7 @@ import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 // import typedefs from './../../graphql/typedefs/index.graphql';
 //@ts-ignore
 import { gql } from '@apollo/client';
-import { Config } from '../../utils/Config';
+import { Config } from '../../utils/config';
 dotenv.config();
 export class Server {
     //todo generate cache

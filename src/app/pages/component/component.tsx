@@ -5,9 +5,9 @@ import { DocumentationAction } from '../../actions/Documentation.action';
 import { CircularProgress } from '@mui/material';
 // @ts-ignore
 import ReactMarkdown from 'react-markdown';
-import { CodePreview } from './live-editor/CodePreview';
+import { CodePreview } from './live-editor/code-preview';
 import './component.scss';
-import { ComponentProperties } from './ComponentProperties';
+import { ComponentProperties } from './component-properties';
 
 declare type ComponentDetailsProps = {
     component: any;

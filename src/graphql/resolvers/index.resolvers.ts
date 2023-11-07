@@ -1,3 +1,3 @@
-import ComponentResolver from './Component.resolver';
+import ComponentResolver from './component.resolver';
 
 export default ComponentResolver;

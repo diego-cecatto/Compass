@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { Breadcrumb } from './Breadcrumb';
+import { Breadcrumb } from './breadcrumb';
 
 describe('Breadcrumb test', () => {
     it('renders the component', () => {

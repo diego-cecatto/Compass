@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 // @ts-ignore
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
-import BaseLayout from './app/pages/partial/Base';
+import BaseLayout from './app/pages/partial/base';
 
 interface MainComponentProps {
     documentationName: string;

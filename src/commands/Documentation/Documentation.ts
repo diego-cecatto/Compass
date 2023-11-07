@@ -1,9 +1,9 @@
-import { Server } from '../Server/server';
-import { ComponentService } from '../../services/Component.service';
+import { Server } from '../server/server';
+import { ComponentService } from '../../services/component.service';
 import * as fs from 'fs';
 import * as path from 'path';
 import esbuild from 'esbuild';
-import { AppConfig, Config, DEF_CONFIG } from '../../utils/Config';
+import { AppConfig, Config, DEF_CONFIG } from '../../utils/config';
 
 export class Documentation {
     tsFileDirectory = path.dirname(__filename);
@@ -89,7 +89,7 @@ export class Documentation {
 
         var exportCommands = '';
         const DEP_DIR =
-            './../../app/pages/component/live-editor/ComponentDependences.ts';
+            './../../app/pages/component/live-editor/component-dependences.ts';
         for (var componentName in components) {
             var component = components[componentName];
             const WORK_DIR = path.relative(
