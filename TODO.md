@@ -8,6 +8,7 @@
 
 # CLI
 
+    [] Validate component name
     [✔️] move assets and index.html to build folder
     [✔️] .env does not be created, could map by default src or package folder
     [] command watch to constantly create packages according document is changed and not has error

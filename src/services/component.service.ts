@@ -55,7 +55,9 @@ export class ComponentService {
             return true;
         });
         if (!componentName) {
-            componentName = path.basename(mdFileLocation, '.doc.md');
+            componentName = this.capitalizeWordsAndRemoveHyphen(
+                path.basename(mdFileLocation, '.doc.md')
+            );
         }
         const cache = await this.readCache();
         await Promise.all(
@@ -281,5 +283,13 @@ export class ComponentService {
             return null;
         }
         return fs.readFileSync(path, 'utf-8');
+    }
+
+    private capitalizeWordsAndRemoveHyphen(str: string) {
+        const words = str.split('-');
+        const capitalizedWords = words.map(
+            (word) => word.charAt(0).toUpperCase() + word.slice(1)
+        );
+        return capitalizedWords.join('');
     }
 }
