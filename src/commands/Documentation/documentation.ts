@@ -1,4 +1,5 @@
-import { Server } from '../server/server';
+//@ts-ignore
+import { CompassServer } from '../server/server';
 import { ComponentService } from '../../services/component.service';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -78,7 +79,7 @@ export class Documentation {
 
     async start() {
         await this.build();
-        const server = new Server();
+        const server = new CompassServer();
         server.start();
     }
 

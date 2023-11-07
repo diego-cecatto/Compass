@@ -15,7 +15,7 @@ import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 import { gql } from '@apollo/client';
 import { Config } from '../../utils/config';
 dotenv.config();
-export class Server {
+export class CompassServer {
     //todo generate cache
 
     async start() {

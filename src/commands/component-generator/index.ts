@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+// @ts-ignore
 import camelcase from 'camelcase';
 // @ts-ignore
 import * as changeCase from 'change-case';
