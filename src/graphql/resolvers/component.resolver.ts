@@ -1,18 +1,18 @@
-// import { Resolvers } from '../generated/graphql';
+import { Resolvers } from '../generated/schema';
 import { ComponentService } from '../../services/component.service';
 var componentService = new ComponentService();
 
-const ComponentResolver = {
+const ComponentResolver: Resolvers = {
     Query: {
-        components: (_: any, { scope }: { scope?: string }) =>
-            componentService.getComponents(scope),
-        component: async (_: any, { name }: { name: string }) =>
-            componentService.getComponent(name),
-        documentation: async (_: any, { path }: { path: string }) =>
-            componentService.getDocumentation(path),
-        // componentRelativePath: async (_: any, { path }: { path: string }) =>
-        //     componentService.getRelativePath(path),
+        components: async () => {
+            return await componentService.getComponents();
+        },
+        component: async (_, { path }) => {
+            return await componentService.getComponent(path);
+        },
+        documentation: async (_, { path }) => {
+            return await componentService.getDocumentation(path);
+        },
     },
 };
-
 export default ComponentResolver;

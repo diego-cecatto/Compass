@@ -1,13 +1,7 @@
-schema: './src/graphql/typedefs/index.graphql'
-# documents: './src/**/*.{ts,tsx}'
+overwrite: true
+schema: 'src\graphql\typedefs\index.graphql'
 generates:
-    ./src/graphql/generated/graphql.tsx:
+    ./src/graphql/generated/schema.ts:
         plugins:
             - 'typescript'
-            - 'typescript-operations'
-            - 'typescript-react-apollo'
-        config:
-            withHooks: true
-            withHOC: false
-            withComponent: false
-            apolloReactCommonImportFrom: '@apollo/client'
+            - 'typescript-resolvers'

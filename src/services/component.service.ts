@@ -41,6 +41,7 @@ export class ComponentService {
                 //todo extract name from package.json data
                 const packageParsed = JSON.parse(packageJson);
                 componentName = packageParsed.name;
+                componentName = this.capitalizePackageName(componentName!);
             }
         }
 
@@ -62,6 +63,9 @@ export class ComponentService {
         const cache = await this.readCache();
         await Promise.all(
             files.map(async (file) => {
+                if (file === 'node_modules') {
+                    return;
+                }
                 var currPath = componentPath + '/' + file;
                 //todo pass ahead this var
                 var fileStat = await fs.promises.stat(currPath);
@@ -90,6 +94,8 @@ export class ComponentService {
                     if (
                         currPath.indexOf('.spec') === -1 &&
                         currPath.indexOf('doc') === -1 &&
+                        currPath.indexOf('.composition.ts') === -1 &&
+                        currPath.indexOf('.composition.tsx') === -1 &&
                         (currPath.indexOf('.ts') !== -1 ||
                             currPath.indexOf('tsx') !== -1)
                     ) {
@@ -168,6 +174,9 @@ export class ComponentService {
         const parsedComponent = parsedComponents.find(
             (component) => component.displayName === componentName
         );
+        if (!parsedComponent) {
+            return null;
+        }
         let component: Component = {
             name: componentName,
             basePath: '', //ASSIGNED_AFTER
@@ -278,7 +287,10 @@ export class ComponentService {
         }
     }
 
-    public async getDocumentation(path: string) {
+    public async getDocumentation(path?: string | null) {
+        if (!path) {
+            return null;
+        }
         if (!path || path.indexOf('.doc.md') === -1) {
             return null;
         }
@@ -291,5 +303,20 @@ export class ComponentService {
             (word) => word.charAt(0).toUpperCase() + word.slice(1)
         );
         return capitalizedWords.join('');
+    }
+
+    capitalizePackageName(packageName: string) {
+        let cleanedName = packageName.replace(/^@[\w-]+\//, '');
+        let words = cleanedName.split('.');
+        cleanedName = words[words.length - 1];
+        words = cleanedName.split('-');
+        const capitalizedWords = words.map((word) => {
+            if (word === 'use') {
+                return word;
+            }
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        });
+        const capitalizedPackageName = capitalizedWords.join('');
+        return capitalizedPackageName;
     }
 }

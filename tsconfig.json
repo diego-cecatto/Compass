@@ -24,8 +24,10 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         // "noEmit": true,
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "typeRoots": ["./node_modules/@types", "./@types"]
     },
-    // "include": ["src/**/*", "src/index.tsx"],
+    "files": ["./@types/graphql.d.ts"],
+    "include": ["src/**/*", "src/index.tsx", "*/.graphql"],
     "exclude": ["node_modules", "dist", "build.js", "dev.js"]
 }

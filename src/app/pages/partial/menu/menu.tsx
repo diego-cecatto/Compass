@@ -61,7 +61,7 @@ const MenuItem = ({
 }: MenuItemProp) => {
     const [open, setOpen] = useState(level === 1);
     const handleClick = () => {
-        Object.keys(submenus).length && setOpen(!open);
+        Object.keys(submenus)?.length && setOpen(!open);
         component && handleMenuClick(component);
     };
 

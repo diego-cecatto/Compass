@@ -20,6 +20,9 @@
     [✔️] not show properties if not exist
     [] show loading with skeleton
     [] support annothers imports into preview area
+    [] read compassrc only if it exists
+    [] graphql needs to be included
+    [] add patterns to be ignore seeok for components
 
 # Web Page
 

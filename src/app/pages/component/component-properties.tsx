@@ -46,7 +46,7 @@ export const ComponentProperties = ({
                     },
                 ]}
                 rows={
-                    Object.keys(component.props).map((name) => ({
+                    Object.keys(component.props)?.map((name) => ({
                         ...component.props[name],
                         name,
                     })) ?? []
