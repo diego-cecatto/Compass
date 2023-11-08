@@ -28,6 +28,6 @@
         "typeRoots": ["./node_modules/@types", "./@types"]
     },
     "files": ["./@types/graphql.d.ts"],
-    "include": ["src/**/*", "src/index.tsx", "*/.graphql"],
+    "include": ["src/**/*", "src/index.tsx", "src/**/.graphql"],
     "exclude": ["node_modules", "dist", "build.js", "dev.js"]
 }

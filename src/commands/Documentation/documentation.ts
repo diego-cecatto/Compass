@@ -55,9 +55,9 @@ export class Documentation {
             .build({
                 entryPoints: [indexFile],
                 bundle: true,
-                minify: true,
+                // minify: true,
                 sourcemap: true,
-                define: clientEnv,
+                // define: clientEnv,
                 outdir: this.outDir,
                 publicPath: '/public',
                 loader: {
@@ -90,7 +90,7 @@ export class Documentation {
 
         var exportCommands = '';
         const DEP_DIR =
-            './../../app/pages/component/live-editor/component-dependences.ts';
+            './../../../src/app/pages/component/live-editor/component-dependences.ts';
         for (var componentName in components) {
             var component = components[componentName];
             const WORK_DIR = path.relative(

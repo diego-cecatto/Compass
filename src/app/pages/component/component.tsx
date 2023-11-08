@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 // @ts-ignore
 import { useQuery } from '@apollo/client';
 import { DocumentationAction } from '../../actions/Documentation.action';

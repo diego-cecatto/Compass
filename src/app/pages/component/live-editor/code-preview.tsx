@@ -19,6 +19,10 @@ export const CodePreview = ({
         });
         return compCode.trim();
     };
+    const dependencies = (Dependences as any)[component.name];
+    if (!dependencies) {
+        return <div>Component not found</div>;
+    }
 
     return (
         <>
@@ -26,7 +30,7 @@ export const CodePreview = ({
                 code={getCode()}
                 scope={{
                     React,
-                    [component.name]: (Dependences as any)[component.name],
+                    [component.name]: dependencies,
                 }}
                 // noInline
                 enableTypeScript

@@ -33,38 +33,49 @@ export class ComponentService {
             componentPath = this.config.dir;
         }
         var components: Component[] = [];
-        const packageJSONName = path.resolve(componentPath, 'package.json');
-        if (fs.existsSync(packageJSONName)) {
-            const packageJson = fs.readFileSync(packageJSONName, 'utf-8');
+        let packageJSONFile = path.resolve(componentPath, 'package.json');
+        if (fs.existsSync(packageJSONFile)) {
+            const packageJson = fs.readFileSync(packageJSONFile, 'utf-8');
 
             if (packageJson) {
-                //todo extract name from package.json data
                 const packageParsed = JSON.parse(packageJson);
                 componentName = packageParsed.name;
                 componentName = this.capitalizePackageName(componentName!);
+            } else {
+                packageJSONFile = '';
             }
+        } else {
+            packageJSONFile = '';
         }
 
         var files = await fs.promises.readdir(componentPath);
         let mdFileLocation = '';
 
         files.every((file) => {
-            if (file.toLowerCase().indexOf('.doc.md') !== -1) {
+            if (
+                file.toLowerCase().indexOf('.doc.md') !== -1 ||
+                file.toLowerCase().indexOf('.docs.md') !== -1
+            ) {
                 mdFileLocation = file;
                 return false;
             }
             return true;
         });
+
         if (!componentName) {
             componentName = this.capitalizeWordsAndRemoveHyphen(
-                path.basename(mdFileLocation, '.doc.md')
+                path
+                    .basename(mdFileLocation, '.md')
+                    .replace('.doc', '')
+                    .replace('.docs', '')
+                    .replace('.mdx', '')
             );
         }
         const cache = await this.readCache();
         await Promise.all(
             files.map(async (file) => {
                 if (file === 'node_modules') {
-                    return;
+                    return null;
                 }
                 var currPath = componentPath + '/' + file;
                 //todo pass ahead this var
@@ -84,6 +95,13 @@ export class ComponentService {
                             ) {
                                 subComponent.docPath =
                                     componentPath + '/' + mdFileLocation;
+                                subComponent.basePath = componentPath!;
+                            }
+                            if (
+                                !subComponent.basePath &&
+                                packageJSONFile &&
+                                subComponent.name === componentName
+                            ) {
                                 subComponent.basePath = componentPath!;
                             }
                             components.push(subComponent);
@@ -114,6 +132,8 @@ export class ComponentService {
                                 if (mdFileLocation) {
                                     component.docPath =
                                         componentPath + '/' + mdFileLocation;
+                                    component.basePath = componentPath;
+                                } else if (packageJSONFile) {
                                     component.basePath = componentPath;
                                 }
                                 cache.components[currPath] = component;
@@ -291,7 +311,7 @@ export class ComponentService {
         if (!path) {
             return null;
         }
-        if (!path || path.indexOf('.doc.md') === -1) {
+        if (!path || path.indexOf('.md') === -1) {
             return null;
         }
         return fs.readFileSync(path, 'utf-8');

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -46,7 +47,7 @@ export const ComponentProperties = ({
                     },
                 ]}
                 rows={
-                    Object.keys(component.props)?.map((name) => ({
+                    Object.keys(component.props || {})?.map((name) => ({
                         ...component.props[name],
                         name,
                     })) ?? []

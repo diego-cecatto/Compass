@@ -12,14 +12,15 @@
     "description": "This is a package that will help you to create your documentation for yours components",
     "main": "index.js",
     "scripts": {
-        "pack": "tsc && npm pack",
-        "type-check": "tsc --noEmit",
+        "pack": "npm run compile && npm pack",
+        "type-check": "npm run compile --noEmit",
         "dev": "nodemon --exec \"ts-node ./src/commands/local/local.ts\" -e ts",
         "prod": "node ./dist/commands/local/local.js",
         "updater": "ts-node ./src/commands/updater.ts",
         "lint": "eslint src/**/*.ts src/**/*.tsx",
         "type:generate": "graphql-codegen",
-        "codegen": "graphql-codegen --config codegen.yml"
+        "codegen": "graphql-codegen --config codegen.yml",
+        "compile": "tsc && copyfiles -f src/graphql/typedefs/* dist/graphql/typedefs"
     },
     "keywords": [
         "react",
@@ -38,7 +39,10 @@
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "@graphql-codegen/cli": "5.0.0",
+        "@graphql-codegen/client-preset": "4.1.0",
+        "@graphql-codegen/introspection": "4.0.0",
         "@graphql-codegen/typescript": "^4.0.1",
+        "@graphql-codegen/typescript-document-nodes": "4.0.1",
         "@graphql-codegen/typescript-operations": "^4.0.1",
         "@graphql-codegen/typescript-react-apollo": "^4.1.0",
         "@graphql-codegen/typescript-resolvers": "^4.0.1",
@@ -60,6 +64,7 @@
         "change-case": "^5.1.2",
         "cli-progress": "^3.12.0",
         "concurrently": "^8.2.2",
+        "copyfiles": "^2.4.1",
         "eslint": "^8.52.0",
         "eslint-config-react-app": "^7.0.1",
         "fs-extra": "^11.1.1",
@@ -74,10 +79,7 @@
         "sass": "^1.69.5",
         "serve-handler": "^6.1.5",
         "ts-node": "^10.9.1",
-        "typescript": "^5.2.2",
-        "@graphql-codegen/introspection": "4.0.0",
-        "@graphql-codegen/client-preset": "4.1.0",
-        "@graphql-codegen/typescript-document-nodes": "4.0.1"
+        "typescript": "^5.2.2"
     },
     "browser": {
         "fs": false,

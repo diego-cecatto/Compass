@@ -23,6 +23,7 @@
     [] read compassrc only if it exists
     [] graphql needs to be included
     [] add patterns to be ignore seeok for components
+    [] remove one folder when is finded by package.json
 
 # Web Page
 

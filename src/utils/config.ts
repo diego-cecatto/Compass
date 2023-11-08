@@ -24,4 +24,18 @@ export class Config {
             throw error;
         }
     }
+
+    static readSync(): AppConfig {
+        try {
+            const rcFileContent = fs.readFileSync('.compassrc', 'utf-8');
+            if (!rcFileContent) {
+                return DEF_CONFIG;
+            }
+            const config: AppConfig = JSON.parse(rcFileContent);
+            return config;
+        } catch (error) {
+            console.error('Error reading or parsing the RC file:', error);
+            throw error;
+        }
+    }
 }

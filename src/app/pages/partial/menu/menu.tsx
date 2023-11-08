@@ -61,7 +61,7 @@ const MenuItem = ({
 }: MenuItemProp) => {
     const [open, setOpen] = useState(level === 1);
     const handleClick = () => {
-        Object.keys(submenus)?.length && setOpen(!open);
+        Object.keys(submenus || {})?.length && setOpen(!open);
         component && handleMenuClick(component);
     };
 
@@ -83,7 +83,7 @@ const MenuItem = ({
                     selected={active?.name === component?.name}
                 >
                     <ListItemIcon>
-                        {Object.keys(submenus).length ? (
+                        {Object.keys(submenus ?? {}).length ? (
                             open ? (
                                 <KeyboardArrowDownIcon />
                             ) : (
@@ -130,16 +130,17 @@ const MenuItems = ({
     active,
     level,
 }: MenuItemsProp) => {
-    var menuNames = Object.keys(menus);
+    var menuNames = Object.keys(menus ?? {});
     if (!menuNames) {
         return <></>;
     }
     return (
         <>
-            {menuNames.map((name) => {
+            {menuNames.map((name, i) => {
                 const menu = menus[name];
                 return (
                     <MenuItem
+                        key={name}
                         submenus={menu.childs}
                         handleMenuClick={handleMenuClick}
                         active={active}
@@ -164,9 +165,17 @@ export const Menu = ({ onChange, active }: MenuProps) => {
     const normalizeMenu = () => {
         const structure: NormalizedMenu = {};
         data?.components.forEach((component: any) => {
-            var submenus = (
-                component.basePath.replace('src/examples/', '') as string
-            ).split('/');
+            var submenus: string[] = component.basePath.split('/');
+            // console.log(submenus[submenus.length - 1], component);
+            // if (
+            //     submenus[submenus.length - 1]
+            //         .toLowerCase()
+            //         .replace(/-/g, '')
+            //         .replace(/ /g, '') ===
+            //     component.name.toLowerCase().replace(/ /g, '')
+            // ) {
+            //     submenus = submenus.slice(0, submenus.length - 1);
+            // }
             var currStructure = structure;
             var parent: any = currStructure;
             submenus.forEach((submenu) => {
