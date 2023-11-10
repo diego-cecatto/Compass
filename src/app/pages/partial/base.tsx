@@ -77,7 +77,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function BaseLayout() {
     const theme = useTheme();
     const [open, setOpen] = useState(true);
-    const [component, setComponent] = useState<any>(null);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -85,9 +84,7 @@ export default function BaseLayout() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    const handleMenuChange = (component: any) => {
-        setComponent(component);
-    };
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -130,7 +127,7 @@ export default function BaseLayout() {
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
-                <Menu onChange={handleMenuChange} active={component} />
+                <Menu />
                 <Divider />
                 <List>
                     {[
