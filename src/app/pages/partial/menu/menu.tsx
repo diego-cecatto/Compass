@@ -17,6 +17,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SchoolIcon from '@mui/icons-material/School';
 import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 //todo replace any for correct usages
 declare type MenuItemProp = {
@@ -62,9 +63,10 @@ const MenuItem = ({
 }: MenuItemProp) => {
     const [open, setOpen] = useState(level === 1);
     const path = useParams();
+    const navigate = useNavigate();
     const handleClick = () => {
         Object.keys(submenus || {})?.length && setOpen(!open);
-        // // component && handleMenuClick(component);
+        component && navigate(`/component${component?.basePath}`);
     };
 
     function addSpacesBetweenCapitalLetters(inputString: string): string {
@@ -94,22 +96,8 @@ const MenuItem = ({
                     </ListItemIcon>
 
                     <ListItemText>
-                        {component?.basePath ? (
-                            <Link
-                                to={`/component${component?.basePath}`}
-                                style={{
-                                    textDecoration: 'none',
-                                    color: 'inherit',
-                                }}
-                            >
-                                {addSpacesBetweenCapitalLetters(
-                                    component?.name || name
-                                )}
-                            </Link>
-                        ) : (
-                            addSpacesBetweenCapitalLetters(
-                                component?.name || name
-                            )
+                        {addSpacesBetweenCapitalLetters(
+                            component?.name || name
                         )}
                     </ListItemText>
                 </ListItemButton>
