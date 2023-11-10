@@ -13,7 +13,7 @@ export const DEF_CONFIG: AppConfig = {
 export class Config {
     static async read(): Promise<AppConfig> {
         try {
-            const rcFileContent = await fs.readFile('.compassrc', 'utf-8');
+            const rcFileContent = await fs.readFile('.compassrc', 'utf8');
             if (!rcFileContent) {
                 return DEF_CONFIG;
             }
@@ -27,7 +27,7 @@ export class Config {
 
     static readSync(): AppConfig {
         try {
-            const rcFileContent = fs.readFileSync('.compassrc', 'utf-8');
+            const rcFileContent = fs.readFileSync('.compassrc', 'utf8');
             if (!rcFileContent) {
                 return DEF_CONFIG;
             }

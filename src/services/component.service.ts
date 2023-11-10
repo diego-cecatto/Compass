@@ -17,13 +17,21 @@ export class ComponentService {
     loading: any;
     constructor() {
         this.loading = new Promise((resolve) => {
-            import('react-docgen').then((reactDocGen) => {
-                this.reactDocGen = reactDocGen;
-                Config.read().then((config) => {
-                    this.config = config;
-                    resolve(true);
+            import('react-docgen')
+                .then((reactDocGen) => {
+                    this.reactDocGen = reactDocGen;
+                    Config.read()
+                        .then((config) => {
+                            this.config = config;
+                            resolve(true);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                })
+                .catch((err) => {
+                    console.log(err);
                 });
-            });
         });
     }
 
@@ -36,7 +44,7 @@ export class ComponentService {
         var components: Component[] = [];
         let packageJSONFile = path.resolve(componentPath, 'package.json');
         if (fs.existsSync(packageJSONFile)) {
-            const packageJson = fs.readFileSync(packageJSONFile, 'utf-8');
+            const packageJson = fs.readFileSync(packageJSONFile, 'utf8');
 
             if (packageJson) {
                 const packageParsed = JSON.parse(packageJson);
@@ -303,12 +311,12 @@ export class ComponentService {
     }
 
     private writeCache(cache: Record<string, Component>) {
-        fs.writeFileSync(CACHE_FILE_PATH, JSON.stringify(cache), 'utf-8');
+        fs.writeFileSync(CACHE_FILE_PATH, JSON.stringify(cache), 'utf8');
     }
 
     private async readCache() {
         try {
-            const cacheContent = fs.readFileSync(CACHE_FILE_PATH, 'utf-8');
+            const cacheContent = fs.readFileSync(CACHE_FILE_PATH, 'utf8');
             var fileStat = await fs.promises.stat(CACHE_FILE_PATH);
             return {
                 components: JSON.parse(cacheContent) ?? {},
@@ -327,7 +335,7 @@ export class ComponentService {
         if (!path || path.indexOf('.md') === -1) {
             return null;
         }
-        return fs.readFileSync(path, 'utf-8');
+        return fs.readFileSync(path, 'utf8');
     }
 
     private capitalizeWordsAndRemoveHyphen(str: string) {

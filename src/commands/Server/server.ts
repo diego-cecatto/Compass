@@ -25,7 +25,7 @@ export class CompassServer {
                 path.dirname(__filename),
                 './../../graphql/typedefs/index.graphql'
             ),
-            'utf-8'
+            'utf8'
         );
         const server = new ApolloServer<any>({
             typeDefs,

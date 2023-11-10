@@ -27,6 +27,8 @@
 
 # Web Page
 
+    [] Based on URL open menu tree automatically
+    [] If not found component URL with request component leave user to 404 page
     [✔️] Select properly menu item
     [] Each component need to have his own URL
     [] Use rightly component properties

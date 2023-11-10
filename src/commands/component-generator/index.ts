@@ -14,7 +14,7 @@ export class ComponentGenerator {
     static generateComponent(options: ComponentGeneratorOptions): void {
         const { name, overwrite = false } = options;
         const componentName = changeCase.pascalCase(
-            camelcase(name.replace('-', '_'))
+            camelcase(name.replace(/-/g, '_'))
         );
         const componentDir = path.join(
             process.cwd(),

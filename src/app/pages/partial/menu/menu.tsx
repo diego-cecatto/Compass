@@ -16,7 +16,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SchoolIcon from '@mui/icons-material/School';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 //todo replace any for correct usages
 declare type MenuItemProp = {
@@ -61,9 +61,10 @@ const MenuItem = ({
     level = 1,
 }: MenuItemProp) => {
     const [open, setOpen] = useState(level === 1);
+    const path = useParams();
     const handleClick = () => {
         Object.keys(submenus || {})?.length && setOpen(!open);
-        component && handleMenuClick(component);
+        // // component && handleMenuClick(component);
     };
 
     function addSpacesBetweenCapitalLetters(inputString: string): string {
@@ -71,7 +72,6 @@ const MenuItem = ({
         name = name.replace(new RegExp('-', 'g'), ' ');
         return name;
     }
-
     return (
         <>
             <ListItem
@@ -81,7 +81,7 @@ const MenuItem = ({
             >
                 <ListItemButton
                     onClick={handleClick}
-                    selected={active?.name === component?.name}
+                    selected={`/${path['*']}` === component?.basePath}
                 >
                     <ListItemIcon>
                         {Object.keys(submenus ?? {}).length ? (
@@ -95,7 +95,13 @@ const MenuItem = ({
 
                     <ListItemText>
                         {component?.basePath ? (
-                            <Link to={`/component${component?.basePath}`}>
+                            <Link
+                                to={`/component${component?.basePath}`}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'inherit',
+                                }}
+                            >
                                 {addSpacesBetweenCapitalLetters(
                                     component?.name || name
                                 )}
