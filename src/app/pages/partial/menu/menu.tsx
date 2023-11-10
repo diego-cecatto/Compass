@@ -22,18 +22,21 @@ declare type MenuItemProp = {
     submenus: NormalizedMenu;
     selected: boolean;
     name: string;
+    opened: boolean;
     handleClick: () => void;
-} & Pick<MenuItemsProp, 'level'>;
+} & Pick<MenuItemsProp, 'level' | 'path'>;
 
 const MenuItem = ({
     component,
     submenus,
     name,
     selected,
+    opened,
     handleClick,
+    path,
     level = 1,
 }: MenuItemProp) => {
-    const [open, setOpen] = useState(level === 1);
+    const [open, setOpen] = useState(opened);
 
     function addSpacesBetweenCapitalLetters(inputString: string): string {
         var name = inputString.replace(/([a-z])([A-Z])/g, '$1 $2');
@@ -71,7 +74,9 @@ const MenuItem = ({
                     </ListItemText>
                 </ListItemButton>
             </ListItem>
-            {open ? <MenuItems menus={submenus} level={level + 1} /> : null}
+            {open ? (
+                <MenuItems menus={submenus} level={level + 1} path={path} />
+            ) : null}
         </>
     );
 };
@@ -86,26 +91,38 @@ declare type NormalizedMenu = {
 declare type MenuItemsProp = {
     menus: NormalizedMenu;
     level?: number;
+    path?: string;
 };
 
-const MenuItems = ({ menus, level }: MenuItemsProp) => {
+const MenuItems = ({ menus, level, path = '' }: MenuItemsProp) => {
     var menuNames = Object.keys(menus ?? {});
-    const path = useParams();
+    const urlPath = useParams();
     const navigate = useNavigate();
     if (!menuNames) {
         return null;
     }
+    let opened = level === 1;
+    console.log('path', path);
     return (
         <>
             {menuNames.map((name, i) => {
                 const menu = menus[name];
+                if (urlPath['*']) {
+                    if (!menu?.component) {
+                        opened =
+                            `/${urlPath['*']}`.indexOf(`${path}/${name}`) === 0;
+                    }
+                }
                 return (
                     <MenuItem
                         key={name}
                         submenus={menu.childs}
                         component={menu.component}
                         name={name}
-                        selected={`/${path['*']}` === menu?.component?.basePath}
+                        opened={opened}
+                        selected={
+                            `/${urlPath['*']}` === menu?.component?.basePath
+                        }
                         handleClick={() => {
                             if (menu?.component?.basePath) {
                                 navigate(
@@ -114,6 +131,7 @@ const MenuItems = ({ menus, level }: MenuItemsProp) => {
                             }
                         }}
                         level={level}
+                        path={`${path}/${name}`}
                     />
                 );
             })}
