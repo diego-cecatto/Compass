@@ -2,8 +2,8 @@
 import { gql } from '@apollo/client';
 import { BaseAction } from './Base.actions';
 
-export class MenuActions extends BaseAction {
-    public static all() {
+export class ComponentAction extends BaseAction {
+    public static menuItems() {
         //     const query =  gql`
         //         fragment ComponentWithChilds on Component {
         //             name
@@ -25,6 +25,20 @@ export class MenuActions extends BaseAction {
         return gql`
             query ScopedComponents($scope: String) {
                 components(scope: $scope) {
+                    name
+                    description
+                    docPath
+                    basePath
+                    props
+                }
+            }
+        `;
+    }
+
+    public static get() {
+        return gql`
+            query ScopedComponents($path: String!) {
+                component(path: $path) {
                     name
                     description
                     docPath

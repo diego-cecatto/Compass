@@ -28,6 +28,7 @@ export class ComponentService {
     }
 
     public async getComponents(componentPath?: string, componentName?: string) {
+        var config = await Config.read();
         await this.loading;
         if (!componentPath) {
             componentPath = this.config.dir;
@@ -95,14 +96,20 @@ export class ComponentService {
                             ) {
                                 subComponent.docPath =
                                     componentPath + '/' + mdFileLocation;
-                                subComponent.basePath = componentPath!;
+                                subComponent.basePath = componentPath!.replace(
+                                    config.dir,
+                                    ''
+                                );
                             }
                             if (
                                 !subComponent.basePath &&
                                 packageJSONFile &&
                                 subComponent.name === componentName
                             ) {
-                                subComponent.basePath = componentPath!;
+                                subComponent.basePath = componentPath!.replace(
+                                    config.dir,
+                                    ''
+                                );
                             }
                             components.push(subComponent);
                         });
@@ -132,9 +139,15 @@ export class ComponentService {
                                 if (mdFileLocation) {
                                     component.docPath =
                                         componentPath + '/' + mdFileLocation;
-                                    component.basePath = componentPath;
+                                    component.basePath = componentPath?.replace(
+                                        config.dir,
+                                        ''
+                                    );
                                 } else if (packageJSONFile) {
-                                    component.basePath = componentPath;
+                                    component.basePath = componentPath?.replace(
+                                        config.dir,
+                                        ''
+                                    );
                                 }
                                 cache.components[currPath] = component;
                                 this.writeCache(cache.components);

@@ -34,15 +34,20 @@ export class CompassServer {
         });
         await server.start();
         app.use(express.static(path.join(process.cwd(), 'build')));
+
         app.use(
-            '/',
+            '/graphql',
             cors<cors.CorsRequest>(),
             express.json(),
+
             // an Apollo Server instance and optional configuration options
             expressMiddleware(server, {
                 context: async ({ req }) => ({ token: req.headers.token }),
             })
         );
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
+        });
         const CONFIG = await Config.read();
         await new Promise<void>((resolve) =>
             httpServer.listen({ port: CONFIG.port }, resolve)

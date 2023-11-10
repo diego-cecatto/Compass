@@ -1,12 +1,11 @@
 import React, { Component, useMemo, useState } from 'react';
 // @ts-ignore
 import { useQuery } from '@apollo/client';
-import { MenuActions } from '../../../actions/menu.action';
+import { ComponentAction } from './../../../actions/component.action';
 import './menu.scss';
 import {
     CircularProgress,
     LinearProgress,
-    Link,
     List,
     ListItem,
     ListItemButton,
@@ -17,6 +16,8 @@ import CircleIcon from '@mui/icons-material/Circle';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SchoolIcon from '@mui/icons-material/School';
+import { Link } from 'react-router-dom';
+
 //todo replace any for correct usages
 declare type MenuItemProp = {
     component?: any;
@@ -92,11 +93,19 @@ const MenuItem = ({
                         ) : null}
                     </ListItemIcon>
 
-                    <ListItemText
-                        primary={addSpacesBetweenCapitalLetters(
-                            component?.name || name
+                    <ListItemText>
+                        {component?.basePath ? (
+                            <Link to={`/component${component?.basePath}`}>
+                                {addSpacesBetweenCapitalLetters(
+                                    component?.name || name
+                                )}
+                            </Link>
+                        ) : (
+                            addSpacesBetweenCapitalLetters(
+                                component?.name || name
+                            )
                         )}
-                    />
+                    </ListItemText>
                 </ListItemButton>
             </ListItem>
             {open ? (
@@ -160,7 +169,7 @@ declare type MenuProps = {
 };
 
 export const Menu = ({ onChange, active }: MenuProps) => {
-    const { loading, error, data } = useQuery(MenuActions.all());
+    const { loading, error, data } = useQuery(ComponentAction.menuItems());
 
     const normalizeMenu = () => {
         const structure: NormalizedMenu = {};

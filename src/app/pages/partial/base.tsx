@@ -21,9 +21,8 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Menu } from './menu/menu';
 import SchoolIcon from '@mui/icons-material/School';
 import { useState } from 'react';
-import { ComponentDetails } from '../component/component';
 import { Link } from '@mui/material';
-
+import { Outlet } from 'react-router-dom';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -162,7 +161,8 @@ export default function BaseLayout() {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                {component && <ComponentDetails component={component} />}
+                {/* {component && <ComponentDetails component={component} />} */}
+                <Outlet />
             </Main>
         </Box>
     );

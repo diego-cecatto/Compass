@@ -8,12 +8,29 @@ import ReactMarkdown from 'react-markdown';
 import { CodePreview } from './live-editor/code-preview';
 import './component.scss';
 import { ComponentProperties } from './component-properties';
+import { useParams } from 'react-router-dom';
+import { ComponentAction } from '../../actions/component.action';
 
-declare type ComponentDetailsProps = {
-    component: any;
+declare type ComponentPageProps = {
+    // component: any;
 };
 
-export const ComponentDetails = ({ component }: ComponentDetailsProps) => {
+export const ComponentPage = ({}: ComponentPageProps) => {
+    //todo find componenent and if not found redirect to 404 page
+    const path = useParams();
+    const {
+        loading,
+        error,
+        data: component,
+    } = useQuery(ComponentAction.get(), {
+        variables: { path: path['*'] },
+    });
+
+    if (loading) return <CircularProgress />;
+    return <ComponentDetails component={component?.component} />;
+};
+
+const ComponentDetails = ({ component }: any) => {
     const { loading, error, data, refetch } = useQuery(
         DocumentationAction.getDocumentation(),
         {
