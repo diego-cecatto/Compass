@@ -41,6 +41,9 @@ export class ComponentService {
         if (!componentPath) {
             componentPath = this.config.dir;
         }
+        if (!fs.existsSync(componentPath)) {
+            return [];
+        }
         var components: Component[] = [];
         let packageJSONFile = path.resolve(componentPath, 'package.json');
         if (fs.existsSync(packageJSONFile)) {
@@ -79,6 +82,9 @@ export class ComponentService {
                     .replace('.docs', '')
                     .replace('.mdx', '')
             );
+            if (componentName.indexOf('Use') === 0) {
+                componentName = componentName.replace('Use', 'use');
+            }
         }
         const cache = await this.readCache();
         await Promise.all(
@@ -180,7 +186,7 @@ export class ComponentService {
         let parsedComponents: Documentation[];
         try {
             let resolver = null;
-
+            console.log(componentName);
             if (componentName.indexOf('use') === 0 || !componentName) {
                 resolver = new this.reactDocGen.builtinResolvers.ChainResolver(
                     [

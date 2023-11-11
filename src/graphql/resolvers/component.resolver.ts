@@ -18,9 +18,12 @@ const ComponentResolver: Resolvers = {
                 );
                 return capitalizedWords.join('');
             }
-            const componentName = capitalizeWordsAndRemoveHyphen(
+            let componentName = capitalizeWordsAndRemoveHyphen(
                 paths[paths.length - 1]
             );
+            if (componentName.indexOf('Use') === 0) {
+                componentName = componentName.replace('Use', 'use');
+            }
             const components = await componentService.getComponents(
                 `${config.dir}/${path}`
             );

@@ -1,66 +1,72 @@
 # Next Goals
 
+    [✔️] Create .compassrc
+    [✔️][✔️] JSON structure
+    [] implement lerna
+    [] create a pattern with lerna + compass
     [] Test components in a different scenarios
     [] only compile in real time file of dependences
     [] npx structure
-    [✔️] Create .compassrc
-    [✔️][✔️] JSON structure
 
 # CLI
 
-    [] Validate component name
     [✔️] move assets and index.html to build folder
     [✔️] .env does not be created, could map by default src or package folder
+    [✔️] graphql needs to be included
+    [✔️] support hooks
+    [✔️] read compassrc only if it exists
+    [] show loading with skeleton
+    [] create images to some empty state components
+    [] support annothers imports into preview area
+    [] if none component found show a message to user could understand how configure his documentation library
+    [] add patterns to be ignore components
+    [] Validate component name
     [] command watch to constantly create packages according document is changed and not has error
     [] prod and dev version of start component
-    [] support hooks
-    [] if none component found show a message to user could understand how configure his documentation library
     [] show tips to publish documentation
-    [] create images to some empty state components
-    [✔️] not show properties if not exist
-    [] show loading with skeleton
-    [] support annothers imports into preview area
-    [] read compassrc only if it exists
-    [] graphql needs to be included
-    [] add patterns to be ignore seeok for components
-    [] remove one folder when is finded by package.json
 
 # Web Page
 
-    [] Based on URL open menu tree automatically
-    [] If not found component URL with request component leave user to 404 page
+    [✔️] Based on URL open menu tree automatically
     [✔️] Select properly menu item
-    [] Each component need to have his own URL
-    [] Use rightly component properties
-    [] use properly graphql declaration
-    [] remove models and use generate models from graphql
-    [] Create menu scoped by structure
     [✔️] Menu already opend initaly
     [✔️] documentation link to github portal
-    [] Show command to install package
-    [] if have packag.json local show local version
-    [] and show online version
-    [] could update favicon of documentation
-    [] could update name of documentation
     [✔️] Show properties
-    [] [] Format description
-    [] [] Parse React.FC component
     [✔️] [✔️] Default properties
     [✔️] Change doc generation to react-docgen?
     [✔️] Change output file to build
-    [] Create GraphQL cache
     [✔️] format name component
-    [] remove help icon from prod envirornment
     [✔️] live code
-    [] complex properties
     [✔️] default values
-    [] Breadcrumb
     [✔️] Clear packages not used
     [✔️] Sub-Components
     [✔️] Build Command
     [✔️] Reference on package.json git project address
-    [] you can filter components if your list have more than 10 items
     [✔️] remove footer for properties area
+    [✔️] use properly graphql declaration
+    [✔️] Each component need to have his own URL
+    [✔️] Create menu scoped by structure
+    [✔️] If not found component URL with request component leave user to 404 page
+    [] remove uppercase files and folders
+    [] Create Errors Pages
+    [] remove help icon from prod envirornment
+    [] Show command to install package
+    [] show online version
+    [] if have packag.json local show local version
+    [] could update favicon of documentation
+    [] could update name of documentation
+    [] [] Format description
+    [] [] Parse React.FC component
+    [] Parse changelog
+    [] you can filter components if your list have more than 10 items
+    [] graphic of dependences
+    [] Menu based on tree-view
+    [] Use rightly component properties
+    [] remove models and use generate models from graphql
+    [] complex properties
+    [] Create GraphQL cache
+    [] Breadcrumb
+    [] Implement redux
 
 # README
 
@@ -87,14 +93,13 @@
     [] Local tests
     [] Hot Reloading
 
-## DOCUMENTATION
+## DOCUMENTATION - Hystory mode
 
     [✔️] use react-doc-gen to build documentation
     [✔️] Diffrent scopes
-                -   bellow scope, you can change scopes by using this part of menu
-
             -   main content
-                -   on top have nav tabs with sections
+                - on top have nav tabs with sections
+                - could add to right place a navigation container
                     -   overview
                         -   is the documentation
                             -   have sections bellow:
@@ -107,7 +112,8 @@
                                 -   in sequence list all composition of this component
                                 -   in sequence have all properties - each property need to have this layout, each property will be one table with a transparent line with tow columns - in the left, at first column one item bellow one in each line: - name - type - default - in the right on the second column - this properties correspondetly of the left column - be separed each propertie with a border-bottom and some marging
                     -   preview
-                        -   render a default composition first
+                        [✔️] render a preview of component
+                        -   create a composition section
                         -   list all compositions and render each of one this compositions
                     -   dependencies
                         -   build a tree diagram of dependecies in HTML
@@ -136,8 +142,7 @@
                             -   should have tabs internally with
                                 -   npm
                                 -   yarn
-                                -   pnpm
-                                -   each tab will open a command to install this component
+                                -  save in cookie a choice of this
                                 -   and bellow one acordion that could be opened
                                 -   this title of this have a title "Configure + scope + as Scoped Registry"
                                     -   with the struction to install this scope of this component
@@ -180,42 +185,3 @@
             -   childs
             -   package
             -   dependencies
-
-## Component finder logic
-
-//todo for each folder
-//have package.json?
-//yes
-//find in each directory bellow the definition of component
-//found?
-//yes
-//add to components
-//is main dir?
-//yes
-//continue finding more components bellow
-//no
-//discard this folder to be used to asses others components
-//no
-continue
-//no
-//others package jsons founded?
-//yes
-//igonere folders that not have this structure
-//no
-//continue seeking to folders that have documentation file inner
-//have Component.md file?
-//yes
-//map component
-//no
-continue
-
-//godfahter
-//instructions -> create menu at this same structure
-documentation.md -> if this file exist here show at the main component
-//godfather
-//filter
-//datatable
-package.json
-//other component-> could`t create a compoenent package inner here, if have other package.json here show error, could map others component and show a red error on console.log showing that this component is not be possible be mapped because others main components has
-// alerady a package.json and show in menu disabled with a tooltip to user be aware of this problem
-//form

@@ -102,7 +102,6 @@ const MenuItems = ({ menus, level, path = '' }: MenuItemsProp) => {
         return null;
     }
     let opened = level === 1;
-    console.log('path', path);
     return (
         <>
             {menuNames.map((name, i) => {
@@ -163,9 +162,8 @@ export const Menu = () => {
         return structure;
     };
 
+    var items = useMemo(() => normalizeMenu(), [loading]);
     if (loading) return <MenuLoading />;
-    // var items = useMemo(normalizeMenu, []);`
-    const items = normalizeMenu();
     return (
         <List>
             <MenuItems menus={items} />
