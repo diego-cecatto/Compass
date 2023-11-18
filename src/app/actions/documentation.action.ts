@@ -10,4 +10,12 @@ export class DocumentationAction extends BaseAction {
             }
         `;
     }
+
+    public static getDefaultDocumentation() {
+        return gql`
+            query ScopedDocument {
+                documentationDefault
+            }
+        `;
+    }
 }

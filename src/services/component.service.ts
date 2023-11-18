@@ -238,6 +238,12 @@ export class ComponentService {
         return component;
     }
 
+    public async getDocumentationDefault() {
+        const dir = path.dirname(__filename);
+        console.log(dir + '/../../../README.md');
+        return await this.getDocumentation(dir + '/../../README.md');
+    }
+
     private propSingleComment(path: any, documentation: any, propName: any) {
         if (path.node.leadingComments) {
             const propDescriptor = documentation.getPropDescriptor(propName);

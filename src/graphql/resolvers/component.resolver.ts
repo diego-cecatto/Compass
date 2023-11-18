@@ -29,6 +29,9 @@ const ComponentResolver: Resolvers = {
             );
             return components.find((c) => c.name === componentName) || null;
         },
+        documentationDefault: async () => {
+            return await componentService.getDocumentationDefault();
+        },
         documentation: async (_, { path }) => {
             return await componentService.getDocumentation(path);
         },

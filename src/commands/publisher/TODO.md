@@ -24,15 +24,5 @@
         - add tests libraries to dependences
 
 
-    [] order components deploy according order
-    [] how update componets references autommatically?
-    [] and self references components?
-        [] update first
-        [] update next
-
-
-    [] how user could test?
-        - generate a pack and give command to user could install along others projects
-
 Version structure
 Major.Minor.Pacth

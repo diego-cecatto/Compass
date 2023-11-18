@@ -158,7 +158,6 @@ export default function BaseLayout() {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                {/* {component && <ComponentDetails component={component} />} */}
                 <Outlet />
             </Main>
         </Box>

@@ -65,6 +65,7 @@ export type Query = {
   component?: Maybe<Component>;
   components: Array<Maybe<Component>>;
   documentation?: Maybe<Scalars['String']['output']>;
+  documentationDefault?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -228,6 +229,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   component?: Resolver<Maybe<ResolversTypes['Component']>, ParentType, ContextType, RequireFields<QueryComponentArgs, 'path'>>;
   components?: Resolver<Array<Maybe<ResolversTypes['Component']>>, ParentType, ContextType, Partial<QueryComponentsArgs>>;
   documentation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, Partial<QueryDocumentationArgs>>;
+  documentationDefault?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {

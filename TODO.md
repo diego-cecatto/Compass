@@ -1,53 +1,26 @@
 # Next Goals
 
-    [✔️] Create .compassrc
-    [✔️][✔️] JSON structure
     [] implement lerna
     [] create a pattern with lerna + compass
-    [] Test components in a different scenarios
+    [] create tests
     [] only compile in real time file of dependences
     [] npx structure
 
 # CLI
 
-    [✔️] move assets and index.html to build folder
-    [✔️] .env does not be created, could map by default src or package folder
-    [✔️] graphql needs to be included
-    [✔️] support hooks
-    [✔️] read compassrc only if it exists
+    [] could specify directoy of config file
     [] show loading with skeleton
-    [] create images to some empty state components
-    [] support annothers imports into preview area
-    [] if none component found show a message to user could understand how configure his documentation library
+    [] if no one component found show a message to user could understand how configure his documentation library
     [] add patterns to be ignore components
     [] Validate component name
     [] command watch to constantly create packages according document is changed and not has error
     [] prod and dev version of start component
     [] show tips to publish documentation
+    [] support annothers imports into preview area
+    [] create images to some empty state components
 
 # Web Page
 
-    [✔️] Based on URL open menu tree automatically
-    [✔️] Select properly menu item
-    [✔️] Menu already opend initaly
-    [✔️] documentation link to github portal
-    [✔️] Show properties
-    [✔️] [✔️] Default properties
-    [✔️] Change doc generation to react-docgen?
-    [✔️] Change output file to build
-    [✔️] format name component
-    [✔️] live code
-    [✔️] default values
-    [✔️] Clear packages not used
-    [✔️] Sub-Components
-    [✔️] Build Command
-    [✔️] Reference on package.json git project address
-    [✔️] remove footer for properties area
-    [✔️] use properly graphql declaration
-    [✔️] Each component need to have his own URL
-    [✔️] Create menu scoped by structure
-    [✔️] If not found component URL with request component leave user to 404 page
-    [] remove uppercase files and folders
     [] Create Errors Pages
     [] remove help icon from prod envirornment
     [] Show command to install package
@@ -68,15 +41,9 @@
     [] Breadcrumb
     [] Implement redux
 
-# README
-
-    [✔️] Explain how run app
-    [✔️] Update dependences components
-    [✔️] Create Readme to dev compass
-    [✔️] Explain how to use documentation
-    [✔️] Explain how to configure app
-
 # ROADMAP
+
+[] Publish only transpiled files, remove dependence of ts files
 
 ## WEBSITE DOCUMENTATION
 
@@ -87,9 +54,7 @@
         [][] Copy icon
         [][] Implement linter
         [][] Side code and result code, improve layout
-    [✔️] Will cache at first time to run application
     [] Compositions / Variations
-    [✔️] Improve build with eslint
     [] Local tests
     [] Hot Reloading
 
