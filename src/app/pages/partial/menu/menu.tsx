@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 // @ts-ignore
 import { useQuery } from '@apollo/client';
 import { ComponentAction } from './../../../actions/component.action';
@@ -140,6 +140,15 @@ const MenuItems = ({ menus, level, path = '' }: MenuItemsProp) => {
 
 export const Menu = () => {
     const { loading, error, data } = useQuery(ComponentAction.menuItems());
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!loading) {
+            if (!data?.components) {
+                navigate(`how-to-configure`);
+            }
+        }
+    }, [loading]);
 
     const normalizeMenu = () => {
         const structure: NormalizedMenu = {};
