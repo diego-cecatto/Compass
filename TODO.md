@@ -42,7 +42,6 @@
         [][] Use monaco-editor
         [][] Copy icon
         [][] Implement linter
-        [][] Side code and result code, improve layout
     [] Compositions / Variations
     [] Local tests
     [] Hot Reloading

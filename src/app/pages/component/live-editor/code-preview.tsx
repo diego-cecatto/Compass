@@ -48,7 +48,7 @@ export const CodePreview = ({
                         item
                         xs={12}
                         className="top"
-                        sx={{ paddingLeft: '16px' }}
+                        sx={{ paddingLeft: '8px' }}
                     >
                         {!fullCode ? (
                             <Button
@@ -72,7 +72,13 @@ export const CodePreview = ({
                     {!fullCode ? (
                         <>
                             <Grid item sm={6} xs={12} className="editor-area">
-                                <Button variant="text" className="button-inner">
+                                <Button
+                                    variant="text"
+                                    className="button-inner"
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(currCode);
+                                    }}
+                                >
                                     Copy
                                 </Button>
                                 <LiveEditor
@@ -86,7 +92,17 @@ export const CodePreview = ({
                         </>
                     ) : (
                         <Grid item xs={12} className="full-code">
-                            <Button variant="text" className="button-inner">
+                            <Button
+                                variant="text"
+                                className="button-inner"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(
+                                        code.children
+                                            .trim()
+                                            .replace(normalize(), currCode)
+                                    );
+                                }}
+                            >
                                 Copy
                             </Button>
                             <code>
