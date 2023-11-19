@@ -1,0 +1,40 @@
+#code-area {
+    .top {
+        background-color: #1976d2;
+        border-radius: 20px 20px 0 0;
+
+        .button-area {
+            color: wheat;
+        }
+    }
+
+    .button-inner {
+        position: absolute;
+        right: 0;
+    }
+
+    .preview-area {
+        background-color: rgb(40 40 40);
+        padding: 8px;
+    }
+
+    .editor-area {
+        padding-right: 64px;
+        background-color: rgb(1, 22, 39);
+        position: relative;
+        border: 1px solid;
+    }
+
+    .full-code {
+        position: relative;
+        background-color: rgb(1, 22, 39);
+        padding-right: 64px;
+        border: 1px solid;
+    }
+
+    .error-area {
+        > pre {
+            background-color: #5b1616;
+        }
+    }
+}

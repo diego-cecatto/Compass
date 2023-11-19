@@ -3,46 +3,39 @@
     [] implement lerna
     [] create a pattern with lerna + compass
     [] create tests
-    [] only compile in real time file of dependences
+    [] create images to errors pages
+    [] Publish only transpiled files, remove dependence of ts files
+    [] [] only compile in real time file of dependences
 
 # CLI
 
-    [] create cache for application with, name of application and location of .compassrc and favicon location
-    [] Customize favicon and library name, including on build
+    [] show tips to publish documentation
+    [] prod and dev version of start component
+    [] []  remove help icon from prod envirornment
+    [] command watch to constantly create packages according document is changed - could use a dev command to use nodemon
+    [] add patterns to be ignore components
     [] could specify directoy of config file
 
-    [] add patterns to be ignore components
-    [] command watch to constantly create packages according document is changed and not has error
-    [] prod and dev version of start component
-    [] show tips to publish documentation
-    [] support anothers imports into preview area
-    [] create images to errors pages
+## WEBSITE DOCUMENTATION
 
-# Web Page
-
-    [] change favicon
-    [] remove help icon from prod envirornment
+    [] table is not responsive
+    [] right side to see sections and could navigate accordly section
+    [] [] Sections
     [] Show command to install package
     [] show online version
     [] if have packag.json local show local version
     [] [] Format description
     [] [] Parse React.FC component
+    [] support anothers imports into preview area
     [] Parse changelog
     [] you can filter components if your list have more than 10 items
     [] Improve use of component properties
     [] remove models and use generate models from graphql
     [] complex properties
     [] Create GraphQL cache
-    [] Imsplement redux
+    [] Implement redux
     [] graphic of dependences
     [] Menu based on tree-view
-
-# ROADMAP
-
-[] Publish only transpiled files, remove dependence of ts files
-
-## WEBSITE DOCUMENTATION
-
     [] Acessiblity
     [] Dark mode
     [] Improve Live Code (https://github.com/remarkjs/remark-lint)
