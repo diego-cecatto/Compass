@@ -9,11 +9,11 @@ import { AppConfig, Config, DEF_CONFIG } from '../../utils/config';
 export class Documentation {
     tsFileDirectory = path.dirname(__filename);
     outDir = '/build';
-    config: AppConfig = DEF_CONFIG;
+    config: Config = DEF_CONFIG;
     loading: Promise<boolean>;
     constructor() {
         this.loading = new Promise(async (resolve) => {
-            this.config = await Config.read();
+            this.config = await AppConfig.read();
             resolve(true);
         });
     }
@@ -27,6 +27,21 @@ export class Documentation {
             const targetFilePath = path.join(targetDir, file);
             fs.copyFileSync(sourceFilePath, targetFilePath);
         });
+        if (this.config.favicon) {
+            fs.copyFileSync(
+                path.join(sourceDir, this.config.favicon),
+                path.join(targetDir, 'favicon.ico')
+            );
+        }
+        let applicationName = this.config.name || 'Compass';
+        if (applicationName == 'Compass') {
+            if (fs.existsSync('./package.json')) {
+                var packageJson = fs.readFileSync('./package.json', 'utf-8');
+                if (packageJson) {
+                    applicationName = JSON.parse(packageJson).name;
+                }
+            }
+        }
         var indexFile = targetDir + '/index.html';
         let indexFileHTML = fs.readFileSync(indexFile, 'utf8');
         indexFileHTML = indexFileHTML
@@ -40,6 +55,7 @@ export class Documentation {
                 `<link rel="stylesheet" href="%PUBLIC_URL%/index.css">
             </head>`
             )
+            .replace('%TITLE%', applicationName)
             .replace(new RegExp('%PUBLIC_URL%', 'g'), '');
         fs.writeFileSync(indexFile, indexFileHTML);
     }

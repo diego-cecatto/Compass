@@ -21,8 +21,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Menu } from './menu/menu';
 import SchoolIcon from '@mui/icons-material/School';
 import { useState } from 'react';
-import { Link } from '@mui/material';
+import { Link, Skeleton } from '@mui/material';
 import { Outlet } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { ApplicationAction } from '../../actions/application.action';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -75,6 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function BaseLayout() {
+    const { loading, error, data } = useQuery(ApplicationAction.name());
     const theme = useTheme();
     const [open, setOpen] = useState(true);
     const handleDrawerOpen = () => {
@@ -100,7 +103,7 @@ export default function BaseLayout() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Compass
+                        {loading ? <Skeleton /> : data?.documentationName}
                     </Typography>
                 </Toolbar>
             </AppBar>

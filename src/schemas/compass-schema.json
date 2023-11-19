@@ -18,6 +18,16 @@
             "type": "string",
             "description": "Directory to read components.",
             "default": "./packages"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of library, automatically located in package.json file.",
+            "default": "./packages"
+        },
+        "favicon": {
+            "type": "string",
+            "description": "Path to custom favicon.",
+            "default": "./packages"
         }
     }
 }

@@ -4,42 +4,38 @@
     [] create a pattern with lerna + compass
     [] create tests
     [] only compile in real time file of dependences
-    [] npx structure
 
 # CLI
 
+    [] create cache for application with, name of application and location of .compassrc and favicon location
+    [] Customize favicon and library name, including on build
     [] could specify directoy of config file
-    [] show loading with skeleton
-    [] if no one component found show a message to user could understand how configure his documentation library
+
     [] add patterns to be ignore components
-    [] Validate component name
     [] command watch to constantly create packages according document is changed and not has error
     [] prod and dev version of start component
     [] show tips to publish documentation
-    [] support annothers imports into preview area
-    [] create images to some empty state components
+    [] support anothers imports into preview area
+    [] create images to errors pages
 
 # Web Page
 
-    [] Create Errors Pages
+    [] change favicon
     [] remove help icon from prod envirornment
     [] Show command to install package
     [] show online version
     [] if have packag.json local show local version
-    [] could update favicon of documentation
-    [] could update name of documentation
     [] [] Format description
     [] [] Parse React.FC component
     [] Parse changelog
     [] you can filter components if your list have more than 10 items
-    [] graphic of dependences
-    [] Menu based on tree-view
-    [] Use rightly component properties
+    [] Improve use of component properties
     [] remove models and use generate models from graphql
     [] complex properties
     [] Create GraphQL cache
-    [] Breadcrumb
-    [] Implement redux
+    [] Imsplement redux
+    [] graphic of dependences
+    [] Menu based on tree-view
 
 # ROADMAP
 

@@ -11,7 +11,7 @@ import path from 'path';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 //@ts-ignore
-import { Config } from '../../utils/config';
+import { AppConfig } from '../../utils/config';
 dotenv.config();
 export class CompassServer {
     //todo generate cache
@@ -48,7 +48,7 @@ export class CompassServer {
         app.get('*', (req, res) => {
             res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
         });
-        const CONFIG = await Config.read();
+        const CONFIG = await AppConfig.read();
         await new Promise<void>((resolve) =>
             httpServer.listen({ port: CONFIG.port }, resolve)
         );

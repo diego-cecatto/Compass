@@ -1,24 +1,19 @@
 import { Resolvers } from '../generated/schema';
 import { ComponentService } from '../../services/component.service';
-import { Config } from '../../utils/config';
-var componentService = new ComponentService();
+import { AppConfig } from '../../utils/config';
+import { Normalizer } from '../../utils/normalizer';
 
 const ComponentResolver: Resolvers = {
     Query: {
         components: async () => {
+            var componentService = new ComponentService();
             return await componentService.getComponents();
         },
         component: async (_, { path }) => {
-            const config = await Config.read();
+            var componentService = new ComponentService();
+            const config = await AppConfig.read();
             var paths = path.split('/');
-            function capitalizeWordsAndRemoveHyphen(str: string) {
-                const words = str.split('-');
-                const capitalizedWords = words.map(
-                    (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                );
-                return capitalizedWords.join('');
-            }
-            let componentName = capitalizeWordsAndRemoveHyphen(
+            let componentName = Normalizer.capitalizeWordsAndRemoveHyphen(
                 paths[paths.length - 1]
             );
             if (componentName.indexOf('Use') === 0) {
@@ -30,10 +25,15 @@ const ComponentResolver: Resolvers = {
             return components.find((c) => c.name === componentName) || null;
         },
         documentationDefault: async () => {
+            var componentService = new ComponentService();
             return await componentService.getDocumentationDefault();
         },
         documentation: async (_, { path }) => {
+            var componentService = new ComponentService();
             return await componentService.getDocumentation(path);
+        },
+        documentationName: async () => {
+            return (await AppConfig.read()).name;
         },
     },
 };

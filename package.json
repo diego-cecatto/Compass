@@ -14,7 +14,7 @@
     "scripts": {
         "pack": "npm run compile && npm pack",
         "type-check": "npm run compile --noEmit",
-        "dev": "nodemon --exec \"ts-node ./src/commands/local/local.ts\" -e ts",
+        "dev": "nodemon --exec \"ts-node ./src/commands/index.ts\" -e ts",
         "prod": "node ./dist/commands/local/local.js",
         "updater": "ts-node ./src/commands/updater.ts",
         "lint": "eslint src/**/*.ts src/**/*.tsx",

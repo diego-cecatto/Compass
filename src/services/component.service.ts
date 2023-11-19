@@ -7,36 +7,28 @@ import * as dotenv from 'dotenv';
 import { Documentation } from 'react-docgen';
 import { AppConfig, Config, DEF_CONFIG } from '../utils/config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
+import { Normalizer } from '../utils/normalizer';
 dotenv.config();
-//todo ignore composition file
-//todo create tests repository
 
 export class ComponentService {
     reactDocGen: any;
-    config: AppConfig = DEF_CONFIG;
+    config: Config = DEF_CONFIG;
     loading: any;
     constructor() {
-        this.loading = new Promise((resolve) => {
-            import('react-docgen')
-                .then((reactDocGen) => {
-                    this.reactDocGen = reactDocGen;
-                    Config.read()
-                        .then((config) => {
-                            this.config = config;
-                            resolve(true);
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+        this.loading = new Promise(async (resolve) => {
+            await Promise.all([
+                import('react-docgen').then((reactDocGen) => {
+                    reactDocGen;
+                }),
+                AppConfig.read().then((json) => {
+                    this.config = json;
+                }),
+            ]);
+            resolve(true);
         });
     }
 
     public async getComponents(componentPath?: string, componentName?: string) {
-        var config = await Config.read();
         await this.loading;
         if (!componentPath) {
             componentPath = this.config.dir;
@@ -52,7 +44,9 @@ export class ComponentService {
             if (packageJson) {
                 const packageParsed = JSON.parse(packageJson);
                 componentName = packageParsed.name;
-                componentName = this.capitalizePackageName(componentName!);
+                componentName = Normalizer.capitalizePackageName(
+                    componentName!
+                );
             } else {
                 packageJSONFile = '';
             }
@@ -75,7 +69,7 @@ export class ComponentService {
         });
 
         if (!componentName) {
-            componentName = this.capitalizeWordsAndRemoveHyphen(
+            componentName = Normalizer.capitalizeWordsAndRemoveHyphen(
                 path
                     .basename(mdFileLocation, '.md')
                     .replace('.doc', '')
@@ -111,7 +105,7 @@ export class ComponentService {
                                 subComponent.docPath =
                                     componentPath + '/' + mdFileLocation;
                                 subComponent.basePath = componentPath!.replace(
-                                    config.dir,
+                                    this.config.dir,
                                     ''
                                 );
                             }
@@ -121,7 +115,7 @@ export class ComponentService {
                                 subComponent.name === componentName
                             ) {
                                 subComponent.basePath = componentPath!.replace(
-                                    config.dir,
+                                    this.config.dir,
                                     ''
                                 );
                             }
@@ -154,12 +148,12 @@ export class ComponentService {
                                     component.docPath =
                                         componentPath + '/' + mdFileLocation;
                                     component.basePath = componentPath?.replace(
-                                        config.dir,
+                                        this.config.dir,
                                         ''
                                     );
                                 } else if (packageJSONFile) {
                                     component.basePath = componentPath?.replace(
-                                        config.dir,
+                                        this.config.dir,
                                         ''
                                     );
                                 }
@@ -346,28 +340,5 @@ export class ComponentService {
             return null;
         }
         return fs.readFileSync(path, 'utf8');
-    }
-
-    private capitalizeWordsAndRemoveHyphen(str: string) {
-        const words = str.split('-');
-        const capitalizedWords = words.map(
-            (word) => word.charAt(0).toUpperCase() + word.slice(1)
-        );
-        return capitalizedWords.join('');
-    }
-
-    capitalizePackageName(packageName: string) {
-        let cleanedName = packageName.replace(/^@[\w-]+\//, '');
-        let words = cleanedName.split('.');
-        cleanedName = words[words.length - 1];
-        words = cleanedName.split('-');
-        const capitalizedWords = words.map((word) => {
-            if (word === 'use') {
-                return word;
-            }
-            return word.charAt(0).toUpperCase() + word.slice(1);
-        });
-        const capitalizedPackageName = capitalizedWords.join('');
-        return capitalizedPackageName;
     }
 }
