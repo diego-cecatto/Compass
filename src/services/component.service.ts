@@ -186,7 +186,6 @@ export class ComponentService {
         let parsedComponents: Documentation[];
         try {
             let resolver = null;
-            console.log(componentName);
             if (componentName.indexOf('use') === 0 || !componentName) {
                 resolver = new this.reactDocGen.builtinResolvers.ChainResolver(
                     [
@@ -240,7 +239,6 @@ export class ComponentService {
 
     public async getDocumentationDefault() {
         const dir = path.dirname(__filename);
-        console.log(dir + '/../../../README.md');
         return await this.getDocumentation(dir + '/../../README.md');
     }
 

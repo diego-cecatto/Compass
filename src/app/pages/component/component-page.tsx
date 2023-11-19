@@ -10,6 +10,7 @@ import './component.scss';
 import { ComponentProperties } from './component-properties';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ComponentAction } from '../../actions/component.action';
+import { LoadingPage } from './loading-page';
 
 declare type ComponentPageProps = {
     // component: any;
@@ -24,8 +25,13 @@ export const ComponentPage = ({}: ComponentPageProps) => {
     });
 
     if (loading) return <CircularProgress />;
-    if (error) return <p>Error :(</p>;
-    if (!data?.component) navigate('/404');
+    if (error) {
+        navigate('/500');
+        return <p>Error :(</p>;
+    }
+    if (!data?.component) {
+        navigate('/404');
+    }
     return <ComponentDetails component={data?.component} />;
 };
 
@@ -43,7 +49,7 @@ const ComponentDetails = ({ component }: any) => {
     return (
         <>
             {loading ? (
-                <CircularProgress />
+                <LoadingPage />
             ) : (
                 <div className="documentation">
                     <div>
