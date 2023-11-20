@@ -88,7 +88,6 @@ export class ComponentService {
                     return null;
                 }
                 var currPath = componentPath + '/' + file;
-                //todo pass ahead this var
                 var fileStat = await fs.promises.stat(currPath);
                 if (fileStat.isDirectory()) {
                     const subComponents = await this.getComponents(
@@ -96,12 +95,12 @@ export class ComponentService {
                         componentName
                     );
                     if (subComponents) {
-                        //get all subcomponents that
                         subComponents.forEach((subComponent) => {
                             if (
                                 mdFileLocation &&
                                 !subComponent.docPath &&
-                                subComponent.name === componentName
+                                subComponent.name.toLocaleLowerCase() ===
+                                    componentName?.toLocaleLowerCase()
                             ) {
                                 subComponent.docPath =
                                     componentPath + '/' + mdFileLocation;
@@ -113,7 +112,8 @@ export class ComponentService {
                             if (
                                 !subComponent.basePath &&
                                 packageJSONFile &&
-                                subComponent.name === componentName
+                                subComponent.name.toLocaleLowerCase() ===
+                                    componentName?.toLocaleLowerCase()
                             ) {
                                 subComponent.basePath = componentPath!.replace(
                                     this.config.dir,
@@ -215,7 +215,6 @@ export class ComponentService {
                 resolver,
             });
         } catch (ex) {
-            console.error(ex);
             return null;
         }
         const parsedComponent = parsedComponents.find(

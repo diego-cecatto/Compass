@@ -10,7 +10,7 @@
 # CLI
 
     [] export server to be configured how it is needed
-    [] show tips to publish documentation
+    [] show tips to publish documentation , could appears when have the file defined, and also show only in dev
     [] prod and dev version of start component
     [] []  remove help icon from prod envirornment
     [] command watch to constantly create packages according document is changed - could use a dev command to use nodemon
@@ -19,8 +19,10 @@
 
 ## WEBSITE DOCUMENTATION
 
-    [] is not redirecting to how-to-configure page wn dosent have components
-    [] is not parsing components
+    [] some types in properties is not parsed accordly
+    [] show component name in header
+    [] in a example define importer like in the package is defined the name
+    [] is not redirecting to how-to-configure page when dosent have components
     [] how package json works with a directory map
     [] show top area if have package.json
     [] create area to show messages
@@ -41,12 +43,10 @@
     [] Dark mode
     [] Improve Live Code (https://github.com/remarkjs/remark-lint)
         [][] Use monaco-editor
-        [][] Copy icon
-        [][] Implement linter
     [] Compositions / Variations
     [] Local tests
     [] Hot Reloading
-    [] show image of dependences
+    [] show graph of dependences
     [] fix the top of component to show name and description if not have in MD file, or not found
     [] show tags from package
     [] create documentation to explain how to create a md file, or create a function to do that

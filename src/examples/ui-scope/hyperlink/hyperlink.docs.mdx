@@ -2,28 +2,16 @@
 description: A Hyperlink component.
 ---
 
-import { HyperLink } from './src/hyperlink';
-
 A component that does something special and renders text in a div.
 
 ### Component usage
 
 ```js
+import { HyperLink } from './src/hyperlink';
 <HyperLink
-    link={'link'}
+    link={'https://www.google.com.br'}
     openInNewTab={true}
-    content={<>Click here</>}
+    children={<>Click here</>}
     showTooltip={false}
-/>
-```
-
-### Render hello world!
-
-```js live
-<HyperLink
-    link={'link'}
-    openInNewTab={true}
-    content={<>Click here</>}
-    showTooltip={false}
-/>
+/>;
 ```

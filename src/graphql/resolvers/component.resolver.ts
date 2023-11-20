@@ -22,7 +22,11 @@ const ComponentResolver: Resolvers = {
             const components = await componentService.getComponents(
                 `${config.dir}/${path}`
             );
-            return components.find((c) => c.name === componentName) || null;
+            return (
+                components.find(
+                    (c) => c.name.toLowerCase() === componentName.toLowerCase()
+                ) || null
+            );
         },
         documentationDefault: async () => {
             var componentService = new ComponentService();
