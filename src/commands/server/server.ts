@@ -7,6 +7,7 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import http from 'http';
 import cors from 'cors';
 import * as fs from 'fs';
+import compression from 'compression';
 import path from 'path';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
@@ -34,7 +35,7 @@ export class CompassServer {
         });
         await server.start();
         app.use(express.static(path.join(process.cwd(), 'build')));
-
+        app.use(compression());
         app.use(
             '/graphql',
             cors<cors.CorsRequest>(),
@@ -45,6 +46,21 @@ export class CompassServer {
                 context: async ({ req }) => ({ token: req.headers.token }),
             })
         );
+        app.use(
+            express.static(__dirname, {
+                extensions: ['html'],
+                setHeaders: (res, path) => {
+                    if (path.match(/(\.html|\/sw\.js)$/)) {
+                        this.setNoCache(res);
+                        return;
+                    }
+
+                    if (path.match(/\.(js|css|png|jpg|jpeg|gif|ico|json)$/)) {
+                        this.setLongTermCache(res);
+                    }
+                },
+            })
+        );
         app.get('*', (req, res) => {
             res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
         });
@@ -53,5 +69,20 @@ export class CompassServer {
             httpServer.listen({ port: CONFIG.port }, resolve)
         );
         console.log(`🚀 Server is running at http://localhost:${CONFIG.port}`);
+    }
+
+    setNoCache(res: express.Response<any, Record<string, any>>) {
+        const date = new Date();
+        date.setFullYear(date.getFullYear() - 1);
+        res.setHeader('Expires', date.toUTCString());
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Cache-Control', 'public, no-cache');
+    }
+
+    setLongTermCache(res: express.Response<any, Record<string, any>>) {
+        const date = new Date();
+        date.setFullYear(date.getFullYear() + 1);
+        res.setHeader('Expires', date.toUTCString());
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
     }
 }

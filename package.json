@@ -57,6 +57,7 @@
         "@types/jest": "^29.5.6",
         "@types/node": "^20.8.9",
         "@types/react": "^18.2.33",
+        "@types/compression": "1.7.5",
         "@types/react-dom": "^18.2.14",
         "@typescript-eslint/eslint-plugin": "^6.9.0",
         "@typescript-eslint/parser": "^6.9.0",
@@ -71,7 +72,6 @@
         "graphql": "^16.8.1",
         "keyv": "^4.5.4",
         "nodemon": "^3.0.1",
-        "npm-check-updates": "^16.14.6",
         "path-browserify": "^1.0.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -109,6 +109,7 @@
         "react-docgen": "^7.0.0",
         "react-live": "^4.1.5",
         "react-markdown": "^9.0.0",
-        "react-router-dom": "^6.18.0"
+        "react-router-dom": "^6.18.0",
+        "compression": "1.7.4"
     }
 }

@@ -21,6 +21,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import { useState } from 'react';
 import { Link, Skeleton } from '@mui/material';
 import { Outlet } from 'react-router-dom';
+//@ts-ignore
 import { useQuery } from '@apollo/client';
 import { ApplicationAction } from '../../actions/application.action';
 const drawerWidth = 240;

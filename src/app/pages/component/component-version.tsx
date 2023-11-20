@@ -5,14 +5,15 @@ import { SvgIconComponent } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 
 declare type ComponentVersionProps = {
-    online: string;
     local: string;
 };
 
-export const ComponentVersion = ({ online, local }: ComponentVersionProps) => {
+export const ComponentVersion = ({ local }: ComponentVersionProps) => {
     if (!local) {
         return <></>;
     }
+
+    let online = local;
     if (!online) {
         online = 'New';
     }

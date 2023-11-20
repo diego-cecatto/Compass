@@ -57,10 +57,7 @@ const ComponentDetails = ({ component }: any) => {
                     <div>
                         <Grid container className="headerInfo">
                             <Grid item xs="auto" id="version">
-                                <ComponentVersion
-                                    online="0.0.1"
-                                    local={component.version}
-                                />
+                                <ComponentVersion local={component.version} />
                             </Grid>
                             <Grid xs item id="install-command">
                                 <ComponentInstall name="@scope/component" />

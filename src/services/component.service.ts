@@ -18,7 +18,7 @@ export class ComponentService {
         this.loading = new Promise(async (resolve) => {
             await Promise.all([
                 import('react-docgen').then((reactDocGen) => {
-                    reactDocGen;
+                    this.reactDocGen = reactDocGen;
                 }),
                 AppConfig.read().then((json) => {
                     this.config = json;
@@ -69,7 +69,6 @@ export class ComponentService {
             }
             return true;
         });
-
         if (!componentName) {
             componentName = Normalizer.capitalizeWordsAndRemoveHyphen(
                 path
@@ -179,12 +178,15 @@ export class ComponentService {
         componentPath: string,
         componentName: string = ''
     ): Promise<Component | null> {
+        if (!componentName) {
+            return null;
+        }
         await this.loading;
         var code = fs.readFileSync(path.resolve(componentPath), 'utf8');
         let parsedComponents: Documentation[];
         try {
             let resolver = null;
-            if (componentName.indexOf('use') === 0 || !componentName) {
+            if (componentName.indexOf('use') === 0) {
                 resolver = new this.reactDocGen.builtinResolvers.ChainResolver(
                     [
                         new FindHooksDefinitionResolver(),
@@ -213,16 +215,19 @@ export class ComponentService {
                 resolver,
             });
         } catch (ex) {
+            console.error(ex);
             return null;
         }
         const parsedComponent = parsedComponents.find(
-            (component) => component.displayName === componentName
+            (component) =>
+                component.displayName?.toLocaleLowerCase() ===
+                componentName.toLocaleLowerCase()
         );
         if (!parsedComponent) {
             return null;
         }
         let component: Component = {
-            name: componentName,
+            name: parsedComponent.displayName!,
             basePath: '', //ASSIGNED_AFTER
             docPath: '', //ASSIGNED_AFTER
             path: componentPath,

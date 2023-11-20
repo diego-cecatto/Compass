@@ -9,6 +9,7 @@
 
 # CLI
 
+    [] export server to be configured how it is needed
     [] show tips to publish documentation
     [] prod and dev version of start component
     [] []  remove help icon from prod envirornment
@@ -18,6 +19,10 @@
 
 ## WEBSITE DOCUMENTATION
 
+    [] is not redirecting to how-to-configure page wn dosent have components
+    [] is not parsing components
+    [] how package json works with a directory map
+    [] show top area if have package.json
     [] create area to show messages
     [] right side to see sections and could navigate accordly section
     [] [] Format description
@@ -41,6 +46,10 @@
     [] Compositions / Variations
     [] Local tests
     [] Hot Reloading
+    [] show image of dependences
+    [] fix the top of component to show name and description if not have in MD file, or not found
+    [] show tags from package
+    [] create documentation to explain how to create a md file, or create a function to do that
 
 ## DOCUMENTATION - Hystory mode
 
@@ -102,7 +111,6 @@
 # COMPONENT Entity model, Need to be updated, and explain it in README
 
     -   models
-        -   scopes
         -   version
             -   component
                 -   version
@@ -112,10 +120,7 @@
         -   compositions
             -   name
             -   component
-        -   code
-            -   code
-        -   version
-            -   dependencies
+        -   dependencies
         -   tests cases
             -   description
             -   test
@@ -125,12 +130,5 @@
                 -   status
                 -   description
         -   components
-            -   name
-            -   version
-            -   properties
-            -   description
             -   tags
-            -   parent
-            -   childs
-            -   package
             -   dependencies
