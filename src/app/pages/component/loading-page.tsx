@@ -6,7 +6,7 @@ export const LoadingPage = () => {
             <LoadingSection />
             <LoadingSection variant="small" />
             <LoadingSection />
-            <LoadingSection />
+            <LoadingSection variant="small" />
         </Grid>
     );
 };

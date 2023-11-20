@@ -1,6 +1,6 @@
 {
     "watch": ["src"],
-    "ext": "ts,json,tsx",
+    "ext": "ts,json,tsx,scss",
     "ignore": [
         "./src/app/pages/component/live-editor/component-dependences.ts"
     ],

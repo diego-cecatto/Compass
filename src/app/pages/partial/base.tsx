@@ -32,6 +32,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 }>(({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
+    paddingTop: '70px',
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -160,7 +161,6 @@ export default function BaseLayout() {
                 </List>
             </Drawer>
             <Main open={open}>
-                <DrawerHeader />
                 <Outlet />
             </Main>
         </Box>

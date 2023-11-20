@@ -1,8 +1,9 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import * as Dependences from './component-dependences';
-import { Button, Grid } from '@mui/material';
+import { Button, Chip, Grid } from '@mui/material';
 import './code-preview.scss';
+import CopyContentIcon from '@mui/icons-material/ContentCopy';
 export const CodePreview = ({
     component,
     code,
@@ -44,27 +45,28 @@ export const CodePreview = ({
                 language="tsx"
             >
                 <Grid container id="code-area">
-                    <Grid
-                        item
-                        xs={12}
-                        className="top"
-                        sx={{ paddingLeft: '8px' }}
-                    >
+                    <Grid item xs={12} className="top">
                         {!fullCode ? (
                             <Button
-                                variant="text"
-                                className="button-area"
+                                className="button-top"
                                 onClick={() => setFullCode(true)}
                             >
-                                Full code
+                                <Chip
+                                    label="Expand code"
+                                    size="small"
+                                    variant="outlined"
+                                />
                             </Button>
                         ) : (
                             <Button
-                                variant="text"
-                                className="button-area"
+                                className="button-top"
                                 onClick={() => setFullCode(false)}
                             >
-                                Live Editor
+                                <Chip
+                                    label="Collapse code"
+                                    size="small"
+                                    variant="outlined"
+                                />
                             </Button>
                         )}
                     </Grid>
@@ -79,7 +81,7 @@ export const CodePreview = ({
                                         navigator.clipboard.writeText(currCode);
                                     }}
                                 >
-                                    Copy
+                                    <CopyContentIcon />
                                 </Button>
                                 <LiveEditor
                                     language="tsx"
@@ -103,7 +105,7 @@ export const CodePreview = ({
                                     );
                                 }}
                             >
-                                Copy
+                                <CopyContentIcon />
                             </Button>
                             <code>
                                 {code.children

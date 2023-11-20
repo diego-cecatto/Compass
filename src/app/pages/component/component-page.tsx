@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 // @ts-ignore
 import { useQuery } from '@apollo/client';
 import { DocumentationAction } from '../../actions/Documentation.action';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
 // @ts-ignore
 import ReactMarkdown from 'react-markdown';
 import { CodePreview } from './live-editor/code-preview';
@@ -11,6 +11,8 @@ import { ComponentProperties } from './component-properties';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ComponentAction } from '../../actions/component.action';
 import { LoadingPage } from './loading-page';
+import { ComponentVersion } from './component-version';
+import { ComponentInstall } from './component-install';
 
 declare type ComponentPageProps = {
     // component: any;
@@ -53,6 +55,17 @@ const ComponentDetails = ({ component }: any) => {
             ) : (
                 <div className="documentation">
                     <div>
+                        <Grid container className="headerInfo">
+                            <Grid item xs="auto" id="version">
+                                <ComponentVersion
+                                    online="0.0.1"
+                                    local="0.0.1"
+                                />
+                            </Grid>
+                            <Grid xs item id="install-command">
+                                <ComponentInstall name="@scope/component" />
+                            </Grid>
+                        </Grid>
                         <ReactMarkdown
                             // rehypePlugins={[rehypeReact]}
                             components={{

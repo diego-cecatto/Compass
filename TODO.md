@@ -18,9 +18,9 @@
 
 ## WEBSITE DOCUMENTATION
 
+    [] create area to show messages
     [] table is not responsive
     [] right side to see sections and could navigate accordly section
-    [] [] Sections
     [] Show command to install package
     [] show online version
     [] if have packag.json local show local version

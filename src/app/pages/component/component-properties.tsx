@@ -16,6 +16,7 @@ export const ComponentProperties = ({
             </Typography>
             <DataGrid
                 getRowId={(data) => data.name}
+                hideFooter
                 columns={[
                     {
                         field: 'name',
