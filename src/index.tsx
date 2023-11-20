@@ -8,6 +8,8 @@ import { ComponentPage } from './app/pages/component/component-page';
 import NotFoundPage from './app/pages/states/404';
 import Error500 from './app/pages/states/500';
 import { EmptyState } from './app/pages/states/empty-state';
+import { Provider } from 'react-redux';
+import store from './app/config/store';
 
 interface MainComponentProps {
     documentationName: string;
@@ -22,34 +24,37 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
 
     return (
         <React.StrictMode>
-            <ApolloProvider
-                client={
-                    new ApolloClient({
-                        uri: 'http://localhost:5000/graphql',
-                        cache: new InMemoryCache(),
-                    })
-                }
-            >
-                <BrowserRouter>
-                    <Suspense fallback={<BaseLayout />}>
-                        <Routes>
-                            <Route path="/" element={<BaseLayout />}>
-                                <Route index={true} />
+            {' '}
+            <Provider store={store}>
+                <ApolloProvider
+                    client={
+                        new ApolloClient({
+                            uri: 'http://localhost:5000/graphql',
+                            cache: new InMemoryCache(),
+                        })
+                    }
+                >
+                    <BrowserRouter>
+                        <Suspense fallback={<BaseLayout />}>
+                            <Routes>
+                                <Route path="/" element={<BaseLayout />}>
+                                    <Route index={true} />
+                                    <Route
+                                        path="/component/*"
+                                        Component={ComponentPage}
+                                    />
+                                </Route>
                                 <Route
-                                    path="/component/*"
-                                    Component={ComponentPage}
+                                    path="/how-to-configure"
+                                    element={<EmptyState />}
                                 />
-                            </Route>
-                            <Route
-                                path="/how-to-configure"
-                                element={<EmptyState />}
-                            />
-                            <Route path="/500" element={<Error500 />} />
-                            <Route path="*" element={<NotFoundPage />} />
-                        </Routes>
-                    </Suspense>
-                </BrowserRouter>
-            </ApolloProvider>
+                                <Route path="/500" element={<Error500 />} />
+                                <Route path="*" element={<NotFoundPage />} />
+                            </Routes>
+                        </Suspense>
+                    </BrowserRouter>
+                </ApolloProvider>
+            </Provider>
         </React.StrictMode>
     );
 };

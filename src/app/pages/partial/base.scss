@@ -72,3 +72,26 @@ body {
         }
     }
 }
+
+.submenu-section {
+    width: 245px;
+    margin-top: 75px;
+    border-left: 1px solid #f9efef;
+
+    .list-item-section {
+        padding-top: 0;
+        margin: 0;
+        padding-bottom: 0;
+        padding-left: 24px;
+
+        .section-link {
+            color: #525860;
+            text-decoration: none;
+            font-size: 12px;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+}

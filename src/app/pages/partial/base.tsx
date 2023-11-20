@@ -24,6 +24,8 @@ import { Outlet } from 'react-router-dom';
 //@ts-ignore
 import { useQuery } from '@apollo/client';
 import { ApplicationAction } from '../../actions/application.action';
+import ComponentSection from './sections/component-section';
+import './base.scss';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -159,9 +161,19 @@ export default function BaseLayout() {
                     ))}
                 </List>
             </Drawer>
-            <Main open={open} style={{ width: 'calc(100% - 220px)' }}>
+            <Main
+                open={open}
+                style={{
+                    width: 'calc(100% - 220px)',
+                    maxWidth: '1200px',
+                    margin: '0 auto',
+                }}
+            >
                 <Outlet />
             </Main>
+            <div className="submenu-section">
+                <ComponentSection />
+            </div>
         </Box>
     );
 }

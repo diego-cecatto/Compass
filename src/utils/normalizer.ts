@@ -7,6 +7,14 @@ export class Normalizer {
         return capitalizedWords.join('');
     }
 
+    static sectionName(name: string) {
+        name = name
+            .replace(/ /g, '-')
+            .replace(/[^a-zA-Z0-9 ]/g, '')
+            .toLocaleLowerCase();
+        return `section-${name}`;
+    }
+
     static capitalizePackageName(packageName: string, joiner: string = '') {
         let cleanedName = packageName.replace(/^@[\w-]+\//, '');
         let words = cleanedName.split('.');

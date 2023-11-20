@@ -19,16 +19,25 @@
 
 ## WEBSITE DOCUMENTATION
 
+    [] todo change favicon
+    [] it is not going back to home on 500 error
+    [] improve resonsive layout
+    [] submenu section
+        [] [] same layout to redux docs page
+        [] [] if not have scroll not show sections side
+        [] [] on resize verify to show section side or not
+        [] [] use redux to open side part of sections, could controll by URL
+        [] [] implement redux
     [] some types in properties is not parsed accordly
     [] show component name in header
     [] in a example define importer like in the package is defined the name
-    [] is not redirecting to how-to-configure page when dosent have components
+    [] is not redirecting to how-to-configure page when dosen`t have components
     [] how package json works with a directory map
     [] show top area if have package.json
     [] create area to show messages
-    [] right side to see sections and could navigate accordly section
-    [] [] Format description
-    [] [] Parse React.FC component
+    [] improve component parsing
+        [] [] Format description
+        [] [] Parse React.FC component
     [] support anothers imports into preview area
     [] Parse changelog
     [] you can filter components if your list have more than 10 items
@@ -50,11 +59,11 @@
     [] fix the top of component to show name and description if not have in MD file, or not found
     [] show tags from package
     [] create documentation to explain how to create a md file, or create a function to do that
+    [] wide preview mode
 
 ## DOCUMENTATION - Hystory mode
 
-    [✔️] use react-doc-gen to build documentation
-    [✔️] Diffrent scopes
+    [] Diffrent scopes
             -   main content
                 - on top have nav tabs with sections
                 - could add to right place a navigation container
@@ -70,7 +79,6 @@
                                 -   in sequence list all composition of this component
                                 -   in sequence have all properties - each property need to have this layout, each property will be one table with a transparent line with tow columns - in the left, at first column one item bellow one in each line: - name - type - default - in the right on the second column - this properties correspondetly of the left column - be separed each propertie with a border-bottom and some marging
                     -   preview
-                        [✔️] render a preview of component
                         -   create a composition section
                         -   list all compositions and render each of one this compositions
                     -   dependencies
