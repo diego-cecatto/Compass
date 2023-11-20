@@ -14,16 +14,12 @@
     [] []  remove help icon from prod envirornment
     [] command watch to constantly create packages according document is changed - could use a dev command to use nodemon
     [] add patterns to be ignore components
-    [] could specify directoy of config file
+    [] could specify directory of config file
 
 ## WEBSITE DOCUMENTATION
 
     [] create area to show messages
-    [] table is not responsive
     [] right side to see sections and could navigate accordly section
-    [] Show command to install package
-    [] show online version
-    [] if have packag.json local show local version
     [] [] Format description
     [] [] Parse React.FC component
     [] support anothers imports into preview area

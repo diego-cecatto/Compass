@@ -11,6 +11,7 @@ type Query {
 type Component {
     name: String!
     path: String!
+    version: String
     docPath: String
     basePath: String!
     fullPath: String!

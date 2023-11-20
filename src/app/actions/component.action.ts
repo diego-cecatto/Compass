@@ -40,6 +40,7 @@ export class ComponentAction extends BaseAction {
             query ScopedComponents($path: String!) {
                 component(path: $path) {
                     name
+                    version
                     description
                     docPath
                     basePath

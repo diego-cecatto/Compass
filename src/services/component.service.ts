@@ -38,6 +38,7 @@ export class ComponentService {
         }
         var components: Component[] = [];
         let packageJSONFile = path.resolve(componentPath, 'package.json');
+        let componentVersion = '';
         if (fs.existsSync(packageJSONFile)) {
             const packageJson = fs.readFileSync(packageJSONFile, 'utf8');
 
@@ -47,6 +48,7 @@ export class ComponentService {
                 componentName = Normalizer.capitalizePackageName(
                     componentName!
                 );
+                componentVersion = packageParsed.version;
             } else {
                 packageJSONFile = '';
             }
@@ -119,6 +121,7 @@ export class ComponentService {
                                     ''
                                 );
                             }
+                            subComponent.version = componentVersion;
                             components.push(subComponent);
                         });
                     }
@@ -157,6 +160,7 @@ export class ComponentService {
                                         ''
                                     );
                                 }
+                                component.version = componentVersion;
                                 cache.components[currPath] = component;
                                 this.writeCache(cache.components);
                             }

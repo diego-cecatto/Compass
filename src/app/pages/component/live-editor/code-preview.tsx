@@ -3,7 +3,7 @@ import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import * as Dependences from './component-dependences';
 import { Button, Chip, Grid } from '@mui/material';
 import './code-preview.scss';
-import CopyContentIcon from '@mui/icons-material/ContentCopy';
+import CopyContentIcon from '@mui/icons-material/ContentCopyRounded';
 export const CodePreview = ({
     component,
     code,

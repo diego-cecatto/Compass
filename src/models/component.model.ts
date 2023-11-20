@@ -4,6 +4,7 @@ import { Documentation } from 'react-docgen';
 export declare type Component = {
     path: string;
     basePath: string;
+    version?: string;
     docPath: string;
     fullPath: string;
     name: string;

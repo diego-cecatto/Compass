@@ -59,7 +59,7 @@ const ComponentDetails = ({ component }: any) => {
                             <Grid item xs="auto" id="version">
                                 <ComponentVersion
                                     online="0.0.1"
-                                    local="0.0.1"
+                                    local={component.version}
                                 />
                             </Grid>
                             <Grid xs item id="install-command">
