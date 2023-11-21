@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 // @ts-ignore
 import { useQuery } from '@apollo/client';
 import { DocumentationAction } from '../../actions/Documentation.action';
-import { CircularProgress, Grid } from '@mui/material';
+import { CircularProgress, Grid, Typography } from '@mui/material';
 // @ts-ignore
 import ReactMarkdown from 'react-markdown';
 import { CodePreview } from './live-editor/code-preview';
@@ -14,8 +14,8 @@ import { LoadingPage } from './loading-page';
 import { ComponentVersion } from './version/component-version';
 import { ComponentInstall } from './install/component-install';
 import { useDispatch, useSelector } from 'react-redux';
-import { add, clear } from '../partial/sections/component-section.slice';
-import ComponentSection from '../partial/sections/component-section';
+import { add, clear } from './sections/component-section.slice';
+import ComponentSection from './sections/component-section';
 
 declare type ComponentPageProps = {
     // component: any;
@@ -58,6 +58,24 @@ const ComponentDetails = ({ component }: any) => {
         return <LoadingPage />;
     }
 
+    const renderHeader = (level: number, text: string) => {
+        dispatch(
+            add({
+                name: text,
+                level,
+            })
+        );
+        return (
+            <Typography
+                variant={`h${level}` as any}
+                className="sub-title"
+                id={sections[text]?.id || null}
+            >
+                {text}
+            </Typography>
+        );
+    };
+
     return (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 242px' }}>
             <div
@@ -87,32 +105,16 @@ const ComponentDetails = ({ component }: any) => {
                                     code={props}
                                 />
                             ),
-                            h1: (props) => {
-                                dispatch(add(props.children as string));
-                                return (
-                                    <h1
-                                        id={
-                                            sections[props.children as string]
-                                                ?.id || null
-                                        }
-                                    >
-                                        {props.children}
-                                    </h1>
-                                );
-                            },
-                            h2: (props) => {
-                                dispatch(add(props.children as string));
-                                return (
-                                    <h2
-                                        id={
-                                            sections[props.children as string]
-                                                ?.id || null
-                                        }
-                                    >
-                                        {props.children}
-                                    </h2>
-                                );
-                            },
+                            h1: (props) =>
+                                renderHeader(1, props.children as string),
+                            h2: (props) =>
+                                renderHeader(2, props.children as string),
+                            h3: (props) =>
+                                renderHeader(3, props.children as string),
+                            h4: (props) =>
+                                renderHeader(4, props.children as string),
+                            h5: (props) =>
+                                renderHeader(5, props.children as string),
                         }}
                     >
                         {data?.documentation}

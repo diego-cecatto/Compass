@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import sectionSlice from '../pages/partial/sections/component-section.slice';
+import sectionSlice from '../pages/component/sections/component-section.slice';
 
 export default configureStore({
     reducer: {

@@ -29,7 +29,7 @@
     [] [] tests / coverage
     [] [] change log
 
-    [] todo change favicon
+    [] todo change def favicon to one better
     [] it is not going back to home on 500 error
     [] improve resonsive layout
         [] [] hide side menu
@@ -42,6 +42,7 @@
         [] [] show version of current component
         [] [] show version and how install only if have package.json
         [] [] show how install component
+        [] [] change color in top
 
     [] submenu section
         [] [] remove redux controll to sections
@@ -49,6 +50,8 @@
         [] [] on scroll select section accordly
         [] [] correct selection of section in menu, on click go to element in the scree in the top pos + headerSize?
         [] [] if have properties add properties to the section list
+        [] [] add padding and color in section accordly tag name
+        [] [] change way to process and get sections in parser
 
     [] add size of package
     [] add labels

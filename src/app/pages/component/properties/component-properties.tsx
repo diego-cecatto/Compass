@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { useDispatch } from 'react-redux';
+import { add } from '../sections/component-section.slice';
 
 type ComponentPropertiesProps = {
     component: any;
@@ -9,6 +11,11 @@ type ComponentPropertiesProps = {
 export const ComponentProperties = ({
     component,
 }: ComponentPropertiesProps) => {
+    const dispatcher = useDispatch();
+    useEffect(() => {
+        dispatcher(add({ name: 'Properties', level: 2 }));
+    }, []);
+
     return (
         <>
             <Typography variant="h1" component="h2" className="sub-title">

@@ -24,7 +24,7 @@ import { Outlet } from 'react-router-dom';
 //@ts-ignore
 import { useQuery } from '@apollo/client';
 import { ApplicationAction } from '../../actions/application.action';
-import ComponentSection from './sections/component-section';
+import ComponentSection from '../component/sections/component-section';
 import './base.scss';
 const drawerWidth = 240;
 
