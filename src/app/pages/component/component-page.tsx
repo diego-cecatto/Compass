@@ -15,6 +15,7 @@ import { ComponentVersion } from './version/component-version';
 import { ComponentInstall } from './install/component-install';
 import { useDispatch, useSelector } from 'react-redux';
 import { add, clear } from '../partial/sections/component-section.slice';
+import ComponentSection from '../partial/sections/component-section';
 
 declare type ComponentPageProps = {
     // component: any;
@@ -58,8 +59,16 @@ const ComponentDetails = ({ component }: any) => {
     }
 
     return (
-        <>
-            <div className="documentation">
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 242px' }}>
+            <div
+                className="documentation"
+                style={{
+                    maxWidth: '1200px',
+                    margin: '0 auto',
+                    width: '100%',
+                    minWidth: '0',
+                }}
+            >
                 <div>
                     <Grid container className="headerInfo">
                         <Grid item xs="auto" id="version">
@@ -113,6 +122,7 @@ const ComponentDetails = ({ component }: any) => {
                     <ComponentProperties component={component} />
                 ) : null}
             </div>
-        </>
+            <ComponentSection />
+        </div>
     );
 };

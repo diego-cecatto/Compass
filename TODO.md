@@ -9,25 +9,49 @@
 
 # CLI
 
+    [] add configuration to server to accept anothers configurations, how support it?
+        [] [] create server in your hown and pass this server as parameter?
     [] export server to be configured how it is needed
     [] show tips to publish documentation , could appears when have the file defined, and also show only in dev
     [] prod and dev version of start component
-    [] []  remove help icon from prod envirornment
+        [] []  add parameter to start cmd
+        [] []  remove help icon from prod envirornment
     [] command watch to constantly create packages according document is changed - could use a dev command to use nodemon
     [] add patterns to be ignore components
     [] could specify directory of config file
 
 ## WEBSITE DOCUMENTATION
 
+    [] Area to implement tabs?
+    [] [] verify if exist tabs
+    [] [] info
+    [] [] dependencies
+    [] [] tests / coverage
+    [] [] change log
+
     [] todo change favicon
     [] it is not going back to home on 500 error
     [] improve resonsive layout
+        [] [] hide side menu
+        [] [] sidemenu hover layout in xs resolution
+        [] [] hide section in small resolutions
+
+    [] Change top
+        [] [] add logo
+        [] [] add app name
+        [] [] show version of current component
+        [] [] show version and how install only if have package.json
+        [] [] show how install component
+
     [] submenu section
-        [] [] same layout to redux docs page
-        [] [] if not have scroll not show sections side
-        [] [] on resize verify to show section side or not
-        [] [] use redux to open side part of sections, could controll by URL
-        [] [] implement redux
+        [] [] remove redux controll to sections
+        [] [] correct the width of section if have all corects
+        [] [] on scroll select section accordly
+        [] [] correct selection of section in menu, on click go to element in the scree in the top pos + headerSize?
+        [] [] if have properties add properties to the section list
+
+    [] add size of package
+    [] add labels
     [] some types in properties is not parsed accordly
     [] show component name in header
     [] in a example define importer like in the package is defined the name
@@ -51,7 +75,7 @@
     [] Acessiblity
     [] Dark mode
     [] Improve Live Code (https://github.com/remarkjs/remark-lint)
-        [][] Use monaco-editor
+        [] [] Use monaco-editor
     [] Compositions / Variations
     [] Local tests
     [] Hot Reloading

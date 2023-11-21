@@ -74,9 +74,14 @@ body {
 }
 
 .submenu-section {
-    width: 245px;
+    width: 200px;
     margin-top: 75px;
     border-left: 1px solid #f9efef;
+
+    > nav {
+        position: sticky;
+        top: 76px;
+    }
 
     .list-item-section {
         padding-top: 0;

@@ -164,16 +164,12 @@ export default function BaseLayout() {
             <Main
                 open={open}
                 style={{
-                    width: 'calc(100% - 220px)',
-                    maxWidth: '1200px',
-                    margin: '0 auto',
+                    width: '100%',
+                    display: 'grid',
                 }}
             >
                 <Outlet />
             </Main>
-            <div className="submenu-section">
-                <ComponentSection />
-            </div>
         </Box>
     );
 }
