@@ -18,7 +18,11 @@ export const ComponentProperties = ({
 
     return (
         <>
-            <Typography variant="h1" component="h2" className="sub-title">
+            <Typography
+                id="section-properties"
+                component="h2"
+                className="sub-title"
+            >
                 Properties
             </Typography>
             <div style={{ width: '100%' }}>
@@ -30,6 +34,7 @@ export const ComponentProperties = ({
                             field: 'name',
                             headerName: 'Name',
                             width: 100,
+                            flex: 0.3,
                         },
                         {
                             field: 'flowType?.flowType',
@@ -42,13 +47,14 @@ export const ComponentProperties = ({
                             field: 'required',
                             headerName: 'Required',
                             width: 30,
+                            flex: 0.1,
                         },
                         {
                             field: 'defaultValue.value',
                             valueGetter: (params) =>
                                 params.row.defaultValue?.value,
                             headerName: 'Default',
-                            flex: 0.1,
+                            flex: 0.5,
                         },
                         {
                             field: 'description',

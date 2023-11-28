@@ -1,6 +1,6 @@
 {
     "name": "compass-docgen",
-    "version": "1.0.16-alpha",
+    "version": "1.0.19-alpha",
     "author": {
         "name": "Diego Cecatto",
         "email": "diego.cecatto@gmail.com",
@@ -12,15 +12,15 @@
     "description": "This is a package that will help you to create your documentation for yours components",
     "main": "index.js",
     "scripts": {
-        "pack": "npm run compile && npm pack",
-        "type-check": "npm run compile --noEmit",
+        "pack": "npm run build && npm pack",
+        "type-check": "npm run build --noEmit",
         "dev": "nodemon --exec \"ts-node ./src/commands/index.ts\" -e ts",
         "prod": "node ./dist/commands/local/local.js",
         "updater": "ts-node ./src/commands/updater.ts",
         "lint": "eslint src/**/*.ts src/**/*.tsx",
         "type:generate": "graphql-codegen",
         "codegen": "graphql-codegen --config codegen.yml",
-        "compile": "tsc && copyfiles -f src/graphql/typedefs/* dist/graphql/typedefs"
+        "build": "tsc && copyfiles -f src/graphql/typedefs/* dist/graphql/typedefs"
     },
     "keywords": [
         "react",

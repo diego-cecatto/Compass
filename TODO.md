@@ -9,9 +9,6 @@
 
 # CLI
 
-    [] add configuration to server to accept anothers configurations, how support it?
-        [] [] create server in your hown and pass this server as parameter?
-    [] export server to be configured how it is needed
     [] show tips to publish documentation , could appears when have the file defined, and also show only in dev
     [] prod and dev version of start component
         [] []  add parameter to start cmd
