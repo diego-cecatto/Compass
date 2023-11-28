@@ -14,13 +14,10 @@ program
         docLib.start();
     });
 
-program
-    .command('build')
-    .option('--out <outputDir>', 'Specify the output directory')
-    .action(async (cmd) => {
-        const { out } = cmd;
-        console.log(`Building with output directory: ${out}`);
-        // Your build logic here
-    });
+program.command('build').action(async (cmd) => {
+    await AppConfig.bind();
+    var docLib = new Documentation();
+    docLib.build();
+});
 
 program.parse(process.argv);

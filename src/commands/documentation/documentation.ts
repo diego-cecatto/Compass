@@ -19,7 +19,7 @@ export class Documentation {
     }
 
     baseReactFiles() {
-        const sourceDir = this.tsFileDirectory + '../../../../public';
+        const sourceDir = path.resolve(this.tsFileDirectory, '../../../public');
         const targetDir = './' + this.outDir;
         const files = fs.readdirSync(sourceDir);
         files.forEach((file) => {
@@ -119,6 +119,9 @@ export class Documentation {
                 path.parse(path.basename(component.fullPath)).name
             }'; \n`;
         }
-        fs.writeFileSync(this.tsFileDirectory + DEP_DIR, exportCommands);
+        fs.writeFileSync(
+            path.resolve(this.tsFileDirectory, DEP_DIR),
+            exportCommands
+        );
     }
 }
