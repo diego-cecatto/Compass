@@ -2,7 +2,7 @@
 import ReactMarkdown from 'react-markdown';
 // @ts-ignore
 import { useQuery } from '@apollo/client';
-import { DocumentationAction } from '../../actions/Documentation.action';
+import { DocumentationAction } from '../../actions/documentation.action';
 import { LoadingPage } from '../component/loading-page';
 
 export const EmptyState = () => {

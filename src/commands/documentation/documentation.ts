@@ -8,7 +8,7 @@ import { AppConfig, Config, DEF_CONFIG } from '../../utils/config';
 
 export class Documentation {
     tsFileDirectory = path.dirname(__filename);
-    outDir = '/build';
+    outDir = './build';
     config: Config = DEF_CONFIG;
     loading: Promise<boolean>;
     constructor() {
@@ -66,7 +66,6 @@ export class Documentation {
             this.tsFileDirectory + '../../../../src/index.tsx'
         );
         const clientEnv = { 'process.env.NODE_ENV': `'production'` };
-
         await esbuild
             .build({
                 entryPoints: [indexFile],
@@ -87,7 +86,10 @@ export class Documentation {
                 },
                 jsxFactory: 'React.createElement',
             })
-            .catch(() => process.exit(1))
+            .catch((error) => {
+                console.log(error);
+                process.exit(1);
+            })
             .then(() => {
                 this.baseReactFiles();
             });

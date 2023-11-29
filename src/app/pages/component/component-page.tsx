@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 // @ts-ignore
 import { useQuery } from '@apollo/client';
-import { DocumentationAction } from '../../actions/Documentation.action';
+import { DocumentationAction } from '../../actions/documentation.action';
 import { CircularProgress, Grid, Typography } from '@mui/material';
 // @ts-ignore
 import ReactMarkdown from 'react-markdown';
