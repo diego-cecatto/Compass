@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Component } from '../models/component.model';
-const CACHE_FILE_PATH = './components.cache';
 import * as dotenv from 'dotenv';
 //@ts-ignore
 import { Documentation } from 'react-docgen';
@@ -9,6 +8,7 @@ import { AppConfig, Config, DEF_CONFIG } from '../utils/config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
 import { Normalizer } from '../utils/normalizer';
 dotenv.config();
+export const CACHE_FILE_PATH = './build/components.cache';
 
 export class ComponentService {
     reactDocGen: any;
@@ -31,7 +31,7 @@ export class ComponentService {
     public async getComponents(componentPath?: string, componentName?: string) {
         await this.loading;
         if (!componentPath) {
-            componentPath = this.config.dir;
+            componentPath = this.config.dir || '';
         }
         if (!fs.existsSync(componentPath)) {
             return [];
@@ -135,7 +135,8 @@ export class ComponentService {
                             currPath.indexOf('tsx') !== -1)
                     ) {
                         const lastModified = fileStat.mtimeMs;
-                        let component = cache.components[currPath];
+                        let component: Component | null =
+                            cache.components[currPath];
                         if (
                             !component ||
                             !cache?.date ||
@@ -149,12 +150,12 @@ export class ComponentService {
                                 if (mdFileLocation) {
                                     component.docPath =
                                         componentPath + '/' + mdFileLocation;
-                                    component.basePath = componentPath?.replace(
+                                    component.basePath = componentPath!.replace(
                                         this.config.dir,
                                         ''
                                     );
                                 } else if (packageJSONFile) {
-                                    component.basePath = componentPath?.replace(
+                                    component.basePath = componentPath!.replace(
                                         this.config.dir,
                                         ''
                                     );
@@ -326,7 +327,10 @@ export class ComponentService {
         fs.writeFileSync(CACHE_FILE_PATH, JSON.stringify(cache), 'utf8');
     }
 
-    private async readCache() {
+    async readCache(): Promise<{
+        components: Record<string, Component>;
+        date?: number;
+    }> {
         try {
             const cacheContent = fs.readFileSync(CACHE_FILE_PATH, 'utf8');
             var fileStat = await fs.promises.stat(CACHE_FILE_PATH);

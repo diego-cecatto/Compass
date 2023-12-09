@@ -1,32 +1,20 @@
 import { Resolvers } from '../generated/schema';
 import { ComponentService } from '../../services/component.service';
 import { AppConfig } from '../../utils/config';
-import { Normalizer } from '../../utils/normalizer';
 
 const ComponentResolver: Resolvers = {
     Query: {
         components: async () => {
             var componentService = new ComponentService();
-            return await componentService.getComponents();
+            const COMPONENTS = await componentService.readCache();
+            const KEYS = Object.keys(COMPONENTS?.components || {});
+            return KEYS.map((KEYS) => COMPONENTS?.components[KEYS]);
         },
         component: async (_, { path }) => {
             var componentService = new ComponentService();
-            const config = await AppConfig.read();
-            var paths = path.split('/');
-            let componentName = Normalizer.capitalizeWordsAndRemoveHyphen(
-                paths[paths.length - 1]
-            );
-            if (componentName.indexOf('Use') === 0) {
-                componentName = componentName.replace('Use', 'use');
-            }
-            const components = await componentService.getComponents(
-                `${config.dir}/${path}`
-            );
-            return (
-                components.find(
-                    (c) => c.name.toLowerCase() === componentName.toLowerCase()
-                ) || null
-            );
+            const COMPONENTS = await componentService.readCache();
+            const COMPONENT = COMPONENTS?.components[path];
+            return COMPONENT || null;
         },
         documentationDefault: async () => {
             var componentService = new ComponentService();

@@ -68,7 +68,6 @@
         "copyfiles": "^2.4.1",
         "eslint": "^8.52.0",
         "eslint-config-react-app": "^7.0.1",
-        "fs-extra": "^11.1.1",
         "graphql": "^16.8.1",
         "keyv": "^4.5.4",
         "nodemon": "^3.0.1",
@@ -99,6 +98,7 @@
         ]
     },
     "dependencies": {
+        "fs-extra": "^11.1.1",
         "@apollo/client": "^3.8.6",
         "@apollo/server": "^4.9.5",
         "@mui/x-data-grid": "^6.17.0",

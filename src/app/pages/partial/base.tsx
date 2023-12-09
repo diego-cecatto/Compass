@@ -19,7 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { Menu } from './menu/menu';
 import SchoolIcon from '@mui/icons-material/School';
 import { useState } from 'react';
-import { Link, Skeleton } from '@mui/material';
+import { Container, Link, Skeleton } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 //@ts-ignore
 import { useQuery } from '@apollo/client';
@@ -168,7 +168,12 @@ export default function BaseLayout() {
                     display: 'grid',
                 }}
             >
-                <Outlet />
+                <Container
+                    maxWidth={false}
+                    sx={{ width: 'calc(100% - 240px)' }}
+                >
+                    <Outlet />
+                </Container>
             </Main>
         </Box>
     );

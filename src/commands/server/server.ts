@@ -1,6 +1,5 @@
 import express from 'express';
 import resolvers from '../../graphql/resolvers/component.resolver';
-import * as dotenv from 'dotenv';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
@@ -13,7 +12,6 @@ import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 //@ts-ignore
 import { AppConfig } from '../../utils/config';
-dotenv.config();
 export class CompassServer {
     //todo generate cache
 

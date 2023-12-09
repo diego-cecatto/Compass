@@ -20,7 +20,10 @@ export class Documentation {
 
     baseReactFiles() {
         const sourceDir = path.resolve(this.tsFileDirectory, '../../../public');
-        const targetDir = './' + this.outDir;
+        let targetDir = './' + this.outDir;
+        if (sourceDir.indexOf('node_modules') > -1) {
+            targetDir = sourceDir.split('node_modules')[0] + '/' + this.outDir;
+        }
         const files = fs.readdirSync(sourceDir);
         files.forEach((file) => {
             const sourceFilePath = path.join(sourceDir, file);
@@ -93,12 +96,6 @@ export class Documentation {
             .then(() => {
                 this.baseReactFiles();
             });
-    }
-
-    async start() {
-        await this.build();
-        const server = new CompassServer();
-        server.start();
     }
 
     async dependences() {
