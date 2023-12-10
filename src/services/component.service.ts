@@ -271,7 +271,7 @@ export class ComponentService {
 
     public async getDocumentationDefault() {
         const dir = path.dirname(__filename);
-        return await this.getDocumentation(dir + '/../../README.md');
+        return await fs.promises.readFile(dir + '/../../README.md', 'utf-8');
     }
 
     private propSingleComment(path: any, documentation: any, propName: any) {
@@ -371,15 +371,5 @@ export class ComponentService {
             // Return an empty object if the cache file doesn't exist or is not valid JSON.
             return { components: {} };
         }
-    }
-
-    public async getDocumentation(path?: string | null) {
-        if (!path) {
-            return null;
-        }
-        if (!path || path.indexOf('.md') === -1) {
-            return null;
-        }
-        return fs.readFileSync(path, 'utf8');
     }
 }

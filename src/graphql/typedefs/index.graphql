@@ -2,8 +2,8 @@ scalar JSON
 
 type Query {
     components(scope: String): [Component]!
-    component(path: String!): Component
-    documentation(path: String): String
+    component(filePath: String!): Component
+    documentation(filePath: String): String
     documentationDefault: String
     documentationName: String
 }

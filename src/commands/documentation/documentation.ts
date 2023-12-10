@@ -64,7 +64,7 @@ export class Documentation {
     }
 
     async build() {
-        await this.dependences();
+        const COMPONENTS = await this.dependences();
         var indexFile = path.resolve(
             this.tsFileDirectory + '../../../../src/index.tsx'
         );
@@ -95,6 +95,24 @@ export class Documentation {
             })
             .then(() => {
                 this.baseReactFiles();
+                var copyFiles = COMPONENTS.map(async (component) => {
+                    if (component.docPath) {
+                        const DESTINATION = path.resolve(
+                            this.outDir,
+                            component.docPath
+                        );
+                        await fs.promises.mkdir(path.dirname(DESTINATION), {
+                            recursive: true,
+                        });
+                        await fs.promises.copyFile(
+                            component.docPath,
+                            DESTINATION
+                        );
+                    }
+                });
+                Promise.all(copyFiles).then(() => {
+                    console.log('Documentation generated');
+                });
             });
     }
 
@@ -122,5 +140,6 @@ export class Documentation {
             path.resolve(this.tsFileDirectory, DEP_DIR),
             exportCommands
         );
+        return components;
     }
 }

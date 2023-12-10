@@ -28,6 +28,7 @@ export type Component = {
   name: Scalars['String']['output'];
   path: Scalars['String']['output'];
   props?: Maybe<Scalars['JSON']['output']>;
+  version?: Maybe<Scalars['String']['output']>;
 };
 
 export type DefaultValueDescriptor = {
@@ -71,7 +72,7 @@ export type Query = {
 
 
 export type QueryComponentArgs = {
-  path: Scalars['String']['input'];
+  filePath: Scalars['String']['input'];
 };
 
 
@@ -81,7 +82,7 @@ export type QueryComponentsArgs = {
 
 
 export type QueryDocumentationArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
+  filePath?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -189,6 +190,7 @@ export type ComponentResolvers<ContextType = any, ParentType extends ResolversPa
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   props?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
+  version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -227,7 +229,7 @@ export type PropertyResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  component?: Resolver<Maybe<ResolversTypes['Component']>, ParentType, ContextType, RequireFields<QueryComponentArgs, 'path'>>;
+  component?: Resolver<Maybe<ResolversTypes['Component']>, ParentType, ContextType, RequireFields<QueryComponentArgs, 'filePath'>>;
   components?: Resolver<Array<Maybe<ResolversTypes['Component']>>, ParentType, ContextType, Partial<QueryComponentsArgs>>;
   documentation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType, Partial<QueryDocumentationArgs>>;
   documentationDefault?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
