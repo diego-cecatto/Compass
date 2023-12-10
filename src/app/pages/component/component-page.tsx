@@ -25,7 +25,7 @@ export const ComponentPage = ({}: ComponentPageProps) => {
     const navigate = useNavigate();
     const path = useParams();
     const { loading, error, data } = useQuery(ComponentAction.get(), {
-        variables: { path: path['*'] },
+        variables: { filePath: path['*'] },
     });
 
     if (loading) return <CircularProgress />;
@@ -45,7 +45,7 @@ const ComponentDetails = ({ component }: any) => {
     const { loading, error, data, refetch } = useQuery(
         DocumentationAction.getDocumentation(),
         {
-            variables: { path: component?.docPath },
+            variables: { filePath: component?.docPath },
         }
     );
 

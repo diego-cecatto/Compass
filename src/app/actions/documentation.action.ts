@@ -5,8 +5,8 @@ import { BaseAction } from './Base.actions';
 export class DocumentationAction extends BaseAction {
     public static getDocumentation() {
         return gql`
-            query ScopedDocument($path: String!) {
-                documentation(path: $path)
+            query ScopedDocument($filePath: String!) {
+                documentation(filePath: $filePath)
             }
         `;
     }

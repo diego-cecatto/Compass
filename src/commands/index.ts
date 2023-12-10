@@ -8,7 +8,7 @@ import fs from 'fs';
 const buildApp = async () => {
     await AppConfig.bind();
     var docLib = new Documentation();
-    docLib.build();
+    await docLib.build();
 };
 
 const program = new Command();
@@ -35,8 +35,9 @@ program
 program
     .command('dev', { isDefault: true })
     .action(async (cmd: { clean?: boolean }) => {
-        //todo see folder changes and rebuild
+        console.log('Starting building application');
         await buildApp();
+        console.log('Starting server');
         const server = new CompassServer();
         server.start();
     });

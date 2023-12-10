@@ -37,8 +37,8 @@ export class ComponentAction extends BaseAction {
 
     public static get() {
         return gql`
-            query ScopedComponents($path: String!) {
-                component(path: $path) {
+            query ScopedComponents($filePath: String!) {
+                component(filePath: $filePath) {
                     name
                     version
                     description
