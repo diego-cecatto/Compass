@@ -150,6 +150,8 @@ export const Menu = () => {
         }
     }, [loading]);
 
+    console.log(data);
+
     const normalizeMenu = () => {
         const structure: NormalizedMenu = {};
         data?.components.forEach((component: any) => {
@@ -172,6 +174,7 @@ export const Menu = () => {
     };
 
     var items = useMemo(() => normalizeMenu(), [loading]);
+    console.log(items);
     if (loading) return <MenuLoading />;
     return (
         <List>

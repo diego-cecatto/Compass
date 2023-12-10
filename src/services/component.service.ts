@@ -8,12 +8,17 @@ import { AppConfig, Config, DEF_CONFIG } from '../utils/config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
 import { Normalizer } from '../utils/normalizer';
 dotenv.config();
-export const CACHE_FILE_PATH = './build/components.cache';
+export const CACHE_FILE_PATH = './build/components.cache.json';
 
 export class ComponentService {
     reactDocGen: any;
     config: Config = DEF_CONFIG;
     loading: any;
+    cache: {
+        components: Record<string, Component>;
+        date?: number;
+    } = { components: {} };
+
     constructor() {
         this.loading = new Promise(async (resolve) => {
             await Promise.all([
@@ -23,65 +28,85 @@ export class ComponentService {
                 AppConfig.read().then((json) => {
                     this.config = json;
                 }),
+                this.readCache().then((cache) => {
+                    this.cache = cache;
+                }),
             ]);
             resolve(true);
         });
     }
 
-    public async getComponents(componentPath?: string, componentName?: string) {
-        await this.loading;
-        if (!componentPath) {
-            componentPath = this.config.dir || '';
+    private getComponentsFromPackageJSON(currPath: string) {
+        let packageJSONFile = path.resolve(currPath, 'package.json');
+        if (!fs.existsSync(packageJSONFile)) {
+            return;
         }
-        if (!fs.existsSync(componentPath)) {
-            return [];
+        const packageJson = fs.readFileSync(packageJSONFile, 'utf8');
+        if (!packageJson) {
+            return null;
         }
-        var components: Component[] = [];
-        let packageJSONFile = path.resolve(componentPath, 'package.json');
-        let componentVersion = '';
-        if (fs.existsSync(packageJSONFile)) {
-            const packageJson = fs.readFileSync(packageJSONFile, 'utf8');
+        const packageParsed = JSON.parse(packageJson);
+        const componentName = Normalizer.capitalizePackageName(
+            packageParsed.name
+        );
+        const componentVersion = packageParsed.version;
+        return { componentName, componentVersion, packageJSONFile };
+    }
 
-            if (packageJson) {
-                const packageParsed = JSON.parse(packageJson);
-                componentName = packageParsed.name;
-                componentName = Normalizer.capitalizePackageName(
-                    componentName!
-                );
-                componentVersion = packageParsed.version;
-            } else {
-                packageJSONFile = '';
-            }
-        } else {
-            packageJSONFile = '';
-        }
-
-        var files = await fs.promises.readdir(componentPath);
-        let mdFileLocation = '';
-
+    private getMDFileLocation(files: string[]) {
+        let mdFile = '';
         files.every((file) => {
             if (
                 file.toLowerCase().indexOf('.doc.md') !== -1 ||
                 file.toLowerCase().indexOf('.docs.md') !== -1
             ) {
-                mdFileLocation = file;
+                mdFile = file;
                 return false;
             }
             return true;
         });
-        if (!componentName) {
-            componentName = Normalizer.capitalizeWordsAndRemoveHyphen(
-                path
-                    .basename(mdFileLocation, '.md')
-                    .replace('.doc', '')
-                    .replace('.docs', '')
-                    .replace('.mdx', '')
-            );
-            if (componentName.indexOf('Use') === 0) {
-                componentName = componentName.replace('Use', 'use');
-            }
+        return mdFile;
+    }
+
+    private getNameByMdFileLocation(mdFileLocation: string) {
+        let componentName = Normalizer.capitalizeWordsAndRemoveHyphen(
+            path
+                .basename(mdFileLocation, '.md')
+                .replace('.doc', '')
+                .replace('.docs', '')
+                .replace('.mdx', '')
+        );
+        if (componentName.indexOf('Use') === 0) {
+            componentName = componentName.replace('Use', 'use');
         }
-        const cache = await this.readCache();
+        return componentName;
+    }
+
+    public async getComponents(componentPath?: string, componentName?: string) {
+        await this.loading;
+        if (!componentPath) {
+            componentPath = this.config.dir;
+        }
+        if (!fs.existsSync(componentPath)) {
+            return [];
+        }
+        var components: Component[] = [];
+        let componentVersion = '';
+        let packageJSONFile = '';
+        const PACKAGE_INFO = this.getComponentsFromPackageJSON(componentPath);
+        if (PACKAGE_INFO) {
+            componentName = PACKAGE_INFO.componentName;
+            componentVersion = PACKAGE_INFO.componentVersion;
+            packageJSONFile = PACKAGE_INFO.packageJSONFile;
+        }
+        var files = await fs.promises.readdir(componentPath);
+        let mdFileLocation = this.getMDFileLocation(files);
+        console.log(componentName);
+
+        if (!componentName && mdFileLocation) {
+            componentName = this.getNameByMdFileLocation(mdFileLocation);
+        }
+
         await Promise.all(
             files.map(async (file) => {
                 if (file === 'node_modules') {
@@ -120,6 +145,9 @@ export class ComponentService {
                                     ''
                                 );
                             }
+                            this.cache.components[subComponent.path] =
+                                subComponent;
+                            this.writeCache(this.cache.components);
                             subComponent.version = componentVersion;
                             components.push(subComponent);
                         });
@@ -128,7 +156,7 @@ export class ComponentService {
                     //todo ignore others functions not related to this path
                     if (
                         currPath.indexOf('.spec') === -1 &&
-                        currPath.indexOf('doc') === -1 &&
+                        currPath.indexOf('.md') === -1 &&
                         currPath.indexOf('.composition.ts') === -1 &&
                         currPath.indexOf('.composition.tsx') === -1 &&
                         (currPath.indexOf('.ts') !== -1 ||
@@ -136,11 +164,12 @@ export class ComponentService {
                     ) {
                         const lastModified = fileStat.mtimeMs;
                         let component: Component | null =
-                            cache.components[currPath];
+                            this.cache.components[currPath];
+
                         if (
                             !component ||
-                            !cache?.date ||
-                            cache.date < lastModified
+                            !this.cache?.date ||
+                            this.cache.date < lastModified
                         ) {
                             component = await this.getComponent(
                                 currPath,
@@ -161,8 +190,8 @@ export class ComponentService {
                                     );
                                 }
                                 component.version = componentVersion;
-                                cache.components[currPath] = component;
-                                this.writeCache(cache.components);
+                                this.cache.components[currPath] = component;
+                                this.writeCache(this.cache.components);
                             }
                         }
                         if (component) {

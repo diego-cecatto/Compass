@@ -36,9 +36,7 @@ program
     .command('dev', { isDefault: true })
     .action(async (cmd: { clean?: boolean }) => {
         //todo see folder changes and rebuild
-        if (fs.existsSync('./build')) {
-            buildApp();
-        }
+        await buildApp();
         const server = new CompassServer();
         server.start();
     });

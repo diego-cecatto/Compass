@@ -1,5 +1,7 @@
 # Next Goals
 
+    [] read md file for each component
+    [] remove conf cache
     [] prod version of documentation
     [] [] rename compass.cache to compass.data, put into build folder
     [] [] remove use of compassrc.cache use in build time.
