@@ -3,6 +3,7 @@ import { ComponentService } from '../../services/component.service';
 import { AppConfig } from '../../utils/config';
 import fs from 'fs';
 import path from 'path';
+import { Normalizer } from '../../utils/normalizer';
 
 const ComponentResolver: Resolvers = {
     Query: {
@@ -15,8 +16,17 @@ const ComponentResolver: Resolvers = {
         component: async (_, { filePath }) => {
             var componentService = new ComponentService();
             const COMPONENTS = await componentService.readCache();
-            const COMPONENT = COMPONENTS?.components[filePath];
-            return COMPONENT || null;
+            const KEYS = Object.keys(COMPONENTS?.components || {});
+            let component = null;
+            KEYS.every((KEYS) => {
+                const COMPONENT = COMPONENTS?.components[KEYS];
+                if (COMPONENT.basePath === `/${filePath}`) {
+                    component = COMPONENT;
+                    return false;
+                }
+                return true;
+            });
+            return component;
         },
         documentationDefault: async () => {
             var componentService = new ComponentService();
