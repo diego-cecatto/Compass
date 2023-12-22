@@ -8,10 +8,10 @@ import { AppConfig, Config, DEF_CONFIG } from '../utils/config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
 import { Normalizer } from '../utils/normalizer';
 dotenv.config();
-export const CACHE_FILE_PATH = './build/components.cache.json';
 
 export class ComponentService {
     reactDocGen: any;
+    CACHE_FILE_PATH = './build/components.cache.json';
     config: Config = DEF_CONFIG;
     loading: any;
     cache: {
@@ -353,7 +353,7 @@ export class ComponentService {
     }
 
     private writeCache(cache: Record<string, Component>) {
-        fs.writeFileSync(CACHE_FILE_PATH, JSON.stringify(cache), 'utf8');
+        fs.writeFileSync(this.CACHE_FILE_PATH, JSON.stringify(cache), 'utf8');
     }
 
     async readCache(): Promise<{
@@ -361,8 +361,12 @@ export class ComponentService {
         date?: number;
     }> {
         try {
-            const cacheContent = fs.readFileSync(CACHE_FILE_PATH, 'utf8');
-            var fileStat = await fs.promises.stat(CACHE_FILE_PATH);
+            let cacheFile = this.CACHE_FILE_PATH;
+            if (!fs.existsSync(this.CACHE_FILE_PATH)) {
+                cacheFile = './components.cache.json';
+            }
+            const cacheContent = fs.readFileSync(cacheFile, 'utf8');
+            var fileStat = await fs.promises.stat(cacheFile);
             return {
                 components: JSON.parse(cacheContent) ?? {},
                 date: fileStat.mtimeMs,

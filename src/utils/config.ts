@@ -46,9 +46,21 @@ export class AppConfig {
         }
     }
 
+    static getCacheFile() {
+        if (fs.existsSync(AppConfig.cacheFile)) {
+            return AppConfig.cacheFile;
+        } else {
+            const basePath = `${AppConfig.tsFileDirectory}/../../.compassrc.cache`;
+            if (fs.existsSync(basePath)) {
+                return basePath;
+            }
+        }
+        return AppConfig.cacheFile;
+    }
+
     static async read(): Promise<Config> {
         try {
-            const json = await fs.readFile(AppConfig.cacheFile, 'utf-8');
+            const json = await fs.readFile(AppConfig.getCacheFile(), 'utf-8');
             return JSON.parse(json);
         } catch (error) {
             console.error('Error reading or parsing the RC file:', error);
@@ -58,7 +70,7 @@ export class AppConfig {
 
     static readSync(): Config {
         try {
-            const json = fs.readFileSync(AppConfig.cacheFile, 'utf-8');
+            const json = fs.readFileSync(AppConfig.getCacheFile(), 'utf-8');
             return JSON.parse(json);
         } catch (error) {
             console.error('Error reading or parsing the RC file:', error);

@@ -1,8 +1,6 @@
 # Next Goals
 
     [] files could be found internally or in build folder
-    [] generate package.json internally into build folder
-    [] remove conf cache
     [] implement lerna
     [] create a pattern with lerna + compass
     [] create tests
@@ -12,13 +10,9 @@
 
 # CLI
 
-    [] show tips to publish documentation , could appears when have the file defined, and also show only in dev
-    [] prod and dev version of start component
-        [] []  add parameter to start cmd
-        [] []  remove help icon from prod envirornment
     [] command watch to constantly create packages according document is changed - could use a dev command to use nodemon
     [] add patterns to be ignore components
-    [] could specify directory of config file
+    [] could specify build folder
 
 ## WEBSITE DOCUMENTATION
 
