@@ -11,11 +11,11 @@ import path from 'path';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 //@ts-ignore
-import { AppConfig } from '../../utils/config';
+import { AppConfig, BuildParams } from '../../utils/config';
 export class CompassServer {
     //todo generate cache
 
-    async start() {
+    async start(conf: BuildParams = { env: 'PROD' }) {
         const app = express();
         const httpServer = http.createServer(app);
 
@@ -26,6 +26,8 @@ export class CompassServer {
             ),
             'utf8'
         );
+        const customProcessEnv = process.env;
+        customProcessEnv.NODE_ENV = conf.env;
         const server = new ApolloServer<any>({
             typeDefs,
             resolvers,
@@ -62,6 +64,7 @@ export class CompassServer {
         app.get('*', (req, res) => {
             res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
         });
+
         const CONFIG = await AppConfig.read();
         await new Promise<void>((resolve) =>
             httpServer.listen({ port: CONFIG.port }, resolve)

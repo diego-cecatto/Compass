@@ -33,19 +33,18 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 }>(({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
-    paddingTop: '70px',
     transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    }),
+    // marginLeft: `-${drawerWidth}px`,
+    // ...(open && {
+    //     transition: theme.transitions.create('margin', {
+    //         easing: theme.transitions.easing.easeOut,
+    //         duration: theme.transitions.duration.enteringScreen,
+    //     }),
+    //     marginLeft: 0,
+    // }),
 }));
 
 interface AppBarProps extends MuiAppBarProps {
@@ -133,41 +132,39 @@ export default function BaseLayout() {
                 </DrawerHeader>
                 <Divider />
                 <Menu />
-                <Divider />
-                <List>
-                    {[
-                        {
-                            text: 'Help',
-                            link: 'https://github.com/diego-cecatto/Compass/blob/main/README.md',
-                        },
-                    ].map(({ text, link }, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <SchoolIcon />
-                                </ListItemIcon>
-                                <Link
-                                    href="https://github.com/diego-cecatto/Compass/blob/main/README.md"
-                                    target={'_blank'}
-                                    style={{
-                                        textDecoration: 'none',
-                                        color: 'inherit',
-                                    }}
-                                >
-                                    <ListItemText primary={text} />
-                                </Link>
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
+                {process.env.NODE_ENV === 'development' && (
+                    <>
+                        <Divider />
+                        <List>
+                            {[
+                                {
+                                    text: 'Help',
+                                    link: 'https://github.com/diego-cecatto/Compass/blob/main/README.md',
+                                },
+                            ].map(({ text, link }, index) => (
+                                <ListItem key={text} disablePadding>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            <SchoolIcon />
+                                        </ListItemIcon>
+                                        <Link
+                                            href="https://github.com/diego-cecatto/Compass/blob/main/README.md"
+                                            target={'_blank'}
+                                            style={{
+                                                textDecoration: 'none',
+                                                color: 'inherit',
+                                            }}
+                                        >
+                                            <ListItemText primary={text} />
+                                        </Link>
+                                    </ListItemButton>
+                                </ListItem>
+                            ))}
+                        </List>
+                    </>
+                )}
             </Drawer>
-            <Main
-                open={open}
-                style={{
-                    width: '100%',
-                    display: 'grid',
-                }}
-            >
+            <Main open={open}>
                 <Container
                     maxWidth={false}
                     sx={{ width: 'calc(100% - 240px)' }}

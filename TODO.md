@@ -1,12 +1,9 @@
 # Next Goals
 
-    [] read md file for each component
+    [] files could be found internally or in build folder
+    [] generate package.json internally into build folder
     [] remove conf cache
     [] prod version of documentation
-    [] [] rename compass.cache to compass.data, put into build folder
-    [] [] remove use of compassrc.cache use in build time.
-
-
     [] implement lerna
     [] create a pattern with lerna + compass
     [] create tests
@@ -33,9 +30,7 @@
     [] [] tests / coverage
     [] [] change log
 
-    [] todo change def favicon to one better
-    [] it is not going back to home on 500 error
-    [] improve resonsive layout
+    [] improve responsive layout
         [] [] hide side menu
         [] [] sidemenu hover layout in xs resolution
         [] [] hide section in small resolutions

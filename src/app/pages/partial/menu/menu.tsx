@@ -144,13 +144,11 @@ export const Menu = () => {
 
     useEffect(() => {
         if (!loading) {
-            if (!data?.components) {
+            if (!data?.components || !data?.components.length) {
                 navigate(`how-to-configure`);
             }
         }
     }, [loading]);
-
-    console.log(data);
 
     const normalizeMenu = () => {
         const structure: NormalizedMenu = {};
@@ -174,7 +172,7 @@ export const Menu = () => {
     };
 
     var items = useMemo(() => normalizeMenu(), [loading]);
-    console.log(items);
+
     if (loading) return <MenuLoading />;
     return (
         <List>

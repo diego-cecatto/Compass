@@ -15,9 +15,11 @@ export const DEF_CONFIG: Config = {
     name: 'Compass',
 };
 
+export declare type BuildParams = { env: 'DEV' | 'PROD' };
+
 export class AppConfig {
     static tsFileDirectory = path.dirname(__filename);
-    static cacheFile = `${AppConfig.tsFileDirectory}/../../.compassrc.cache`;
+    static cacheFile = `${AppConfig.tsFileDirectory}/../../build/.compassrc.cache`;
     static async bind(
         configLocation: string = '.compassrc'
     ): Promise<AppConfig> {
