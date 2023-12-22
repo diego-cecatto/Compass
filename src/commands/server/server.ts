@@ -13,8 +13,6 @@ import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 //@ts-ignore
 import { AppConfig, BuildParams } from '../../utils/config';
 export class CompassServer {
-    //todo generate cache
-
     async start(conf: BuildParams = { env: 'PROD' }) {
         const app = express();
         const httpServer = http.createServer(app);

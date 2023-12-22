@@ -94,21 +94,42 @@ export class Documentation {
             });
         const COMPONENTS = await this.dependences();
         this.baseReactFiles();
-        var copyFiles = COMPONENTS.map(async (component) => {
-            if (component.docPath) {
-                const DESTINATION = path.resolve(
-                    this.outDir,
-                    component.docPath
-                );
-                await fs.promises.mkdir(path.dirname(DESTINATION), {
-                    recursive: true,
-                });
-                await fs.promises.copyFile(component.docPath, DESTINATION);
-            }
+        var copyFiles = COMPONENTS.map((component) => {
+            return async () => {
+                if (component.docPath) {
+                    const DESTINATION = path.resolve(
+                        this.outDir,
+                        component.docPath
+                    );
+                    await fs.promises.mkdir(path.dirname(DESTINATION), {
+                        recursive: true,
+                    });
+                    await fs.promises.copyFile(component.docPath, DESTINATION);
+                }
+            };
         });
+        this.createPackageJson();
         await Promise.all(copyFiles).then(() => {
             console.log('Documentation generated');
         });
+    }
+
+    createPackageJson() {
+        const packageJson = {
+            name: this.config.name,
+            version: '1.0.0',
+            description: 'Server to run the documentation',
+            scripts: {
+                start: 'compass start',
+            },
+            dependencies: {
+                'compass-docgen': 'latest',
+            },
+        };
+        fs.writeFileSync(
+            path.resolve(this.outDir, 'package.json'),
+            JSON.stringify(packageJson)
+        );
     }
 
     async dependences() {

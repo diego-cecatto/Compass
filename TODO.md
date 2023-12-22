@@ -3,7 +3,6 @@
     [] files could be found internally or in build folder
     [] generate package.json internally into build folder
     [] remove conf cache
-    [] prod version of documentation
     [] implement lerna
     [] create a pattern with lerna + compass
     [] create tests
