@@ -116,6 +116,10 @@ export class Documentation {
 
     createPackageJson() {
         const PACKAGE = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
+        let version = PACKAGE.devDependencies['compass-docgen'];
+        if (PACKAGE.name == 'compass-docgen') {
+            version = PACKAGE.version;
+        }
         const packageJson = {
             name: this.config.name,
             version: '1.0.0',
@@ -124,7 +128,7 @@ export class Documentation {
                 start: 'compass start',
             },
             dependencies: {
-                'compass-docgen': PACKAGE.dependences['compass-docgen'],
+                'compass-docgen': version,
             },
         };
         fs.writeFileSync(

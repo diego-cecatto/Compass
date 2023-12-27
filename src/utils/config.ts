@@ -24,6 +24,9 @@ export class AppConfig {
         configLocation: string = '.compassrc'
     ): Promise<AppConfig> {
         try {
+            if (!fs.existsSync('./build')) {
+                fs.mkdirSync('./build');
+            }
             if (!(await fs.exists(configLocation))) {
                 configLocation = `config/${configLocation}`;
                 if (!(await fs.exists(configLocation))) {

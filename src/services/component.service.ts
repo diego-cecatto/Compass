@@ -101,7 +101,6 @@ export class ComponentService {
         }
         var files = await fs.promises.readdir(componentPath);
         let mdFileLocation = this.getMDFileLocation(files);
-        console.log(componentName);
 
         if (!componentName && mdFileLocation) {
             componentName = this.getNameByMdFileLocation(mdFileLocation);

@@ -28,7 +28,6 @@ export const ComponentPage = ({}: ComponentPageProps) => {
         variables: { filePath: path['*'] },
     });
     if (loading) return <CircularProgress />;
-    console.log(data);
     if (error) {
         navigate('/500');
         return <p>Error :(</p>;
@@ -42,7 +41,6 @@ export const ComponentPage = ({}: ComponentPageProps) => {
 const ComponentDetails = ({ component }: any) => {
     const dispatch = useDispatch();
     const sections = useSelector((state: any) => state.sectionItems.sections);
-    console.log(component?.docPath, component);
     const { loading, error, data, refetch } = useQuery(
         DocumentationAction.getDocumentation(),
         {
