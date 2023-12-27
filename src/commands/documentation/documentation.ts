@@ -18,33 +18,22 @@ export class Documentation {
         });
     }
 
-    baseReactFiles() {
+    async baseReactFiles() {
         const sourceDir = path.resolve(this.tsFileDirectory, '../../../public');
         let targetDir = './' + this.outDir;
         if (sourceDir.indexOf('node_modules') > -1) {
             targetDir = sourceDir.split('node_modules')[0] + '/' + this.outDir;
         }
         const files = fs.readdirSync(sourceDir);
+        var buildPromises: any[] = [];
         files.forEach((file) => {
             const sourceFilePath = path.join(sourceDir, file);
             const targetFilePath = path.join(targetDir, file);
-            fs.copyFileSync(sourceFilePath, targetFilePath);
-        });
-        if (this.config.favicon) {
-            fs.copyFileSync(
-                path.join(sourceDir, this.config.favicon),
-                path.join(targetDir, 'favicon.ico')
+            buildPromises.push(
+                fs.promises.copyFile(sourceFilePath, targetFilePath)
             );
-        }
-        let applicationName = this.config.name || 'Compass';
-        if (applicationName == 'Compass') {
-            if (fs.existsSync('./package.json')) {
-                var packageJson = fs.readFileSync('./package.json', 'utf-8');
-                if (packageJson) {
-                    applicationName = JSON.parse(packageJson).name;
-                }
-            }
-        }
+        });
+        await Promise.all(buildPromises);
         var indexFile = targetDir + '/index.html';
         let indexFileHTML = fs.readFileSync(indexFile, 'utf8');
         indexFileHTML = indexFileHTML
@@ -58,9 +47,15 @@ export class Documentation {
                 `<link rel="stylesheet" href="%PUBLIC_URL%/index.css">
             </head>`
             )
-            .replace('%TITLE%', applicationName)
+            .replace('%TITLE%', this.config.name || 'Compass')
             .replace(new RegExp('%PUBLIC_URL%', 'g'), '');
         fs.writeFileSync(indexFile, indexFileHTML);
+        if (this.config.favicon) {
+            fs.copyFileSync(
+                path.join(sourceDir, this.config.favicon),
+                path.join(targetDir, 'favicon.ico')
+            );
+        }
     }
 
     async build() {
@@ -92,29 +87,16 @@ export class Documentation {
                 console.log(error);
                 process.exit(1);
             });
-        const COMPONENTS = await this.dependences();
-        this.baseReactFiles();
-        var copyFiles = COMPONENTS.map((component) => {
-            return async () => {
-                if (component.docPath) {
-                    const DESTINATION = path.resolve(
-                        this.outDir,
-                        component.docPath
-                    );
-                    await fs.promises.mkdir(path.dirname(DESTINATION), {
-                        recursive: true,
-                    });
-                    await fs.promises.copyFile(component.docPath, DESTINATION);
-                }
-            };
-        });
-        this.createPackageJson();
-        await Promise.all(copyFiles).then(() => {
+        await Promise.all([
+            this.dependences(),
+            this.baseReactFiles(),
+            this.createPackageJson(),
+        ]).then(() => {
             console.log('Documentation generated');
         });
     }
 
-    createPackageJson() {
+    async createPackageJson() {
         const PACKAGE = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
         let version = PACKAGE.devDependencies['compass-docgen'];
         if (PACKAGE.name == 'compass-docgen') {
@@ -131,20 +113,28 @@ export class Documentation {
                 'compass-docgen': version,
             },
         };
-        fs.writeFileSync(
+        fs.promises.writeFile(
             path.resolve(this.outDir, 'package.json'),
             JSON.stringify(packageJson)
         );
+    }
+
+    async copyDocFile(currFile: string) {
+        const DESTINATION = path.resolve(this.outDir, currFile);
+        await fs.promises.mkdir(path.dirname(DESTINATION), {
+            recursive: true,
+        });
+        await fs.promises.copyFile(currFile, DESTINATION);
     }
 
     async dependences() {
         await this.loading;
         var componentsService = new ComponentService();
         var components = await componentsService.getComponents(this.config.dir);
-
         var exportCommands = '';
         const DEP_DIR =
             './../../../src/app/pages/component/live-editor/component-dependences.ts';
+        var promissesOfCopyFiles: any[] = [];
         for (var componentName in components) {
             var component = components[componentName];
             const WORK_DIR = path.relative(
@@ -156,11 +146,15 @@ export class Documentation {
             } } from '${WORK_DIR.replace(/\\/g, '/')}/${
                 path.parse(path.basename(component.fullPath)).name
             }'; \n`;
+            promissesOfCopyFiles.push(this.copyDocFile(component.docPath));
         }
-        fs.writeFileSync(
-            path.resolve(this.tsFileDirectory, DEP_DIR),
-            exportCommands
+        promissesOfCopyFiles.push(
+            fs.promises.writeFile(
+                path.resolve(this.tsFileDirectory, DEP_DIR),
+                exportCommands
+            )
         );
+        await Promise.all(promissesOfCopyFiles);
         return components;
     }
 }
