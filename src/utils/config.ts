@@ -19,7 +19,7 @@ export declare type BuildParams = { env: 'DEV' | 'PROD' };
 
 export class AppConfig {
     static tsFileDirectory = path.dirname(__filename);
-    static cacheFile = `./build/.compassrc.cache`;
+    static cacheFile = `build/.compassrc.cache`;
     static async bind(
         configLocation: string = '.compassrc'
     ): Promise<AppConfig> {
@@ -53,7 +53,7 @@ export class AppConfig {
         if (fs.existsSync(AppConfig.cacheFile)) {
             return AppConfig.cacheFile;
         } else {
-            const basePath = `./.compassrc.cache`;
+            const basePath = `.compassrc.cache`;
             if (fs.existsSync(basePath)) {
                 return basePath;
             }
