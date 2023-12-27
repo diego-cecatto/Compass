@@ -1,19 +1,3 @@
-# Next Goals
-
-    [] files could be found internally or in build folder
-    [] implement lerna
-    [] create a pattern with lerna + compass
-    [] create tests
-    [] create images to errors pages
-    [] Publish only transpiled files, remove dependence of ts files
-    [] [] only compile in real time file of dependences
-
-# CLI
-
-    [] command watch to constantly create packages according document is changed - could use a dev command to use nodemon
-    [] add patterns to be ignore components
-    [] could specify build folder
-
 ## WEBSITE DOCUMENTATION
 
     [] Area to implement tabs?
@@ -159,3 +143,19 @@
         -   components
             -   tags
             -   dependencies
+
+# Next Goals
+
+    [] files could be found internally or in build folder
+    [] implement lerna
+    [] create a pattern with lerna + compass
+    [] create tests
+    [] create images to errors pages
+    [] Publish only transpiled files, remove dependence of ts files
+    [] [] only compile in real time file of dependences
+
+# CLI
+
+    [] command watch to constantly create packages according document is changed - could use a dev command to use nodemon
+    [] add patterns to be ignore components
+    [] could specify build folder

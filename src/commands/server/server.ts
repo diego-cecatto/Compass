@@ -24,6 +24,10 @@ export class CompassServer {
             ),
             'utf8'
         );
+        let baseFolder = '';
+        if (fs.existsSync('build')) {
+            baseFolder = 'build';
+        }
         const customProcessEnv = process.env;
         customProcessEnv.NODE_ENV = conf.env;
         const server = new ApolloServer<any>({
@@ -32,7 +36,7 @@ export class CompassServer {
             plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
         });
         await server.start();
-        app.use(express.static(path.join(process.cwd(), 'build')));
+        app.use(express.static(path.join(process.cwd(), baseFolder)));
         app.use(compression());
         app.use(
             '/graphql',
@@ -59,10 +63,10 @@ export class CompassServer {
                 },
             })
         );
-        app.get('*', (req, res) => {
-            res.sendFile(path.join(process.cwd(), 'build', 'index.html'));
-        });
 
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(process.cwd(), baseFolder, 'index.html'));
+        });
         const CONFIG = await AppConfig.read();
         await new Promise<void>((resolve) =>
             httpServer.listen({ port: CONFIG.port }, resolve)
