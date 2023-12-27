@@ -18,8 +18,8 @@ program
     .command('start', { isDefault: true })
     .action(async (cmd: { clean?: boolean }) => {
         if (
-            fs.existsSync('./build/components.cache.json') ||
-            fs.existsSync('./components.cache.json')
+            fs.existsSync('/build/components.cache.json') ||
+            fs.existsSync('/components.cache.json')
         ) {
             console.error(
                 'Please run ---> compass build <--- first, to generate the build folder'

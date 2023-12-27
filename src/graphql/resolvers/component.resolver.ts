@@ -39,6 +39,9 @@ const ComponentResolver: Resolvers = {
             if (!filePath || filePath.indexOf('.md') === -1) {
                 return null;
             }
+            if (!fs.existsSync(path.resolve('./build', filePath))) {
+                return fs.readFileSync(filePath, 'utf8');
+            }
             return fs.readFileSync(path.resolve('./build', filePath), 'utf8');
         },
         documentationName: async () => {

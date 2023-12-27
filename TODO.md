@@ -1,5 +1,6 @@
 ## WEBSITE DOCUMENTATION
 
+    [] update dependencies and README file
     [] Area to implement tabs?
     [] [] verify if exist tabs
     [] [] info
