@@ -1,0 +1,21 @@
+{
+    "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+    "version": "independent",
+    "command": {
+        "publish": {
+            "conventionalCommits": true,
+            "ignoreChanges": ["test", "*.md"],
+            "message": "chore(release): publish new version [skip-ci]",
+            "concurrency": 5,
+            "progress": true,
+            "directory": "{workspaceRoot}/dist/{projectName}",
+            "yes": true
+        },
+        "version": {
+            "conventionalCommits": true,
+            "commitHooks": true,
+            "message": "chore(release): create new version [skip-ci]"
+        }
+    },
+    "conventionalCommits": true
+}

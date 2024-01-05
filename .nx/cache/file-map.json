@@ -1,0 +1,72 @@
+{
+  "version": "6.0",
+  "nxVersion": "17.2.8",
+  "deps": {
+    "@types/node": "^20.8.9",
+    "typescript": "^5.2.2",
+    "lerna": "^8.0.1"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": ".eslintrc.js",
+        "hash": "12422668373412968132"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "2465696357684592200"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "17399656815512871390"
+      },
+      {
+        "file": "@types/graphql.d.ts",
+        "hash": "6213985892634954959"
+      },
+      {
+        "file": "README.DEV.md",
+        "hash": "8505443468513607391"
+      },
+      {
+        "file": "README.md",
+        "hash": "3863548982303626722"
+      },
+      {
+        "file": "TODO.md",
+        "hash": "1888566313714180604"
+      },
+      {
+        "file": "conf/.compassrc",
+        "hash": "10427498940677212681"
+      },
+      {
+        "file": "conf/.compassrc.example",
+        "hash": "17299595307625644817"
+      },
+      {
+        "file": "conf/tsconfig.json",
+        "hash": "8000714569159635810"
+      },
+      {
+        "file": "lerna.json",
+        "hash": "4439135721243339700"
+      },
+      {
+        "file": "nx.json",
+        "hash": "2397718548768574516"
+      },
+      {
+        "file": "package.json",
+        "hash": "4975758685299503520"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "543306641107075969"
+      }
+    ]
+  }
+}

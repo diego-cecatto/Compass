@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "NodeNext",
+        "lib": [
+            "ES6",
+            "dom",
+            "dom.iterable",
+            "esnext",
+            "es2020",
+            "ES2021.Promise"
+        ],
+        "strict": true,
+        "esModuleInterop": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "moduleResolution": "NodeNext",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        // "noEmit": true,
+        "jsx": "react-jsx",
+        "typeRoots": ["./node_modules/@types", "./@types"]
+    },
+    "files": ["../@types/graphql.d.ts"],
+    "exclude": ["node_modules", "dist", "build.js", "dev.js"]
+}

@@ -1,6 +1,6 @@
 ## WEBSITE DOCUMENTATION
 
-    [] update dependencies and README file
+    [] improve responsive layout
     [] Area to implement tabs?
     [] [] verify if exist tabs
     [] [] info

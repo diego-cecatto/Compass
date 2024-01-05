@@ -1,0 +1,23 @@
+{
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "nx/tasks-runners/default",
+            "options": {
+                "cacheableOperations": ["build", "test"]
+            }
+        }
+    },
+    "namedInputs": {
+        "all": ["{projectRoot}/**/*"],
+        "public": ["!{projectRoot}/**/*.spec.*"]
+    },
+    "targetDefaults": {
+        "build": {
+            "dependsOn": ["^build"],
+            "inputs": ["public", "^public", "{workspaceRoot}/packages/**/*.tsx}"]
+        },
+        "test": {
+            "inputs": ["all", "^public"]
+        }
+    }
+}
