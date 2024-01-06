@@ -1,0 +1,46 @@
+#code-area {
+    .top {
+        background-color: #e3e3e3;
+        border-radius: 9px 9px 0 0;
+        text-align: right;
+    }
+
+    .button-top div {
+        color: rgb(25, 118, 210);
+        padding-top: 3px;
+        border: 1px solid rgb(25, 118, 210);
+    }
+
+    .button-inner {
+        position: absolute;
+        right: 0;
+        color: rgb(25, 118, 210);
+    }
+
+    .preview-area {
+        background-color: rgb(40 40 40);
+        border: 1px solid #0e0e0e;
+        padding: 8px;
+    }
+
+    .editor-area {
+        padding-right: 64px;
+        background-color: rgb(1, 22, 39);
+        position: relative;
+        border: 1px solid #0e0e0e;
+    }
+
+    .full-code {
+        position: relative;
+        background-color: rgb(1, 22, 39);
+        border: 1px solid #0e0e0e;
+        padding-right: 64px;
+        padding: 8px;
+    }
+
+    .error-area {
+        > pre {
+            background-color: #5b1616;
+        }
+    }
+}

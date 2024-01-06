@@ -1,0 +1,12 @@
+{
+    "name": "@scope/hyperlink",
+    "version": "0.0.3",
+    "description": "A Hyperlink component",
+    "main": "index.js",
+    "scripts": {
+        "build": "build command",
+        "test": "test command"
+    },
+    "author": "Diego Cecatto",
+    "license": "ISC"
+}

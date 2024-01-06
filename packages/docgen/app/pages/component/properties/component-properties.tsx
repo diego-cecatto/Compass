@@ -1,0 +1,76 @@
+import React, { useEffect } from 'react';
+import { Typography } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import { useDispatch } from 'react-redux';
+import { add } from '../sections/component-section.slice';
+
+type ComponentPropertiesProps = {
+    component: any;
+};
+
+export const ComponentProperties = ({
+    component,
+}: ComponentPropertiesProps) => {
+    const dispatcher = useDispatch();
+    useEffect(() => {
+        dispatcher(add({ name: 'Properties', level: 2 }));
+    }, []);
+
+    return (
+        <>
+            <Typography
+                id="section-properties"
+                component="h2"
+                className="sub-title"
+            >
+                Properties
+            </Typography>
+            <div style={{ width: '100%' }}>
+                <DataGrid
+                    getRowId={(data) => data.name}
+                    hideFooter
+                    columns={[
+                        {
+                            field: 'name',
+                            headerName: 'Name',
+                            width: 100,
+                            flex: 0.3,
+                        },
+                        {
+                            field: 'flowType?.flowType',
+                            valueGetter: (params) => params.row.flowType?.name,
+                            headerName: 'Type',
+                            flex: 0.1,
+                        },
+
+                        {
+                            field: 'required',
+                            headerName: 'Required',
+                            width: 30,
+                            flex: 0.1,
+                        },
+                        {
+                            field: 'defaultValue.value',
+                            valueGetter: (params) =>
+                                params.row.defaultValue?.value,
+                            headerName: 'Default',
+                            flex: 0.5,
+                        },
+                        {
+                            field: 'description',
+                            headerName: 'Description',
+                            flex: 0.5,
+                        },
+                    ]}
+                    rows={
+                        Object.keys(component.props || {})?.map((name) => ({
+                            ...component.props[name],
+                            name,
+                        })) ?? []
+                    }
+                    hideFooterPagination
+                />
+            </div>
+        </>
+    );
+};

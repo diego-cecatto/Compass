@@ -1,0 +1,63 @@
+{
+    "name": "@docmate/server",
+    "version": "0.0.1",
+    "author": {
+        "name": "Diego Cecatto",
+        "email": "diego.cecatto@gmail.com",
+        "url": "https://github.com/diego-cecatto/Compass"
+    },
+    "bin": {
+        "docmate.server": "index.js"
+    },
+    "description": "This is a package to run your doc mate server",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon --exec \"ts-node ./src/commands/index.ts dev\" -e ts",
+        "type:gen": "graphql-codegen --config codegen.yml",
+        "build": "tsc"
+    },
+    "keywords": [
+        "react",
+        "documentation",
+        "react-documentation",
+        "documentation-generation"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/diego-cecatto/Compass.git",
+        "directory": "build/compass"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "@docmate/core": "^0.0.1-alpha",
+        "graphql": "^16.8.1",
+        "commander": "^11.1.0",
+        "@apollo/server": "^4.9.5",
+        "cors": "^2.8.5",
+        "compression": "1.7.4"
+    },
+    "devDependencies": {
+        "@types/compression": "1.7.5",
+        "@types/cors": "^2.8.15",
+        "@types/express": "^4.17.20",
+        "nodemon": "^3.0.1",
+        "ts-node": "^10.9.1"
+    },
+    "browser": {
+        "fs": false,
+        "path": false,
+        "os": false
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
