@@ -22,7 +22,8 @@
         "isolatedModules": true,
         // "noEmit": true,
         "jsx": "react-jsx",
-        "typeRoots": ["./node_modules/@types", "./@types"]
+        "typeRoots": ["../node_modules/@types", "./@types"],
+        "types": ["node", "jest"]
     },
     "files": ["../@types/graphql.d.ts"],
     "exclude": ["node_modules", "dist", "build.js", "dev.js"]

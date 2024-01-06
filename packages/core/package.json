@@ -14,6 +14,9 @@
         "react-documentation",
         "documentation-generation"
     ],
+    "scripts": {
+        "build": "tsc"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/diego-cecatto/Compass.git",

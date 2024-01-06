@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { DocMateServer } from './server';
+import { DocMateServer } from '../server';
 import fs from 'fs';
 
 const program = new Command();

@@ -9,15 +9,16 @@
     "description": "Bundle of projects to generate documentation for React components",
     "main": "index.js",
     "scripts": {
-        "dev": "lerna run dev --stream",
-        "build": "lerna run build --stream",
+        "dev": "lerna run dev",
+        "build": "lerna run build",
         "publish": "lerna version",
         "test": "lerna run test --concurrency=3",
         "preversion": "npm run test",
         "postversion": "npm run build && lerna publish from-package"
     },
     "workspaces": [
-        "packages/**"
+        "packages/**",
+        "!packages/docgen/examples/**"
     ],
     "repository": {
         "type": "git",
@@ -26,9 +27,12 @@
     },
     "license": "ISC",
     "devDependencies": {
+        "@testing-library/react": "^14.1.2",
+        "@types/jest": "^29.5.11",
         "@types/node": "^20.8.9",
-        "typescript": "^5.2.2",
-        "lerna": "^8.0.1"
+        "jest": "^29.7.0",
+        "lerna": "^8.0.1",
+        "typescript": "^5.2.2"
     },
     "browser": {
         "fs": false,
