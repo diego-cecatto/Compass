@@ -1,5 +1,5 @@
 {
-    "$schema": "./src/schemas/docmate-schema.json",
+    "$schema": "./src/schemas/compass-schema.json",
     "port": 5000,
     "dir": "src/examples"
 }

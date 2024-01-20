@@ -1,10 +1,10 @@
 ## Quikstart
 
-Getting dev with Docmate is easy. Begin by installing the necessary dependencies:
+Getting dev with Compass is easy. Begin by installing the necessary dependencies:
 
     npm install @emotion/react @emotion/styled @mui/icons-material @mui/material react react-dom typescript --save-dev
 
-Specify the folder containing your components using the SCOPE variable in your .docmaterc file:
+Specify the folder containing your components using the SCOPE variable in your .compassrc file:
 
     {
         "$schema": "node_modules/lerna/schemas/lerna-schema.json",
@@ -12,6 +12,6 @@ Specify the folder containing your components using the SCOPE variable in your .
         "dir": "src/examples"
     }
 
-Run docmate from the command line:
+Running compass from the command line:
 
     npm run dev

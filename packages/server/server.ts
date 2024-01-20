@@ -12,7 +12,7 @@ import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 //@ts-ignore
 import { AppConfig, BuildParams } from '../../utils/config';
-export class DocMateServer {
+export class CompassServer {
     async start(conf: BuildParams = { env: 'PROD' }) {
         const app = express();
         const httpServer = http.createServer(app);

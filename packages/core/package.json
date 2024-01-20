@@ -1,12 +1,12 @@
 {
-    "name": "@docmate/core",
-    "version": "0.0.1-alpha.1",
+    "name": "@compass-docgen/core",
+    "version": "1.0.0",
     "author": {
         "name": "Diego Cecatto",
         "email": "diego.cecatto@gmail.com",
         "url": "https://github.com/diego-cecatto/Compass"
     },
-    "description": "Core functionality for Docmate",
+    "description": "Core functionality for Compass",
     "main": "index.js",
     "keywords": [
         "react",
@@ -44,6 +44,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "gitHead": "b6d2dde29616d36997995bb674613d3005da51a1"
+    }
 }

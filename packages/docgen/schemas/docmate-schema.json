@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://github.com/diego-cecatto/Docmate",
-    "title": "JSON schema for Docmate configuration",
+    "$id": "https://github.com/diego-cecatto/Compass",
+    "title": "JSON schema for Compass configuration",
     "type": "object",
     "additionalProperties": false,
     "properties": {

@@ -1,1 +1,1 @@
-export { DocMateServer } from './server';
+export { CompassServer } from './server';

@@ -149,7 +149,7 @@
 
     [] files could be found internally or in build folder
     [] implement lerna
-    [] create a pattern with lerna + docmate
+    [] create a pattern with lerna + compass
     [] create tests
     [] create images to errors pages
     [] Publish only transpiled files, remove dependence of ts files

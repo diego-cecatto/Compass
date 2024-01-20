@@ -1,8 +1,8 @@
-import { ComponentService } from '@docmate/core';
+import { ComponentService } from '@compass-docgen/core';
 import * as fs from 'fs';
 import * as path from 'path';
 import esbuild from 'esbuild';
-import { AppConfig, Config, DEF_CONFIG } from '@docmate/core';
+import { AppConfig, Config, DEF_CONFIG } from '@compass-docgen/core';
 
 export class Documentation {
     tsFileDirectory = path.dirname(__filename);
@@ -34,8 +34,8 @@ export class Documentation {
         buildPromises.push(
             fs.promises.writeFile(
                 targetDir + '/README.md',
-                `# Docmate
-Docmate is an open-source project designed to automate the generation of documentation for React components. It offers a convenient way to create a Single [Single Repository](https://www.accenture.com/us-en/blogs/software-engineering-blog/how-to-choose-between-mono-repo-and-poly-repo) for your components, streamlining your development workflow. While currently supporting TypeScript, Docmate's roadmap includes plans to incorporate JavaScript support in the future.
+                `# Compass
+Compass is an open-source project designed to automate the generation of documentation for React components. It offers a convenient way to create a Single [Single Repository](https://www.accenture.com/us-en/blogs/software-engineering-blog/how-to-choose-between-mono-repo-and-poly-repo) for your components, streamlining your development workflow. While currently supporting TypeScript, Docmate's roadmap includes plans to incorporate JavaScript support in the future.
 
 This is a prod server
 
@@ -115,8 +115,8 @@ Start application
 
     async createPackageJson() {
         const PACKAGE = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-        let version = PACKAGE.devDependencies['docmate'];
-        if (PACKAGE.name == 'docmate') {
+        let version = PACKAGE.devDependencies['compass-docgen'];
+        if (PACKAGE.name == 'compass-docgen') {
             version = PACKAGE.version;
         }
         const packageJson = {
@@ -124,11 +124,11 @@ Start application
             version: '1.0.0',
             description: 'Server to run the documentation',
             scripts: {
-                start: 'docmate start',
-                production: 'docmate start',
+                start: 'compass-server start',
+                production: 'compass-server start',
             },
             dependencies: {
-                docmate: version,
+                'compass-docgen': version,
             },
         };
         fs.promises.writeFile(
