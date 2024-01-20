@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import { Documentation } from './documentation/documentation';
-import { AppConfig } from '@docmate/core';
-import { DocMateServer } from '@docmate/server';
+import { AppConfig } from '@compass-docgen/core';
+import { CompassServer } from '@compass-docgen/server';
 import fs from 'fs';
 
 const buildApp = async () => {
@@ -22,11 +22,11 @@ program
             fs.existsSync('/components.cache.json')
         ) {
             console.error(
-                'Please run ---> docmate build <--- first, to generate the build folder'
+                'Please run ---> compass build <--- first, to generate the build folder'
             );
             return;
         }
-        const server = new DocMateServer();
+        const server = new CompassServer();
         server.start();
     });
 
@@ -40,7 +40,7 @@ program
 program.command('dev', { isDefault: true }).action(async () => {
     await buildApp();
     //pass along the configuration that is a dev version
-    const server = new DocMateServer();
+    const server = new CompassServer();
     server.start({ env: 'DEV' });
 });
 

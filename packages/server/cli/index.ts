@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { DocMateServer } from '../server';
+import { CompassServer } from '../server';
 import fs from 'fs';
 
 const program = new Command();
@@ -14,11 +14,11 @@ program
             fs.existsSync('/components.cache.json')
         ) {
             console.error(
-                'Please run ---> docmate build <--- first, to generate the build folder'
+                'Please run ---> compass build <--- first, to generate the build folder'
             );
             return;
         }
-        const server = new DocMateServer();
+        const server = new CompassServer();
         server.start();
     });
 

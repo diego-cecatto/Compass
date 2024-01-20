@@ -2,6 +2,6 @@
     "extends": "../../conf/tsconfig.json",
     "include": ["**/*", "package.json", "*.scss"],
     "compilerOptions": {
-        "outDir": "../../dist/@docmate/docmate"
+        "outDir": "../../dist/compass-docgen"
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createSlice } from '@reduxjs/toolkit';
-import { Normalizer } from '@docmate/core';
+import { Normalizer } from '@compass-docgen/core';
 
 declare type SectionItem = {
     id: string;

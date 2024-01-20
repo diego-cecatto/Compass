@@ -1,6 +1,6 @@
 import { Resolvers } from '../generated/schema';
-import { ComponentService } from '@docmate/core';
-import { AppConfig } from '@docmate/core';
+import { ComponentService } from '@compass-docgen/core';
+import { AppConfig } from '@compass-docgen/core';
 import fs from 'fs';
 import path from 'path';
 

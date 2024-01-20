@@ -12,16 +12,16 @@ export type Config = {
 export const DEF_CONFIG: Config = {
     dir: './packages',
     port: 3000,
-    name: 'Docmate',
+    name: 'Compass',
 };
 
 export declare type BuildParams = { env: 'DEV' | 'PROD' };
 
 export class AppConfig {
     static tsFileDirectory = path.dirname(__filename);
-    static cacheFile = `build/.docmaterc.cache`;
+    static cacheFile = `build/.compassrc.cache`;
     static async bind(
-        configLocation: string = '.docmaterc'
+        configLocation: string = '.compassrc'
     ): Promise<AppConfig> {
         try {
             if (!fs.existsSync('./build')) {
@@ -53,7 +53,7 @@ export class AppConfig {
         if (fs.existsSync(AppConfig.cacheFile)) {
             return AppConfig.cacheFile;
         } else {
-            const basePath = `.docmaterc.cache`;
+            const basePath = `.compassrc.cache`;
             if (fs.existsSync(basePath)) {
                 return basePath;
             }
