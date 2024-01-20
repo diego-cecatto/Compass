@@ -60,4 +60,4 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
-root.render(<App documentationName="Compass" />);
+root.render(<App documentationName="Docmate" />);

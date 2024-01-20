@@ -34,8 +34,8 @@ export class Documentation {
         buildPromises.push(
             fs.promises.writeFile(
                 targetDir + '/README.md',
-                `# Compass
-Compass is an open-source project designed to automate the generation of documentation for React components. It offers a convenient way to create a Single [Single Repository](https://www.accenture.com/us-en/blogs/software-engineering-blog/how-to-choose-between-mono-repo-and-poly-repo) for your components, streamlining your development workflow. While currently supporting TypeScript, Compass's roadmap includes plans to incorporate JavaScript support in the future.
+                `# Docmate
+Docmate is an open-source project designed to automate the generation of documentation for React components. It offers a convenient way to create a Single [Single Repository](https://www.accenture.com/us-en/blogs/software-engineering-blog/how-to-choose-between-mono-repo-and-poly-repo) for your components, streamlining your development workflow. While currently supporting TypeScript, Docmate's roadmap includes plans to incorporate JavaScript support in the future.
 
 This is a prod server
 
@@ -64,7 +64,7 @@ Start application
                 `<link rel="stylesheet" href="%PUBLIC_URL%/index.css">
             </head>`
             )
-            .replace('%TITLE%', this.config.name || 'Compass')
+            .replace('%TITLE%', this.config.name || 'Docamte')
             .replace(new RegExp('%PUBLIC_URL%', 'g'), '');
         fs.writeFileSync(indexFile, indexFileHTML);
         if (this.config.favicon) {
@@ -79,7 +79,7 @@ Start application
         var indexFile = path.resolve(
             this.tsFileDirectory + '../../../../src/index.tsx'
         );
-        const clientEnv = { 'process.env.NODE_ENV': `'production'` };
+        // const clientEnv = { 'process.env.NODE_ENV': `'production'` };
         await esbuild
             .build({
                 entryPoints: [indexFile],
@@ -115,8 +115,8 @@ Start application
 
     async createPackageJson() {
         const PACKAGE = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
-        let version = PACKAGE.devDependencies['compass-docgen'];
-        if (PACKAGE.name == 'compass-docgen') {
+        let version = PACKAGE.devDependencies['docmate'];
+        if (PACKAGE.name == 'docmate') {
             version = PACKAGE.version;
         }
         const packageJson = {
@@ -124,11 +124,11 @@ Start application
             version: '1.0.0',
             description: 'Server to run the documentation',
             scripts: {
-                start: 'compass start',
-                production: 'compass start',
+                start: 'docmate start',
+                production: 'docmate start',
             },
             dependencies: {
-                'compass-docgen': version,
+                docmate: version,
             },
         };
         fs.promises.writeFile(

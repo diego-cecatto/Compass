@@ -22,7 +22,7 @@ program
             fs.existsSync('/components.cache.json')
         ) {
             console.error(
-                'Please run ---> compass build <--- first, to generate the build folder'
+                'Please run ---> docmate build <--- first, to generate the build folder'
             );
             return;
         }
