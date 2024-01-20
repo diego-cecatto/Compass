@@ -1,6 +1,6 @@
 {
     "name": "@docmate/server",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "author": {
         "name": "Diego Cecatto",
         "email": "diego.cecatto@gmail.com",
@@ -29,12 +29,12 @@
     },
     "license": "ISC",
     "dependencies": {
-        "@docmate/core": "^0.0.1-alpha",
-        "graphql": "^16.8.1",
-        "commander": "^11.1.0",
         "@apollo/server": "^4.9.5",
+        "@docmate/core": "^0.0.1-alpha.0",
+        "commander": "^11.1.0",
+        "compression": "1.7.4",
         "cors": "^2.8.5",
-        "compression": "1.7.4"
+        "graphql": "^16.8.1"
     },
     "devDependencies": {
         "@types/compression": "1.7.5",
