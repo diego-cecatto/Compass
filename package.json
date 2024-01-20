@@ -1,5 +1,5 @@
 {
-    "name": "docgen",
+    "name": "docmate",
     "version": "1.0.0-alpha",
     "author": {
         "name": "Diego Cecatto",
@@ -18,7 +18,7 @@
     },
     "workspaces": [
         "packages/**",
-        "!packages/docgen/examples/**"
+        "!packages/docmate/examples/**"
     ],
     "repository": {
         "type": "git",
