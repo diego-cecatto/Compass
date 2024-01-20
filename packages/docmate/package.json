@@ -1,6 +1,6 @@
 {
     "name": "docmate",
-    "version": "1.0.0-alpha.0",
+    "version": "1.0.0-alpha.1",
     "author": {
         "name": "Diego Cecatto",
         "email": "diego.cecatto@gmail.com",
@@ -46,8 +46,8 @@
     },
     "dependencies": {
         "@apollo/client": "^3.8.6",
-        "@docmate/core": "^0.0.1-alpha.0",
-        "@docmate/server": "^0.0.2",
+        "@docmate/core": "^0.0.1-alpha.1",
+        "@docmate/server": "^0.0.3",
         "@mui/x-data-grid": "^6.17.0",
         "@reduxjs/toolkit": "^1.9.7",
         "cli-progress": "^3.12.0",
