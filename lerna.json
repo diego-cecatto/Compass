@@ -4,6 +4,8 @@
     "command": {
         "publish": {
             "conventionalCommits": true,
+            "registry": "https://registry.npmjs.org",
+            "@docgen:registry": "https://registry.npmjs.org",
             "ignoreChanges": ["test", "*.md"],
             "message": "chore(release): publish new version [skip-ci]",
             "concurrency": 5,
