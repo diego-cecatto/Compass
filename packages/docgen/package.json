@@ -12,7 +12,7 @@
     "description": "This is a package that will help you to create your documentation for yours components",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon --exec \"ts-node ./src/commands/index.ts dev\" -e ts",
+        "dev": "nodemon --exec \"ts-node ./cli/index.ts dev\" -e ts",
         "prod": "node ./dist/commands/local/local.js",
         "build": "tsc"
     },
@@ -61,9 +61,9 @@
         "react-router-dom": "^6.18.0"
     },
     "browser": {
-        "fs": false,
-        "path": false,
-        "os": false
+        "fs": true,
+        "path": true,
+        "os": true
     },
     "browserslist": {
         "production": [

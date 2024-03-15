@@ -17,7 +17,7 @@ export class Documentation {
     }
 
     async baseReactFiles() {
-        const sourceDir = path.resolve(this.tsFileDirectory, '../../../public');
+        const sourceDir = path.resolve(this.tsFileDirectory, '../../public');
         let targetDir = './' + this.outDir;
         if (sourceDir.indexOf('node_modules') > -1) {
             targetDir = sourceDir.split('node_modules')[0] + '/' + this.outDir;
@@ -77,14 +77,16 @@ Start application
 
     async build() {
         var indexFile = path.resolve(
-            this.tsFileDirectory + '../../../../src/index.tsx'
+            this.tsFileDirectory + '../../../index.tsx'
         );
+
+        console.warn(indexFile);
         // const clientEnv = { 'process.env.NODE_ENV': `'production'` };
         await esbuild
             .build({
                 entryPoints: [indexFile],
                 bundle: true,
-                // minify: true,
+                minify: true,
                 sourcemap: true,
                 // define: clientEnv,
                 outdir: this.outDir,
@@ -151,7 +153,7 @@ Start application
         var components = await componentsService.getComponents(this.config.dir);
         var exportCommands = '';
         const DEP_DIR =
-            './../../../src/app/pages/component/live-editor/component-dependences.ts';
+            './../../app/pages/component/live-editor/component-dependences.ts';
         var promissesOfCopyFiles: any[] = [];
         for (var componentName in components) {
             var component = components[componentName];
