@@ -76,19 +76,24 @@ Start application
     }
 
     async build() {
+        await this.loading;
         var indexFile = path.resolve(
             this.tsFileDirectory + '../../../index.tsx'
         );
 
         console.warn(indexFile);
-        // const clientEnv = { 'process.env.NODE_ENV': `'production'` };
+
+        const clientEnv = {
+            'process.env.NODE_ENV': JSON.stringify('production'),
+            'process.env.PORT': JSON.stringify(this.config.port),
+        };
         await esbuild
             .build({
                 entryPoints: [indexFile],
                 bundle: true,
                 minify: true,
                 sourcemap: true,
-                // define: clientEnv,
+                define: clientEnv,
                 outdir: this.outDir,
                 publicPath: '/public',
                 loader: {
@@ -122,7 +127,7 @@ Start application
             version = PACKAGE.version;
         }
         const packageJson = {
-            name: this.config.name,
+            name: this.config.name.replace(/ /g, '-').toLowerCase() + '-doc',
             version: '1.0.0',
             description: 'Server to run the documentation',
             scripts: {

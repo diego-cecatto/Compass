@@ -270,7 +270,7 @@ export class ComponentService {
 
     public async getDocumentationDefault() {
         const dir = path.dirname(__filename);
-        return await fs.promises.readFile(dir + '/../../README.md', 'utf-8');
+        return await fs.promises.readFile(dir + '/../README.md', 'utf-8');
     }
 
     private propSingleComment(path: any, documentation: any, propName: any) {

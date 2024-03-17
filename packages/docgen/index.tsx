@@ -21,14 +21,13 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
     const handleDarkModeToggle = () => {
         setIsDarkMode(!isDarkMode);
     };
-
     return (
         <React.StrictMode>
             <Provider store={store}>
                 <ApolloProvider
                     client={
                         new ApolloClient({
-                            uri: 'http://localhost:5000/graphql',
+                            uri: `http://localhost:${process.env.PORT}/graphql`,
                             cache: new InMemoryCache(),
                         })
                     }
