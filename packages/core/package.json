@@ -8,6 +8,7 @@
     },
     "description": "Core functionality for Compass",
     "main": "index.js",
+    "module": "index.browser.js",
     "keywords": [
         "react",
         "documentation",

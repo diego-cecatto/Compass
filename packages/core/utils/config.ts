@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import path from 'path';
-import { Normalizer } from './normalizer';
+import { Normalizer } from './normalizer.browser';
 
 export type Config = {
     port: number;

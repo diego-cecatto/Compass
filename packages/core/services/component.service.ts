@@ -6,7 +6,7 @@ import * as dotenv from 'dotenv';
 import { Documentation } from 'react-docgen';
 import { AppConfig, Config, DEF_CONFIG } from '../utils/config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
-import { Normalizer } from '../utils/normalizer';
+import { Normalizer } from '../utils/normalizer.browser';
 dotenv.config();
 
 export class ComponentService {

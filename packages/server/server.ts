@@ -10,8 +10,7 @@ import compression from 'compression';
 import path from 'path';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
-//@ts-ignore
-import { AppConfig, BuildParams } from '../../utils/config';
+import { AppConfig, BuildParams } from '@compass-docgen/core';
 export class CompassServer {
     async start(conf: BuildParams = { env: 'PROD' }) {
         const app = express();
@@ -20,7 +19,7 @@ export class CompassServer {
         const typeDefs = fs.readFileSync(
             path.resolve(
                 path.dirname(__filename),
-                './../../graphql/typedefs/index.graphql'
+                './graphql/typedefs/index.graphql'
             ),
             'utf8'
         );
