@@ -10,7 +10,8 @@
             "concurrency": 5,
             "progress": true,
             "directory": "{workspaceRoot}/dist/{projectName}",
-            "yes": true
+            "yes": true,
+            "private": false
         },
         "version": {
             "conventionalCommits": true,
