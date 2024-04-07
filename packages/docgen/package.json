@@ -11,6 +11,7 @@
     },
     "description": "This is a package that will help you to create your documentation for yours components",
     "main": "index.js",
+    "private": false,
     "scripts": {
         "dev": "nodemon --exec \"ts-node ./cli/index.ts dev\" -e ts",
         "prod": "node ./dist/commands/local/local.js",

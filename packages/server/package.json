@@ -6,6 +6,7 @@
         "email": "diego.cecatto@gmail.com",
         "url": "https://github.com/diego-cecatto/Compass"
     },
+    "private": "false",
     "bin": {
         "compasss": "./cli/index.js"
     },

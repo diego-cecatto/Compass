@@ -15,6 +15,7 @@
         "react-documentation",
         "documentation-generation"
     ],
+    "private": false,
     "scripts": {
         "build": "tsc"
     },
