@@ -11,7 +11,7 @@
         "access": "public"
     },
     "bin": {
-        "compasss": "./cli/index.js"
+        "compass-server": "./cli/index.js"
     },
     "description": "This is a package to run your doc mate server",
     "main": "index.js",
