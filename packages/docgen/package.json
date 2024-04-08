@@ -1,6 +1,6 @@
 {
     "name": "compass-docgen",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "author": {
         "name": "Diego Cecatto",
         "email": "diego.cecatto@gmail.com",
@@ -51,7 +51,7 @@
     "dependencies": {
         "@apollo/client": "^3.8.6",
         "@compass-docgen/core": "^1.0.2",
-        "@compass-docgen/server": "^1.0.2",
+        "@compass-docgen/server": "^1.0.3",
         "@mui/x-data-grid": "^6.17.0",
         "@reduxjs/toolkit": "^1.9.7",
         "cli-progress": "^3.12.0",
