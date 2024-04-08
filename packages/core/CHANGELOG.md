@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/diego-cecatto/Compass/compare/@compass-docgen/core@1.0.1...@compass-docgen/core@1.0.2) (2024-04-08)
+
+
+### Bug Fixes
+
+* correct sentences validation ([acbc050](https://github.com/diego-cecatto/Compass/commit/acbc050fc2648a35b967635aa1d96d13f7ed0dd4))
+
+
+
+
+
 ## 1.0.1 (2024-04-07)
 
 
