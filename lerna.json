@@ -11,7 +11,10 @@
             "progress": true,
             "directory": "{workspaceRoot}/dist/{projectName}",
             "yes": true,
-            "private": false
+            "private": false,
+            "publishConfig": {
+                "access": "public"
+            }
         },
         "version": {
             "conventionalCommits": true,
