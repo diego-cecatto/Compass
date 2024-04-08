@@ -6,7 +6,10 @@
         "email": "diego.cecatto@gmail.com",
         "url": "https://github.com/diego-cecatto/Compass"
     },
-    "private": "false",
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
     "bin": {
         "compasss": "./cli/index.js"
     },
@@ -15,7 +18,7 @@
     "scripts": {
         "dev": "nodemon --exec \"ts-node ./src/commands/index.ts dev\" -e ts",
         "type:gen": "graphql-codegen --config codegen.yml",
-        "build": "tsc"
+        "build": "tsc && cpy graphql/typedefs/index.graphql ../../dist/@compass-docgen/server/graphql/typedefs/index.graphql"
     },
     "keywords": [
         "react",
@@ -35,6 +38,7 @@
         "commander": "^11.1.0",
         "compression": "1.7.4",
         "cors": "^2.8.5",
+        "cpy-cli": "^5.0.0",
         "graphql": "^16.8.1"
     },
     "devDependencies": {

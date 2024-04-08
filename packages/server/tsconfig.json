@@ -1,6 +1,6 @@
 {
     "extends": "../../conf/tsconfig.json",
-    "include": ["**/*", "package.json", "*.scss"],
+    "include": ["**/*", "package.json", "*.scss", "./**/*.graphql"],
     "compilerOptions": {
         "outDir": "../../dist/@compass-docgen/server"
     }
