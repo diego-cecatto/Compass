@@ -17,7 +17,9 @@
         "postversion": "npm run build && lerna publish from-package"
     },
     "workspaces": [
-        "!packages/docgen/examples/**"
+        "packages/docgen",
+        "packages/server",
+        "packages/core"
     ],
     "publishConfig": {
         "access": "public"
