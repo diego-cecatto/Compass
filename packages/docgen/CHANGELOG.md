@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.11](https://github.com/diego-cecatto/Compass/compare/compass-docgen@1.0.10...compass-docgen@1.0.11) (2024-04-13)
+
+
+### Bug Fixes
+
+* include tsx files ([d2c3446](https://github.com/diego-cecatto/Compass/commit/d2c3446a115b77f3f40a3200d91664d6f3de798a))
+
+
+
+
+
 ## [1.0.10](https://github.com/diego-cecatto/Compass/compare/compass-docgen@1.0.9...compass-docgen@1.0.10) (2024-04-09)
 
 
