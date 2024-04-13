@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.13](https://github.com/diego-cecatto/Compass/compare/compass-docgen@1.0.12...compass-docgen@1.0.13) (2024-04-13)
+
+
+### Bug Fixes
+
+* correct package server version ([a446090](https://github.com/diego-cecatto/Compass/commit/a44609055d8083f8614181661f368cc0d4329544))
+
+
+
+
+
 ## [1.0.12](https://github.com/diego-cecatto/Compass/compare/compass-docgen@1.0.11...compass-docgen@1.0.12) (2024-04-13)
 
 
