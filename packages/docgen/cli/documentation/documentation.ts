@@ -135,7 +135,7 @@ Start application
                 production: 'compass-server start',
             },
             dependencies: {
-                '@compass-docgen/server': version,
+                '@compass-docgen/server': 'latest',
             },
         };
         fs.promises.writeFile(
