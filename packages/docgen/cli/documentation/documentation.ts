@@ -171,6 +171,14 @@ Start application
             } } from '${WORK_DIR.replace(/\\/g, '/')}/${
                 path.parse(path.basename(component.fullPath)).name
             }'; \n`;
+            // exportCommands += `var ${
+            //     component.name
+            // }_1 = require('${WORK_DIR.replace(/\\/g, '/')}/${
+            //     path.parse(path.basename(component.fullPath)).name
+            // }');\n
+            // Object.defineProperty(exports, ${componentName}, { enumerable: true, get: function () { return ${
+            //     component.name
+            // }_1.${componentName}; } });`;
             promissesOfCopyFiles.push(this.copyDocFile(component.docPath));
         }
         promissesOfCopyFiles.push(

@@ -14,7 +14,7 @@
     "scripts": {
         "dev": "nodemon --exec \"ts-node ./cli/index.ts dev\" -e ts",
         "prod": "node ./dist/commands/local/local.js",
-        "build": "tsc && cpy compass ../../dist/compass-docgen/ && cpy compass.cmd ../../dist/compass-docgen/ && cpy compass.ps1 ../../dist/compass-docgen/"
+        "build": "tsc && cpy compass ../../dist/compass-docgen/ && cpy compass.cmd ../../dist/compass-docgen/ && cpy compass.ps1 ../../dist/compass-docgen/ && cpy public ../../dist/compass-docgen && cpy app ../../dist/compass-docgen"
     },
     "keywords": [
         "react",
