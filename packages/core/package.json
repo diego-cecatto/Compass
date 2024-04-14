@@ -1,6 +1,6 @@
 {
     "name": "@compass-docgen/core",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": {
         "name": "Diego Cecatto",
         "email": "diego.cecatto@gmail.com",
@@ -26,14 +26,14 @@
     },
     "license": "MIT",
     "dependencies": {
+        "@babel/core": "^7.24.4",
+        "@babel/preset-env": "^7.24.4",
+        "@babel/preset-react": "^7.24.1",
         "@babel/preset-typescript": "^7.24.1",
         "dotenv": "^16.4.5",
         "fs-extra": "^11.2.0",
         "keyv": "^4.5.4",
-        "react-docgen": "^7.0.3",
-        "@babel/core": "^7.24.4",
-        "@babel/preset-env": "^7.24.4",
-        "@babel/preset-react": "^7.24.1"
+        "react-docgen": "^7.0.3"
     },
     "browser": {
         "fs": false,
