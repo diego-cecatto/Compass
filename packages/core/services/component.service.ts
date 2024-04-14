@@ -7,6 +7,7 @@ import { Documentation } from 'react-docgen';
 import { AppConfig, Config, DEF_CONFIG } from '../utils/config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
 import { Normalizer } from '../utils/normalizer.browser';
+
 dotenv.config();
 
 export class ComponentService {
@@ -242,8 +243,19 @@ export class ComponentService {
                     },
                 ],
                 resolver,
+                babelOptions: {
+                    filename: path.resolve(componentPath),
+                    presets: [
+                        '@babel/preset-env',
+                        '@babel/preset-react',
+                        '@babel/preset-typescript',
+                    ],
+                },
             });
-        } catch (ex) {
+        } catch (ex: any) {
+            if (ex.code !== 'ERR_REACTDOCGEN_MISSING_DEFINITION') {
+                console.log('Error parsing component', componentPath, ex);
+            }
             return null;
         }
         const parsedComponent = parsedComponents.find(

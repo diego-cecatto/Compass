@@ -55,7 +55,7 @@ export function HyperLink(props: HyperLinkProps) {
     );
 }
 
-export type HyperLinkProps = {
+export declare type HyperLinkProps = {
     children: React.ReactNode | string;
     link: string;
     openInNewTab: boolean;
