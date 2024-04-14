@@ -30,7 +30,10 @@
         "dotenv": "^16.4.5",
         "fs-extra": "^11.2.0",
         "keyv": "^4.5.4",
-        "react-docgen": "^7.0.3"
+        "react-docgen": "^7.0.3",
+        "@babel/core": "^7.24.4",
+        "@babel/preset-env": "^7.24.4",
+        "@babel/preset-react": "^7.24.1"
     },
     "browser": {
         "fs": false,
@@ -49,10 +52,5 @@
             "last 1 safari version"
         ]
     },
-    "gitHead": "83f0f017e2460a573de33539be04bd0f50940cd1",
-    "devDependencies": {
-        "@babel/core": "^7.24.4",
-        "@babel/preset-env": "^7.24.4",
-        "@babel/preset-react": "^7.24.1"
-    }
+    "gitHead": "83f0f017e2460a573de33539be04bd0f50940cd1"
 }
