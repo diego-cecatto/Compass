@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5](https://github.com/diego-cecatto/Compass/compare/@compass-docgen/server@1.0.4...@compass-docgen/server@1.0.5) (2024-04-14)
+
+
+### Bug Fixes
+
+* add support to typescript on transpile ([960b569](https://github.com/diego-cecatto/Compass/commit/960b569f9f8925b29603eeea4d3b28ce210e85c8))
+
+
+
+
+
 ## [1.0.4](https://github.com/diego-cecatto/Compass/compare/@compass-docgen/server@1.0.3...@compass-docgen/server@1.0.4) (2024-04-09)
 
 
