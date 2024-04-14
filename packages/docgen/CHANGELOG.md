@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/diego-cecatto/Compass/compare/compass-docgen@1.0.16...compass-docgen@1.1.0) (2024-04-14)
+
+
+### Bug Fixes
+
+* copy to server not existing files ([f3c09c7](https://github.com/diego-cecatto/Compass/commit/f3c09c7ee328d4d415622c088fcd2fe3ce884db2))
+
+
+### Features
+
+* add description more detailed in CLI ([b21285e](https://github.com/diego-cecatto/Compass/commit/b21285eaaa7ec866b6f36845872063cd4293fcb6))
+* rename final build folder ([a5d11c5](https://github.com/diego-cecatto/Compass/commit/a5d11c5609ea134818b4e7da9cd4823e1c3d0a13))
+
+
+
+
+
 ## [1.0.16](https://github.com/diego-cecatto/Compass/compare/compass-docgen@1.0.15...compass-docgen@1.0.16) (2024-04-14)
 
 **Note:** Version bump only for package compass-docgen
