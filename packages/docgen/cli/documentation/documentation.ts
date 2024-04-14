@@ -6,7 +6,7 @@ import { AppConfig, Config, DEF_CONFIG } from '@compass-docgen/core';
 
 export class Documentation {
     tsFileDirectory = path.dirname(__filename);
-    outDir = './build';
+    outDir = './documentation';
     config: Config = DEF_CONFIG;
     loading: Promise<boolean>;
     constructor() {
