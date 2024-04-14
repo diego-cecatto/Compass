@@ -145,6 +145,9 @@ Start application
     }
 
     async copyDocFile(currFile: string) {
+        if (!currFile) {
+            return;
+        }
         const DESTINATION = path.resolve(this.outDir, currFile);
         await fs.promises.mkdir(path.dirname(DESTINATION), {
             recursive: true,
