@@ -1,5 +1,9 @@
 ## WEBSITE DOCUMENTATION
 
+    !! IMPORTANT
+    [] FIX: is not showing the type of properties
+    [] FIX change build to documentation folder
+
     [] improve responsive layout
     [] Area to implement tabs?
     [] [] verify if exist tabs

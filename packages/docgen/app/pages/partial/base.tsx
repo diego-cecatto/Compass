@@ -23,7 +23,6 @@ import { Container, Link, Skeleton } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 //@ts-ignore
 import { useQuery } from '@apollo/client';
-import { ApplicationAction } from '../../actions/application.action';
 import ComponentSection from '../component/sections/component-section';
 import './base.scss';
 const drawerWidth = 240;
@@ -78,7 +77,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function BaseLayout() {
-    const { loading, error, data } = useQuery(ApplicationAction.name());
     const theme = useTheme();
     const [open, setOpen] = useState(true);
     const handleDrawerOpen = () => {
@@ -104,7 +102,7 @@ export default function BaseLayout() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        {loading ? <Skeleton /> : data?.documentationName}
+                        {process.env.APP_NAME}
                     </Typography>
                 </Toolbar>
             </AppBar>

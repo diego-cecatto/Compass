@@ -12,7 +12,7 @@ import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { GraphQLSchema, GraphQLObjectType, GraphQLString } from 'graphql';
 import { AppConfig, BuildParams } from '@compass-docgen/core';
 export class CompassServer {
-    async start(conf: BuildParams = { env: 'PROD' }) {
+    async start(conf: BuildParams = { env: 'PROD', resourcePath: '' }) {
         const app = express();
         const httpServer = http.createServer(app);
 
@@ -23,9 +23,8 @@ export class CompassServer {
             ),
             'utf8'
         );
-        let baseFolder = '';
-        if (fs.existsSync('build')) {
-            baseFolder = 'build';
+        if (!fs.existsSync(conf.resourcePath)) {
+            throw `${conf.resourcePath} not found`;
         }
         const customProcessEnv = process.env;
         customProcessEnv.NODE_ENV = conf.env;
@@ -35,7 +34,7 @@ export class CompassServer {
             plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
         });
         await server.start();
-        app.use(express.static(path.join(process.cwd(), baseFolder)));
+        app.use(express.static(path.join(process.cwd(), conf.resourcePath)));
         app.use(compression());
         app.use(
             '/graphql',
@@ -64,7 +63,9 @@ export class CompassServer {
         );
 
         app.get('*', (req, res) => {
-            res.sendFile(path.join(process.cwd(), baseFolder, 'index.html'));
+            res.sendFile(
+                path.join(process.cwd(), conf.resourcePath, 'index.html')
+            );
         });
         const CONFIG = await AppConfig.read();
         await new Promise<void>((resolve) =>

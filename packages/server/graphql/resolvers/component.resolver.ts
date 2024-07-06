@@ -1,20 +1,18 @@
 import { Resolvers } from '../generated/schema';
 import { ComponentService } from '@compass-docgen/core';
-import { AppConfig } from '@compass-docgen/core';
+import { ComponentCache } from '@compass-docgen/core/utils/components-cache';
 import fs from 'fs';
 import path from 'path';
 
 const ComponentResolver: Resolvers = {
     Query: {
         components: async () => {
-            var componentService = new ComponentService();
-            const COMPONENTS = await componentService.readCache();
+            const COMPONENTS = await ComponentCache.read();
             const KEYS = Object.keys(COMPONENTS?.components || {});
             return KEYS.map((KEYS) => COMPONENTS?.components[KEYS]);
         },
         component: async (_, { filePath }) => {
-            var componentService = new ComponentService();
-            const COMPONENTS = await componentService.readCache();
+            const COMPONENTS = await ComponentCache.read();
             const KEYS = Object.keys(COMPONENTS?.components || {});
             let component = null;
             KEYS.every((KEYS) => {
@@ -38,13 +36,11 @@ const ComponentResolver: Resolvers = {
             if (!filePath || filePath.indexOf('.md') === -1) {
                 return null;
             }
+            //!! get build DIR
             if (!fs.existsSync(path.resolve('./build', filePath))) {
                 return fs.readFileSync(filePath, 'utf8');
             }
             return fs.readFileSync(path.resolve('./build', filePath), 'utf8');
-        },
-        documentationName: async () => {
-            return (await AppConfig.read()).name;
         },
     },
 };

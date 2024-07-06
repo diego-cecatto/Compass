@@ -1,4 +1,8 @@
 export { ComponentService } from './services/component.service';
-export { AppConfig, DEF_CONFIG } from './utils/config';
+export {
+    AppConfig,
+    type AppConfiguration,
+    DEF_CONFIG,
+} from './utils/app-config';
 export { Normalizer } from './utils/normalizer.browser';
-export type { Config, BuildParams } from './utils/config';
+export type { BuildParams } from './utils/app-config';

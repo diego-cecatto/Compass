@@ -3,36 +3,33 @@ import * as path from 'path';
 import { Component } from '../models/component.model';
 import * as dotenv from 'dotenv';
 //@ts-ignore
-import { Documentation } from 'react-docgen';
-import { AppConfig, Config, DEF_CONFIG } from '../utils/config';
+import { Config, Documentation } from 'react-docgen';
+import { DEF_CONFIG, AppConfig, AppConfiguration } from '../utils/app-config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
 import { Normalizer } from '../utils/normalizer.browser';
+import { ComponentCacheData, ComponentCache } from '../utils/components-cache';
 
 dotenv.config();
 
 export class ComponentService {
     reactDocGen: any;
-    CACHE_FILE_PATH = './build/components.cache.json';
-    config: Config = DEF_CONFIG;
     loading: any;
-    cache: {
-        components: Record<string, Component>;
-        date?: number;
-    } = { components: {} };
+    cache: ComponentCacheData = {
+        components: {},
+        aplication: { name: '', port: 0 },
+    };
+    config: AppConfiguration = DEF_CONFIG;
 
     constructor() {
         this.loading = new Promise(async (resolve) => {
-            await Promise.all([
-                import('react-docgen').then((reactDocGen) => {
-                    this.reactDocGen = reactDocGen;
-                }),
-                AppConfig.read().then((json) => {
-                    this.config = json;
-                }),
-                this.readCache().then((cache) => {
-                    this.cache = cache;
-                }),
+            const [reactDocgen, config, cache] = await Promise.all([
+                import('react-docgen'),
+                AppConfig.read(),
+                ComponentCache.read(),
             ]);
+            this.reactDocGen = reactDocgen;
+            this.config = config;
+            this.cache = cache;
             resolve(true);
         });
     }
@@ -86,7 +83,7 @@ export class ComponentService {
     public async getComponents(componentPath?: string, componentName?: string) {
         await this.loading;
         if (!componentPath) {
-            componentPath = this.config.dir;
+            componentPath = this.config.componentsPath;
         }
         if (!fs.existsSync(componentPath)) {
             return [];
@@ -130,7 +127,7 @@ export class ComponentService {
                                 subComponent.docPath =
                                     componentPath + '/' + mdFileLocation;
                                 subComponent.basePath = componentPath!.replace(
-                                    this.config.dir,
+                                    this.config!.componentsPath,
                                     ''
                                 );
                             }
@@ -141,7 +138,7 @@ export class ComponentService {
                                     componentName?.toLocaleLowerCase()
                             ) {
                                 subComponent.basePath = componentPath!.replace(
-                                    this.config.dir,
+                                    this.config!.componentsPath,
                                     ''
                                 );
                             }
@@ -180,12 +177,12 @@ export class ComponentService {
                                     component.docPath =
                                         componentPath + '/' + mdFileLocation;
                                     component.basePath = componentPath!.replace(
-                                        this.config.dir,
+                                        this.config!.componentsPath,
                                         ''
                                     );
                                 } else if (packageJSONFile) {
                                     component.basePath = componentPath!.replace(
-                                        this.config.dir,
+                                        this.config!.componentsPath,
                                         ''
                                     );
                                 }
@@ -360,31 +357,6 @@ export class ComponentService {
             const propName = this.reactDocGen.utils.getPropertyName(path);
             if (!propName) return;
             this.propSingleComment(path, documentation, propName);
-        }
-    }
-
-    private writeCache(cache: Record<string, Component>) {
-        fs.writeFileSync(this.CACHE_FILE_PATH, JSON.stringify(cache), 'utf8');
-    }
-
-    async readCache(): Promise<{
-        components: Record<string, Component>;
-        date?: number;
-    }> {
-        try {
-            let cacheFile = this.CACHE_FILE_PATH;
-            if (!fs.existsSync(this.CACHE_FILE_PATH)) {
-                cacheFile = './components.cache.json';
-            }
-            const cacheContent = fs.readFileSync(cacheFile, 'utf8');
-            var fileStat = await fs.promises.stat(cacheFile);
-            return {
-                components: JSON.parse(cacheContent) ?? {},
-                date: fileStat.mtimeMs,
-            };
-        } catch (error) {
-            // Return an empty object if the cache file doesn't exist or is not valid JSON.
-            return { components: {} };
         }
     }
 }

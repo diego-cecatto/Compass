@@ -12,7 +12,11 @@ const buildApp = async () => {
 };
 
 const program = new Command();
-program.version('1.0.0').description('CLI to generate documentation');
+program
+    .version('1.0.0')
+    .description(
+        'Compass:: Help to build and create a version of your components documentation'
+    );
 
 program
     .command('start', { isDefault: true })
@@ -20,14 +24,12 @@ program
         'Build the documentation, will generate a build folder with the documentation files and also will START your lirary in a local server'
     )
     .action(async (cmd: { clean?: boolean }) => {
-        if (
-            fs.existsSync('/build/components.cache.json') ||
-            fs.existsSync('/components.cache.json')
-        ) {
-            console.error(
-                'Please run ---> compass build <--- first, to generate the build folder'
+        const conf = await AppConfig.bind();
+        if (!fs.existsSync(`./${conf.buildFolder}/components.cache.json`)) {
+            console.warn(
+                'Compiling documentation for the first time, this may take a while...'
             );
-            return;
+            await buildApp();
         }
         const server = new CompassServer();
         server.start();
@@ -47,9 +49,9 @@ program
 
 program.command('dev', { isDefault: true }).action(async () => {
     await buildApp();
-    //pass along the configuration that is a dev version
     const server = new CompassServer();
-    server.start({ env: 'DEV' });
+    const conf = await AppConfig.bind();
+    server.start({ env: 'DEV', resourcePath: conf.buildFolder });
 });
 
 program.parse(process.argv);

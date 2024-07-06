@@ -4,15 +4,12 @@ import { CompassServer } from '../server';
 import fs from 'fs';
 
 const program = new Command();
-program.version('1.0.0').description('CLI to run server');
+program.version('1.0.1').description('CLI to run compass light server');
 
 program
     .command('start', { isDefault: true })
     .action(async (cmd: { clean?: boolean }) => {
-        if (
-            fs.existsSync('/build/components.cache.json') ||
-            fs.existsSync('/components.cache.json')
-        ) {
+        if (!fs.existsSync('./components.cache.json')) {
             console.error(
                 'Please run ---> compass build <--- first, to generate the build folder'
             );

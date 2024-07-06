@@ -2,13 +2,13 @@ import { ComponentService } from '@compass-docgen/core';
 import * as fs from 'fs';
 import * as path from 'path';
 import esbuild from 'esbuild';
-import { AppConfig, Config, DEF_CONFIG } from '@compass-docgen/core';
+import { AppConfiguration, AppConfig, DEF_CONFIG } from '@compass-docgen/core';
 
 export class Documentation {
     tsFileDirectory = path.dirname(__filename);
-    outDir = './documentation';
-    config: Config = DEF_CONFIG;
+    config: AppConfiguration = DEF_CONFIG;
     loading: Promise<boolean>;
+
     constructor() {
         this.loading = new Promise(async (resolve) => {
             this.config = await AppConfig.read();
@@ -18,9 +18,12 @@ export class Documentation {
 
     async baseReactFiles() {
         const sourceDir = path.resolve(this.tsFileDirectory, '../../public');
-        let targetDir = './' + this.outDir;
-        if (sourceDir.indexOf('node_modules') > -1) {
-            targetDir = sourceDir.split('node_modules')[0] + '/' + this.outDir;
+        let targetDir = './' + this.config.buildFolder;
+        if (sourceDir.indexOf('node_modules') != -1) {
+            targetDir =
+                sourceDir.split('node_modules')[0] +
+                '/' +
+                this.config.buildFolder;
         }
         const files = fs.readdirSync(sourceDir);
         var buildPromises: any[] = [];
@@ -64,7 +67,7 @@ Start application
                 `<link rel="stylesheet" href="%PUBLIC_URL%/index.css">
             </head>`
             )
-            .replace('%TITLE%', this.config.name || 'Docamte')
+            .replace('%TITLE%', this.config.name || 'Compass')
             .replace(new RegExp('%PUBLIC_URL%', 'g'), '');
         fs.writeFileSync(indexFile, indexFileHTML);
         if (this.config.favicon) {
@@ -80,12 +83,10 @@ Start application
         var indexFile = path.resolve(
             this.tsFileDirectory + '../../../index.tsx'
         );
-
-        console.warn(indexFile);
-
         const clientEnv = {
             'process.env.NODE_ENV': JSON.stringify('production'),
             'process.env.PORT': JSON.stringify(this.config.port),
+            'process.env.APP_NAME': this.config.name,
         };
         await esbuild
             .build({
@@ -94,7 +95,7 @@ Start application
                 minify: true,
                 sourcemap: true,
                 define: clientEnv,
-                outdir: this.outDir,
+                outdir: this.config.buildFolder,
                 publicPath: '/public',
                 loader: {
                     '.tsx': 'tsx',
@@ -139,7 +140,7 @@ Start application
             },
         };
         fs.promises.writeFile(
-            path.resolve(this.outDir, 'package.json'),
+            path.resolve(this.config.buildFolder, 'package.json'),
             JSON.stringify(packageJson)
         );
     }
@@ -148,7 +149,7 @@ Start application
         if (!currFile) {
             return;
         }
-        const DESTINATION = path.resolve(this.outDir, currFile);
+        const DESTINATION = path.resolve(this.config.buildFolder, currFile);
         await fs.promises.mkdir(path.dirname(DESTINATION), {
             recursive: true,
         });
@@ -158,7 +159,9 @@ Start application
     async dependences() {
         await this.loading;
         var componentsService = new ComponentService();
-        var components = await componentsService.getComponents(this.config.dir);
+        var components = await componentsService.getComponents(
+            this.config.componentsPath
+        );
         var exportCommands = '';
         const DEP_DIR =
             './../../app/pages/component/live-editor/component-dependences.ts';

@@ -15,6 +15,7 @@ export const ComponentProperties = ({
     useEffect(() => {
         dispatcher(add({ name: 'Properties', level: 2 }));
     }, []);
+    console.log(component);
 
     return (
         <>

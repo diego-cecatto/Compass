@@ -38,7 +38,12 @@ const MenuItem = ({
 }: MenuItemProp) => {
     const [open, setOpen] = useState(opened);
 
-    function addSpacesBetweenCapitalLetters(inputString: string): string {
+    function addSpacesBetweenCapitalLetters(
+        inputString: string | undefined
+    ): string {
+        if (!inputString) {
+            return '';
+        }
         var name = inputString.replace(/([a-z])([A-Z])/g, '$1 $2');
         name = name.replace(new RegExp('-', 'g'), ' ');
         return name;
@@ -68,9 +73,7 @@ const MenuItem = ({
                     </ListItemIcon>
 
                     <ListItemText>
-                        {addSpacesBetweenCapitalLetters(
-                            component?.name || name
-                        )}
+                        {addSpacesBetweenCapitalLetters(process.env.APP_NAME)}
                     </ListItemText>
                 </ListItemButton>
             </ListItem>

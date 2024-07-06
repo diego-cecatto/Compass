@@ -11,11 +11,10 @@ import { EmptyState } from './app/pages/states/empty-state';
 import { Provider } from 'react-redux';
 import store from './app/config/store';
 
-interface MainComponentProps {
-    documentationName: string;
-}
-
-const App: React.FC<MainComponentProps> = ({ documentationName }) => {
+interface MainComponentProps {}
+//!! needs to get port from an specific file
+//todo inner app needs create .env file
+const App: React.FC<MainComponentProps> = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     const handleDarkModeToggle = () => {
@@ -59,4 +58,4 @@ const App: React.FC<MainComponentProps> = ({ documentationName }) => {
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
-root.render(<App documentationName="Compass" />);
+root.render(<App />);

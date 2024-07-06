@@ -5,7 +5,6 @@ type Query {
     component(filePath: String!): Component
     documentation(filePath: String): String
     documentationDefault: String
-    documentationName: String
 }
 
 type Component {
