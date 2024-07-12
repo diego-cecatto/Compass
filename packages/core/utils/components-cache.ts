@@ -7,8 +7,8 @@ export declare type ComponentCacheData = Record<string, Component>;
 
 ///!! save basepath istead to get every time
 export class ComponentCache {
-    private static cache: ComponentCacheData;
-    private static date: number;
+    public static cache: ComponentCacheData;
+    public static date: number;
 
     private static CACHE_FILE_PATH_DEF = 'components.cache.json';
     private static async getCacheFilePath() {
@@ -20,7 +20,7 @@ export class ComponentCache {
         return cacheFile;
     }
 
-    static async write(cache: Record<string, Component>) {
+    static async write(cache: ComponentCacheData) {
         //!!validate to renew cache for some component
         await fs.writeFile(
             await this.getCacheFilePath(),

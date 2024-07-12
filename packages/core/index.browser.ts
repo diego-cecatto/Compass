@@ -1,2 +1,2 @@
 export { Normalizer } from './utils/normalizer.browser';
-export type { Config, BuildParams } from './utils/app-config';
+export type { BuildParams } from './utils/app-config';

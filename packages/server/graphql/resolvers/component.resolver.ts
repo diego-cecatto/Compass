@@ -9,14 +9,14 @@ const ComponentResolver: Resolvers = {
         components: async () => {
             const COMPONENTS = await ComponentCache.read();
             const KEYS = Object.keys(COMPONENTS?.components || {});
-            return KEYS.map((KEYS) => COMPONENTS?.components[KEYS]);
+            return KEYS.map((KEYS) => COMPONENTS[KEYS]);
         },
         component: async (_, { filePath }) => {
             const COMPONENTS = await ComponentCache.read();
             const KEYS = Object.keys(COMPONENTS?.components || {});
             let component = null;
             KEYS.every((KEYS) => {
-                const COMPONENT = COMPONENTS?.components[KEYS];
+                const COMPONENT = COMPONENTS[KEYS];
                 if (COMPONENT.basePath === `/${filePath}`) {
                     component = COMPONENT;
                     return false;

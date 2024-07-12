@@ -3,7 +3,7 @@ import * as path from 'path';
 import { Component } from '../models/component.model';
 import * as dotenv from 'dotenv';
 //@ts-ignore
-import { Config, Documentation } from 'react-docgen';
+import { Documentation } from 'react-docgen';
 import { DEF_CONFIG, AppConfig, AppConfiguration } from '../utils/app-config';
 import { FindHooksDefinitionResolver } from './docgen/hook-resolver';
 import { Normalizer } from '../utils/normalizer.browser';
@@ -14,10 +14,7 @@ dotenv.config();
 export class ComponentService {
     reactDocGen: any;
     loading: any;
-    cache: ComponentCacheData = {
-        components: {},
-        aplication: { name: '', port: 0 },
-    };
+    cache: ComponentCacheData = {};
     config: AppConfiguration = DEF_CONFIG;
 
     constructor() {
@@ -117,7 +114,7 @@ export class ComponentService {
                         componentName
                     );
                     if (subComponents) {
-                        subComponents.forEach((subComponent) => {
+                        subComponents.forEach(async (subComponent) => {
                             if (
                                 mdFileLocation &&
                                 !subComponent.docPath &&
@@ -142,9 +139,8 @@ export class ComponentService {
                                     ''
                                 );
                             }
-                            this.cache.components[subComponent.path] =
-                                subComponent;
-                            this.writeCache(this.cache.components);
+                            this.cache[subComponent.path] = subComponent;
+                            await ComponentCache.write(this.cache);
                             subComponent.version = componentVersion;
                             components.push(subComponent);
                         });
@@ -160,13 +156,12 @@ export class ComponentService {
                             currPath.indexOf('tsx') !== -1)
                     ) {
                         const lastModified = fileStat.mtimeMs;
-                        let component: Component | null =
-                            this.cache.components[currPath];
+                        let component: Component | null = this.cache[currPath];
 
                         if (
                             !component ||
                             !this.cache?.date ||
-                            this.cache.date < lastModified
+                            ComponentCache.date < lastModified
                         ) {
                             component = await this.getComponent(
                                 currPath,
@@ -187,8 +182,8 @@ export class ComponentService {
                                     );
                                 }
                                 component.version = componentVersion;
-                                this.cache.components[currPath] = component;
-                                this.writeCache(this.cache.components);
+                                this.cache[currPath] = component;
+                                ComponentCache.write(this.cache);
                             }
                         }
                         if (component) {
