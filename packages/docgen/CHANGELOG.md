@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/diego-cecatto/Compass/compare/compass-docgen@1.1.0...compass-docgen@1.2.0) (2024-07-12)
+
+
+### Bug Fixes
+
+* update use o cache class ([8b19100](https://github.com/diego-cecatto/Compass/commit/8b191006c2a06bee47054a7a46d815fd0c441aeb))
+
+
+### Features
+
+* update config structure ([94ff707](https://github.com/diego-cecatto/Compass/commit/94ff707f4eea5d477a31ce0b54f0caab343e8750))
+
+
+
+
+
 # [1.1.0](https://github.com/diego-cecatto/Compass/compare/compass-docgen@1.0.16...compass-docgen@1.1.0) (2024-04-14)
 
 
